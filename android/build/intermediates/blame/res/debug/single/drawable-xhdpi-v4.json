@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "D:\\Android\\LibGdxProj\\cubegame-master\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "D:\\Android\\LibGdxProj\\cubegame-master\\android\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\cubegame-master\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "D:\\cubegame-master\\android\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\Android\\Projects\\cubegame-master\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "D:\\Android\\Projects\\cubegame-master\\android\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\media\\user\\data\\itschool\\projects\\game\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "D:\\media\\user\\data\\itschool\\projects\\game\\android\\res\\drawable-xhdpi\\ic_launcher.png"
+    }
+]

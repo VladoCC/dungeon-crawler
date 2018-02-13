@@ -1,0 +1,20 @@
+
+ui.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+button_up
+  rotate: false
+  xy: 0, 0
+  size: 103, 37
+  split: 12, 12, 10, 10
+  orig: 103, 37
+  offset: 0, 0
+  id: -1
+button_up
+  rotate: false
+  xy: 0, 0
+  size: 103, 37
+  orig: 103, 37
+  offset: 0, 0
+  id: 3

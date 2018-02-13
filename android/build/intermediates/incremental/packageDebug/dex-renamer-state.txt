@@ -1,0 +1,4 @@
+#Sun Jan 28 21:23:08 VLAT 2018
+base.0=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

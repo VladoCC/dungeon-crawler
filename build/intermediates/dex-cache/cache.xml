@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\Voyager\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.6\57c2831c870743712b808384187ea856e541878f\gdx-backend-android-1.9.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="57c2831c870743712b808384187ea856e541878f">
+        <dex dex="D:\cubegame-master\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.9.6_d22d4e27bb6c1e9a53b4c19b3634b7c10c3a1dbd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Voyager\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.2\3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf\gson-2.8.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3edcfe49d2c6053a70a2a47e4e1c2f94998a49cf">
+        <dex dex="D:\cubegame-master\android\build\intermediates\pre-dexed\debug\gson-2.8.2_ea0c08c95cd74e494a6ab2d910a5c7237ec68feb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Voyager\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-freetype\1.9.6\69187cc3c8062f191df435b43671b0e5ffcbf353\gdx-freetype-1.9.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="69187cc3c8062f191df435b43671b0e5ffcbf353">
+        <dex dex="D:\cubegame-master\android\build\intermediates\pre-dexed\debug\gdx-freetype-1.9.6_9e64b2472a55941087697c4d793c0e9cd162f526.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\cubegame-master\core\build\libs\core-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="bf614607a0282f9a5609478fc7c594698e642981">
+        <dex dex="D:\cubegame-master\android\build\intermediates\pre-dexed\debug\core-1.0_37df1f613bf46ca24dec0cd6070bd3e23f14364e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Voyager\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.9.6\47d1e9b890e364ec28f128e9bb3b9a12a94c164\gdx-1.9.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="047d1e9b890e364ec28f128e9bb3b9a12a94c164">
+        <dex dex="D:\cubegame-master\android\build\intermediates\pre-dexed\debug\gdx-1.9.6_0aab1661e600de6e0b47806e3563e518292d323c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Voyager\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-ai\1.8.1\a52367e373fe52f0d20f162cbf8711c38f002a25\gdx-ai-1.8.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a52367e373fe52f0d20f162cbf8711c38f002a25">
+        <dex dex="D:\cubegame-master\android\build\intermediates\pre-dexed\debug\gdx-ai-1.8.1_45fb86446f162741f708ee3b008a741ce1e5cca8.jar" />
+    </item>
+
+</items>
