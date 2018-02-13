@@ -1,2 +1,2 @@
-# cubegame
-Simple 3D game. First libGDX experience.
+# Dungeon Crawler
+2D DungeonCrawl rogue-lite game.
