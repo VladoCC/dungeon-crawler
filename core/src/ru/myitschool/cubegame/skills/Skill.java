@@ -277,7 +277,7 @@ public class Skill {
     }
 
     public void clearTargets(){
-        targets.clear();;
+        targets.clear();
         targetCount = 0;
     }
 

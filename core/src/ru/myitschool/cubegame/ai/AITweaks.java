@@ -107,9 +107,9 @@ public class AITweaks {
         return getCellRaytrace(xStart, yStart, xEnd, yEnd, 0).size;
     }
 
-    public static Entity getNearestEntity(int thisX, int thisY, int entityType){
+    public static Array<Entity> getEntityPaths(int thisX, int thisY, int entityType){
         int distance = Pathfinder.PATH_MAX_LENGTH_ROOM;
-        Array<Entity> nearestEntity = new Array<Entity>();
+        Array<Entity> entities = new Array<Entity>();
         for (Entity entity : Entity.getPlayingEntities()){
             boolean valid = true;
             switch (entityType){
@@ -126,18 +126,43 @@ public class AITweaks {
                     int thisDist = path.getCost();
                     if (thisDist < distance) {
                         distance = thisDist;
-                        nearestEntity.clear();
-                        nearestEntity.add(entity);
+                        entities.clear();
+                        entities.add(entity);
                     } else if (thisDist == distance){
-                        nearestEntity.add(entity);
+                        entities.add(entity);
                     }
                 }
             }
         }
-        if (nearestEntity.size > 1) {
+
+        return entities;
+    }
+
+    public static NodePath getNearestEntityPath(int thisX, int thisY, int entityType){
+        Array<Entity> entities = getEntityPaths(thisX, thisY, entityType);
+        if (entities.size > 0) {
+            NodePath nearestPath = null;
+            int distance = Pathfinder.PATH_MAX_LENGTH_CELL;
+            for (Entity entity : entities) {
+                NodePath path = Pathfinder.searchConnectionPath(GraphStorage.getNodeBottom(thisX, thisY), GraphStorage.getNodeBottom(entity.getTileX(), entity.getTileY()), false, 0, true);
+                if (path != null) {
+                    if (path.getCost() < distance) {
+                        distance = path.getCost();
+                        nearestPath = path;
+                    }
+                }
+            }
+            return nearestPath;
+        }
+        return null;
+    }
+
+    public static Entity getNearestEntity(int thisX, int thisY, int entityType){
+        Array<Entity> entities = getEntityPaths(thisX, thisY, entityType);
+        if (entities.size > 0) {
             Entity nearest = null;
-            distance = Pathfinder.PATH_MAX_LENGTH_CELL;
-            for (Entity entity : nearestEntity) {
+            int distance = Pathfinder.PATH_MAX_LENGTH_CELL;
+            for (Entity entity : entities) {
                 NodePath path = Pathfinder.searchConnectionPath(GraphStorage.getNodeBottom(thisX, thisY), GraphStorage.getNodeBottom(entity.getTileX(), entity.getTileY()), false, 0, true);
                 if (path != null) {
                     if (path.getCost() < distance) {
@@ -147,8 +172,26 @@ public class AITweaks {
                 }
             }
             return nearest;
-        } else if (nearestEntity.size == 1){
-            return nearestEntity.get(0);
+        }
+        return null;
+    }
+
+    public static Object[] getNearestEntityAndPath(int thisX, int thisY, int entityType){
+        Array<Entity> entities = getEntityPaths(thisX, thisY, entityType);
+        if (entities.size > 0) {
+            Object[] nearest = new Object[2];
+            int distance = Pathfinder.PATH_MAX_LENGTH_CELL;
+            for (Entity entity : entities) {
+                NodePath path = Pathfinder.searchConnectionPath(GraphStorage.getNodeBottom(thisX, thisY), GraphStorage.getNodeBottom(entity.getTileX(), entity.getTileY()), false, 0, true);
+                if (path != null) {
+                    if (path.getCost() < distance) {
+                        distance = path.getCost();
+                        nearest[0] = entity;
+                        nearest[1] = path;
+                    }
+                }
+            }
+            return nearest;
         }
         return null;
     }

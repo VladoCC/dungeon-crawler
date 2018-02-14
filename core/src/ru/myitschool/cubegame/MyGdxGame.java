@@ -41,11 +41,7 @@ public class MyGdxGame extends Game
             public boolean keyUp(int keycode) {
                 System.out.println(keycode);
                 if (keycode == Input.Keys.GRAVE){
-                    if (debugInfo) {
-                        debugInfo = false;
-                    } else {
-                        debugInfo = true;
-                    }
+                    debugInfo = !debugInfo;
                 }
                 if (keycode == Input.Keys.R){
                     resize(1920, 1080);

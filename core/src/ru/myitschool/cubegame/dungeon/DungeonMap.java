@@ -20,14 +20,13 @@ import ru.myitschool.cubegame.entities.Enemy;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.entities.enemies.Dummy;
 import ru.myitschool.cubegame.entities.enemies.GoblinWarrior;
-import ru.myitschool.cubegame.layer.PathTileLayer;
 import ru.myitschool.cubegame.layer.DynamicTileLayer;
+import ru.myitschool.cubegame.layer.PathTileLayer;
 import ru.myitschool.cubegame.skills.Target;
 import ru.myitschool.cubegame.tiles.ColorTile;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by Voyager on 18.04.2017.
@@ -120,7 +119,7 @@ public class DungeonMap extends TiledMap {
                 Vector3 pos = camera.unproject(new Vector3(screenX, screenY, 0));
                 int cellX = (int) (pos.x  / DungeonTile.TILE_WIDTH);
                 int cellY = (int) (pos.y / DungeonTile.TILE_HEIGHT);
-                DungeonCell cell = tileLayer.getCell((int) cellX,(int) cellY);
+                DungeonCell cell = tileLayer.getCell(cellX, cellY);
                 Entity character = Entity.getNowPlaying();
                 int charX = Character.getNowPlaying().getTileX();
                 int charY = Character.getNowPlaying().getTileY();
@@ -133,7 +132,7 @@ public class DungeonMap extends TiledMap {
                             lastTileY = cellY;
                             Node startNode = GraphStorage.getNodeBottom(charX, charY);
                             Node endNode = GraphStorage.getNodeBottom(cellX, cellY);
-                            NodePath nodePath = pathfinder.searchConnectionPath(startNode, endNode, true, character.getMp(false));
+                            NodePath nodePath = Pathfinder.searchConnectionPath(startNode, endNode, true, character.getMp(false));
                             System.out.println("Path: " + nodePath != null);
                             if (nodePath != null) {
                                 character.setPath(nodePath);

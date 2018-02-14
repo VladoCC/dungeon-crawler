@@ -23,8 +23,8 @@ public class MoveTask extends Task {
 
     public MoveTask(Entity entity, NodePath path, boolean cut, boolean withLast) {
         super(entity);
-        if (cut && path.getCost() > entity.getSpeed() * 2) {
-            path.cut(entity.getSpeed() * 2);
+        if (cut && path.getCost() > entity.getSpeed() * 2 + 1) {
+            path.cut(entity.getSpeed() * 2 + 1);
         } else if (!withLast){
             path.cutLast();
         }

@@ -92,8 +92,10 @@ public class NodePath implements GraphPath<Node>, Comparable<NodePath> {
 
     public NodePath cut(int limit){
         Array<Node> nodes = new Array<Node>();
+        int cost = 0;
         for (int i = 0; i < limit; i++) {
             nodes.add(this.nodes.get(i));
+            cost += this.nodes.get(i).getTile().getHardness();
         }
         this.nodes = nodes;
         return this;

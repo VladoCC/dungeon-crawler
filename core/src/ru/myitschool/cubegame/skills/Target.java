@@ -1,6 +1,7 @@
 package ru.myitschool.cubegame.skills;
 
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.entities.Entity;
 
 /**
@@ -53,12 +54,13 @@ public class Target {
     }
 
     public Entity getEntity(){ //TODO change to DungeonCell checks
-        for (Entity entity : Entity.getPlayingEntities()){
+        /*for (Entity entity : Entity.getPlayingEntities()){
             if (entity.getTileX() == getX() && entity.getTileY() == getY()){
                 return entity;
             }
         }
-        return null;
+        return null;*/
+        return DungeonMap.getCell(x, y).getEntity();
     }
 
     @Override

@@ -10,7 +10,6 @@ import ru.myitschool.cubegame.effects.FloorEffect;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.math.DiceAction;
 import ru.myitschool.cubegame.math.MathAction;
-import ru.myitschool.cubegame.math.NumberAction;
 
 /**
  * Created by Voyager on 30.11.2017.
@@ -18,7 +17,7 @@ import ru.myitschool.cubegame.math.NumberAction;
 public class CloudOfKnives extends Skill {
 
     MathAction rollAction = new DiceAction(1, 20);
-    MathAction attackAction = new DiceAction(1, 6);;
+    MathAction attackAction = new DiceAction(1, 6);
 
     public CloudOfKnives(Entity doer) {
         super(doer);

@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.cubegame.ai.pathfinding.Node;
+import ru.myitschool.cubegame.ai.pathfinding.NodePath;
 import ru.myitschool.cubegame.dungeon.DungeonCell;
 import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.effects.AttackEffect;
 import ru.myitschool.cubegame.effects.CellEffect;
 import ru.myitschool.cubegame.effects.Effect;
 import ru.myitschool.cubegame.effects.EffectArray;
-import ru.myitschool.cubegame.ai.pathfinding.Node;
-import ru.myitschool.cubegame.ai.pathfinding.NodePath;
 import ru.myitschool.cubegame.math.MathAction;
 import ru.myitschool.cubegame.screens.DungeonScreen;
 import ru.myitschool.cubegame.skills.Skill;
@@ -323,16 +323,8 @@ public class Entity extends EventAdapter {
             throwXSpeed = throwYSpeed * x / y;
         }
         System.out.println("x - " + throwXSpeed + ", y - " + throwYSpeed);
-        if (tiles.x < 0){
-            throwXDirection = false;
-        } else {
-            throwXDirection = true;
-        }
-        if (tiles.y < 0){
-            throwYDirection = false;
-        } else {
-            throwYDirection = true;
-        }
+        throwXDirection = !(tiles.x < 0);
+        throwYDirection = !(tiles.y < 0);
         throwXDistance = x * DungeonTile.TILE_WIDTH;
         throwYDistance = y * DungeonTile.TILE_HEIGHT;
         throwing = true;

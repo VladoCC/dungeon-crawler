@@ -2,20 +2,25 @@ package ru.myitschool.cubegame.screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -24,27 +29,22 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Json;
-import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
-import javafx.scene.effect.BlendMode;
-import ru.myitschool.cubegame.*;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import ru.myitschool.cubegame.InterfaceElements;
+import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
 import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.dungeon.Room;
 import ru.myitschool.cubegame.effects.Effect;
 import ru.myitschool.cubegame.entities.Character;
 import ru.myitschool.cubegame.entities.Enemy;
 import ru.myitschool.cubegame.entities.Entity;
-import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
 import ru.myitschool.cubegame.skills.Skill;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.lang.reflect.Type;
 
 /**
  * Created by Voyager on 22.04.2017.
@@ -165,11 +165,7 @@ public class DungeonScreen implements Screen {
             public boolean keyUp(int keycode) {
                 if (keycode == Input.Keys.GRAVE) {
                     System.out.println("cam info");
-                    if (debugInfo) {
-                        debugInfo = false;
-                    } else {
-                        debugInfo = true;
-                    }
+                    debugInfo = !debugInfo;
                     return true;
                 } else if (keycode == Input.Keys.R){
                     restart = false;
@@ -644,7 +640,7 @@ public class DungeonScreen implements Screen {
                         }
                     } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_EAST){
                         System.out.println("East: x - " + newRoomStartX + " Critical: " + (dungeonMap.getWidth() - 1));
-                        if (newRoomStartX == (dungeonMap.getWidth() - 1) / dungeonMap.ROOM_WIDTH){
+                        if (newRoomStartX == (dungeonMap.getWidth() - 1) / DungeonMap.ROOM_WIDTH){
                             dungeonMap.addRight(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH);
                         }
                         newRoomStartX++;
@@ -782,7 +778,7 @@ public class DungeonScreen implements Screen {
         nextTurnButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                dungeonMap.clearTargetLayer();
+                DungeonMap.clearTargetLayer();
                 Entity.nextTurn();
                 //nextTurnButton.setDisabled(!Entity.getNowPlaying().isPlayer());
             }

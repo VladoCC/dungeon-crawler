@@ -18,10 +18,19 @@ public class SkillTask extends Task {
         this.skill = skill;
     }
 
+    public SkillTask(Entity entity, Skill skill, Target target) {
+        this(entity, skill, new Array<Target>());
+        addTarget(target);
+    }
+
     public SkillTask(Entity entity, Skill skill, Array<Target> targets) {
         super(entity);
         this.skill = skill;
         this.targets = targets;
+    }
+
+    public void addTarget(Target target){
+        targets.add(target);
     }
 
     @Override

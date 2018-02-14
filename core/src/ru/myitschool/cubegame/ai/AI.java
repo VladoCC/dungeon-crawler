@@ -42,7 +42,9 @@ public abstract class AI extends EventAdapter implements Cloneable {
         return true;
     }
 
-
+    public void addTask(Task task){
+        tasks.add(task);
+    }
 
     public abstract void aiAnalyze();
 
@@ -68,11 +70,11 @@ public abstract class AI extends EventAdapter implements Cloneable {
 
     @Override
     public void endTurn() {
-        Task task = tasks.peek();
+        /*Task task = tasks.peek();
         if (task != null) {
             task.endTurn();
         }
-        handleTask();
+        handleTask();*/
     }
 
     @Override
