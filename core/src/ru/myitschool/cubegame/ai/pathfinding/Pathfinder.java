@@ -51,7 +51,7 @@ public class Pathfinder {
         int found = 0;
         int lim = PATH_MAX_LENGTH_CELL;
         if (limited){
-            lim = limit + 1;
+            lim = limit;
         }
         while (found < pathCount) {
             NodePath thisPath = paths.get(0);
@@ -63,9 +63,9 @@ public class Pathfinder {
                 if (newNode.getState() == Node.OPEN_STATE || (newNode == endNode && ignoreLast)) {
                     NodePath newPath = thisPath.clone();
                     newPath.add(newNode);
-                    if (newPath.getCount() > lim && found == 0) {
+                    if (newPath.getCost() > lim && found == 0) {
                         return null;
-                    } else if (newPath.getCount() > lim) {
+                    } else if (newPath.getCost() > lim) {
                         return choosePath(outPath, endPaths);
                     }
                     if (newNode.x == endNode.x && newNode.y == endNode.y) {

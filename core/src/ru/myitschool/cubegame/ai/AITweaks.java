@@ -112,7 +112,7 @@ public class AITweaks {
         Array<Entity> entities = new Array<Entity>();
         for (Entity entity : Entity.getPlayingEntities()){
             boolean valid = true;
-            switch (entityType){
+            switch (entityType){ //TODO check for thisEntity === entity
                 case TYPE_CHARACTER:
                     valid = entity.isPlayer();
                     break;

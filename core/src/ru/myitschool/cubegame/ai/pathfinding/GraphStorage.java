@@ -2,9 +2,9 @@ package ru.myitschool.cubegame.ai.pathfinding;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.cubegame.dungeon.DungeonCell;
 import ru.myitschool.cubegame.layer.DynamicTileLayer;
 import ru.myitschool.cubegame.tiles.DungeonTile;
-import ru.myitschool.cubegame.dungeon.DungeonCell;
 
 /**
  * Created by Voyager on 30.04.2017.
@@ -53,7 +53,7 @@ public class GraphStorage {
                         Node nodeEnd = nodeArr[i - 1][j];
                         node.addConnection(nodeEnd, ((DungeonTile) cellLeft.getTile()).getHardness());
                     }
-                    if (cellRight != null && ((DungeonTile) cellRight.getTile()).isReachable() && !cellRight.isOccupied()) {
+                    if (cellRight != null && ((DungeonTile) cellRight.getTile()).isReachable()) {
                         Node nodeEnd = nodeArr[i + 1][j];
                         node.addConnection(nodeEnd, ((DungeonTile) cellRight.getTile()).getHardness());
                     }

@@ -55,7 +55,7 @@ public class EventAdapter implements Event {
     @Override
     public MathAction attackBonus(MathAction action) {
         onAny();
-        return null;
+        return action;
     }
 
     @Override
@@ -67,13 +67,13 @@ public class EventAdapter implements Event {
     @Override
     public int onDamage(int damage) {
         onAny();
-        return 0;
+        return damage;
     }
 
     @Override
     public int onHeal(int heal) {
         onAny();
-        return 0;
+        return heal;
     }
 
     @Override

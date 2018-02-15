@@ -41,12 +41,14 @@ public class NodePath implements GraphPath<Node>, Comparable<NodePath> {
 
     @Override
     public void add(Node node) {
-        nodes.add(node);
-        if (node.getTile() != null) {
-            cost += node.getTile().getHardness();
-        } else {
-            cost += 1;
+        if (nodes.size > 0) {
+            if (node.getTile() != null) {
+                cost += node.getTile().getHardness();
+            } else {
+                cost += 1;
+            }
         }
+        nodes.add(node);
     }
 
     @Override
@@ -95,8 +97,11 @@ public class NodePath implements GraphPath<Node>, Comparable<NodePath> {
         int cost = 0;
         for (int i = 0; i < limit; i++) {
             nodes.add(this.nodes.get(i));
-            cost += this.nodes.get(i).getTile().getHardness();
+            if (i > 0) {
+                cost += this.nodes.get(i).getTile().getHardness();
+            }
         }
+        this.cost= cost;
         this.nodes = nodes;
         return this;
     }
