@@ -26,7 +26,7 @@ public class Scratches extends Skill {
             public boolean check(Target target) {
                 Entity entity = target.getEntity();
                 int armor = entity.getArmor();
-                return true;//rollAction.act() + getAccuracyBonus() > armor;
+                return rollAction.act() + getAccuracyBonus() > armor;
             }
         };
         Action action = new Action() {

@@ -3,8 +3,6 @@ package ru.myitschool.cubegame;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
-import ru.myitschool.cubegame.entities.CRTable;
 import ru.myitschool.cubegame.entities.Enemy;
 import ru.myitschool.cubegame.screens.MainMenuScreen;
 import ru.myitschool.cubegame.tiles.DungeonTile;
@@ -24,13 +22,6 @@ public class MyGdxGame extends Game
         batch = new SpriteBatch();
         DungeonTile.initTiles();
         Enemy.createCRTable();
-        Array<Enemy> enemies = new Array<Enemy>(100);
-        for (int i = 0; i < 100; i++) {
-            enemies.add(Enemy.getEnemyByFormula(CRTable.ANY_TYPE));
-        }
-        for (Enemy enemy : enemies){
-            System.out.println(enemy.getChallengeRating() + " - " + enemy.isSolo());
-        }
         InputMultiplexer input = new InputMultiplexer();
 
         //this.gameScreen = new GameScreen(this);

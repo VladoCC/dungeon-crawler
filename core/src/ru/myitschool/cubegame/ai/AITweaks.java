@@ -107,9 +107,10 @@ public class AITweaks {
         return getCellRaytrace(xStart, yStart, xEnd, yEnd, 0).size;
     }
 
-    public static Array<Entity> getEntityPaths(int thisX, int thisY, int entityType){
+    public static Array<Entity> getNearestEntities(int thisX, int thisY, int entityType){
         int distance = Pathfinder.PATH_MAX_LENGTH_ROOM;
         Array<Entity> entities = new Array<Entity>();
+        Array<Entity> lastEntities = new Array<Entity>();
         for (Entity entity : Entity.getPlayingEntities()){
             boolean valid = true;
             switch (entityType){ //TODO check for thisEntity === entity
@@ -124,6 +125,12 @@ public class AITweaks {
                 NodePath path = Pathfinder.searchRoomPath(thisX, thisY, entity.getTileX(), entity.getTileY());
                 if (path != null) {
                     int thisDist = path.getCost();
+                    if (thisDist + 1 == distance){
+                        lastEntities.clear();
+                        lastEntities.addAll(entities);
+                    } else if (thisDist + 1 < distance){
+                        lastEntities.clear();
+                    }
                     if (thisDist < distance) {
                         distance = thisDist;
                         entities.clear();
@@ -134,12 +141,13 @@ public class AITweaks {
                 }
             }
         }
+        entities.addAll(lastEntities);
 
         return entities;
     }
 
     public static NodePath getNearestEntityPath(int thisX, int thisY, int entityType){
-        Array<Entity> entities = getEntityPaths(thisX, thisY, entityType);
+        Array<Entity> entities = getNearestEntities(thisX, thisY, entityType);
         if (entities.size > 0) {
             NodePath nearestPath = null;
             int distance = Pathfinder.PATH_MAX_LENGTH_CELL;
@@ -158,7 +166,7 @@ public class AITweaks {
     }
 
     public static Entity getNearestEntity(int thisX, int thisY, int entityType){
-        Array<Entity> entities = getEntityPaths(thisX, thisY, entityType);
+        Array<Entity> entities = getNearestEntities(thisX, thisY, entityType);
         if (entities.size > 0) {
             Entity nearest = null;
             int distance = Pathfinder.PATH_MAX_LENGTH_CELL;
@@ -177,7 +185,7 @@ public class AITweaks {
     }
 
     public static Object[] getNearestEntityAndPath(int thisX, int thisY, int entityType){
-        Array<Entity> entities = getEntityPaths(thisX, thisY, entityType);
+        Array<Entity> entities = getNearestEntities(thisX, thisY, entityType);
         if (entities.size > 0) {
             Object[] nearest = new Object[2];
             int distance = Pathfinder.PATH_MAX_LENGTH_CELL;
