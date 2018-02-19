@@ -227,7 +227,7 @@ public class Room {
            addingArray.addAll(entities);
        }
 
-       encounter = new Random().nextInt(4) < 3; //TODO add reaction to opening room with encounter
+       encounter = new Random().nextInt(10) < 1; //TODO add reaction to opening room with encounter
 
        for (Exit exit : exits) {
            if (exit != null) {
@@ -330,5 +330,9 @@ public class Room {
 
     public void setMobs(boolean mobs) {
         this.mobs = mobs;
+    }
+
+    public boolean isEncounter() {
+        return encounter;
     }
 }

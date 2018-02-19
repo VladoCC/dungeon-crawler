@@ -32,4 +32,6 @@ public interface Event {
     int onHeal(int heal);
 
     void onAny();
+
+    void onEncounter();
 }

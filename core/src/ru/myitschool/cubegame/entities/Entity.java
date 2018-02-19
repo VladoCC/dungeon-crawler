@@ -14,6 +14,7 @@ import ru.myitschool.cubegame.effects.AttackEffect;
 import ru.myitschool.cubegame.effects.CellEffect;
 import ru.myitschool.cubegame.effects.Effect;
 import ru.myitschool.cubegame.effects.EffectArray;
+import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.math.MathAction;
 import ru.myitschool.cubegame.screens.DungeonScreen;
 import ru.myitschool.cubegame.skills.Skill;
@@ -46,6 +47,7 @@ public class Entity extends EventAdapter {
     private boolean skillUse = false;
     private boolean controlled = false;
     private boolean immobilized = false;
+    private boolean roomOpened = false;
 
     private boolean throwXDirection;
     private boolean throwYDirection;
@@ -682,6 +684,10 @@ public class Entity extends EventAdapter {
         }
     }
 
+    public void triggerEncounter(){
+        Encounter.getRandomEncounter().trigger(this);
+    }
+
     public boolean isMovement() {
         return movement;
     }
@@ -950,6 +956,11 @@ public class Entity extends EventAdapter {
     /** Effects */
     @Override
     public void endTurn(){
+        if (isPlayer() && !roomOpened){
+            triggerEncounter();
+        }
+        roomOpened = false;
+
         for (int i = 0; i < effects.size(); i++) {
             effects.get(i).endTurn();
             System.out.println("End of turn");

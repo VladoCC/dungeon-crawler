@@ -3,6 +3,7 @@ package ru.myitschool.cubegame;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.entities.Enemy;
 import ru.myitschool.cubegame.screens.MainMenuScreen;
 import ru.myitschool.cubegame.tiles.DungeonTile;
@@ -16,11 +17,11 @@ public class MyGdxGame extends Game
     protected SpriteBatch batch;
 
     @Override
-    public void create()
-    {
+    public void create() {
         font = new BitmapFont();
         batch = new SpriteBatch();
         DungeonTile.initTiles();
+        Encounter.initEncouters();
         Enemy.createCRTable();
         InputMultiplexer input = new InputMultiplexer();
 
@@ -44,8 +45,7 @@ public class MyGdxGame extends Game
     }
 
     @Override
-    public void render()
-    {
+    public void render() {
         super.render();
         if (debugInfo) {
             float h = Gdx.graphics.getHeight();
@@ -64,18 +64,15 @@ public class MyGdxGame extends Game
     @Override
     public void pause() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void resume() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
-
     }
 }

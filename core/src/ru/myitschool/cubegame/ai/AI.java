@@ -175,4 +175,13 @@ public abstract class AI extends EventAdapter implements Cloneable {
         handleTask();
         return accuracy;
     }
+
+    @Override
+    public void onEncounter() {
+        Task task = tasks.peek();
+        if (task != null) {
+            task.onEncounter();
+        }
+        handleTask();
+    }
 }

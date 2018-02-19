@@ -1,14 +1,8 @@
 package ru.myitschool.cubegame.entities;
 
 import ru.myitschool.cubegame.ai.AI;
-import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.entities.enemies.GoblinWarrior;
 import ru.myitschool.cubegame.math.MathAction;
-import ru.myitschool.cubegame.utils.AdvancedArray;
-
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeMap;
 
 /**
  * Created by Voyager on 08.08.2017.
@@ -234,5 +228,13 @@ public abstract class Enemy extends Entity implements Cloneable {
             heal = enemyAI.onHeal(heal);
         }
         return heal;
+    }
+
+    @Override
+    public void onEncounter() {
+        super.onEncounter();
+        if (!isControlled() && enemyAI != null) {
+            enemyAI.onEncounter();
+        }
     }
 }

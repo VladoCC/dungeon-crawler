@@ -672,8 +672,11 @@ public class DungeonScreen implements Screen {
                         side -= 4;
                     }
                     System.out.println("Direction: " + direction + " Side: " + side);
-                    dungeonMap.placeRoom(newRoomStartX, newRoomStartY, side);
+                    Room room = dungeonMap.placeRoom(newRoomStartX, newRoomStartY, side);
                     GraphStorage.createBottomGraph(dungeonMap.getTileLayer());
+                    if (room.isEncounter()){
+                        entity.triggerEncounter();
+                    }
                 }
             }
         } else {

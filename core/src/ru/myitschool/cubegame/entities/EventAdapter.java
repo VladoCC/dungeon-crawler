@@ -77,5 +77,10 @@ public class EventAdapter implements Event {
     }
 
     @Override
+    public void onEncounter() {
+        onAny();
+    }
+
+    @Override
     public void onAny() {}
 }

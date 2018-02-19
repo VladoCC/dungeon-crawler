@@ -171,7 +171,7 @@ public class DungeonMap extends TiledMap {
         pathLayer.clearLayer();
     }
 
-    public void placeRoom(int x, int y, int side){
+    public Room placeRoom(int x, int y, int side){
         Room room = roomsPool.get(0);
         room.rotate(side);
 
@@ -263,6 +263,7 @@ public class DungeonMap extends TiledMap {
 
         roomsPool.removeIndex(0);
         roomsPlaced.add(room);
+        return room;
     }
 
     private void createRooms(int count){
