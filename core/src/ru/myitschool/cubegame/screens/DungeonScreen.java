@@ -38,9 +38,11 @@ import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
 import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.dungeon.Room;
 import ru.myitschool.cubegame.effects.Effect;
+import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.entities.Character;
 import ru.myitschool.cubegame.entities.Enemy;
 import ru.myitschool.cubegame.entities.Entity;
+import ru.myitschool.cubegame.skills.FloatingDamageMark;
 import ru.myitschool.cubegame.skills.Skill;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 
@@ -90,6 +92,7 @@ public class DungeonScreen implements Screen {
     HorizontalGroup effectGroup;
     HorizontalGroup skillGroup;
     VerticalGroup buttonsGroup;
+    VerticalGroup encounterGroup;
 
     Table attackButtonTable;
     Table cancelButtonTable;
@@ -301,6 +304,13 @@ public class DungeonScreen implements Screen {
         buttonsGroup.center();
         guiTable.addActor(buttonsGroup);
 
+        encounterGroup = new VerticalGroup();
+        encounterGroup.setWidth(w / 6);
+        encounterGroup.setHeight(h - h / 6);
+        encounterGroup.setPosition(w - w / 6, h / 6);
+        encounterGroup.center();
+        stage.addActor(encounterGroup);
+
         effectGroup = new HorizontalGroup();
         effectGroup.setPosition(w / 5,  h / 8);
         effectGroup.setWidth(3 * w / 5);
@@ -379,8 +389,10 @@ public class DungeonScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        Entity nowPlayingEntity = Entity.getNowPlaying();
+        Encounter.update(delta);
+        FloatingDamageMark.update(delta);
 
+        Entity nowPlayingEntity = Entity.getNowPlaying();
         charBatch.begin();
         for (Entity entity : Entity.getPlayingEntities()) {
             act(entity, delta);
@@ -391,6 +403,34 @@ public class DungeonScreen implements Screen {
         }
         Room.getAddingArray().clear();
         charBatch.end();
+
+        encounterGroup.clear();
+        if (Encounter.hasNowPlayimg()){
+            Array<Encounter> encounters = Encounter.getNowPlayings();
+            for (Encounter encounter : encounters) {
+                Table encounterTable = new Table();
+                /*encounterTable.setPosition(w, (h - h / 6) / 2);
+                encounterTable.align(Align.center);*/
+                Color color = Color.WHITE;
+                Label.LabelStyle headerStyle = new Label.LabelStyle(headerFont, color);
+                Label headerLabel = new Label(encounter.getName(), headerStyle);
+                headerLabel.setWidth(w / 6);
+                headerLabel.setWrap(true);
+                headerLabel.setAlignment(Align.top);
+                encounterTable.add(headerLabel).width(w / 6).padLeft(10).padRight(10).padTop(10).row();
+                Label.LabelStyle style = new Label.LabelStyle(font, color);
+                Label textLabel = new Label(encounter.getText(), style);
+                textLabel.setWidth(w / 6);
+                textLabel.setWrap(true);
+                textLabel.setAlignment(Align.left);
+                textLabel.setX(0);
+                encounterTable.add(textLabel).width(w / 6).padLeft(10).padRight(10).padBottom(10).row();
+                Drawable background = skin.getDrawable("tooltip_background");
+                encounterTable.setBackground(background);
+                encounterTable.pad(10, 0, 0, 0);
+                encounterGroup.addActor(encounterTable);
+            }
+        }
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.GRAY);
@@ -619,7 +659,7 @@ public class DungeonScreen implements Screen {
             System.out.println("2. " + entity.getAnimTime() + " " + delta);
             int x = entity.getTileX();
             int y = entity.getTileY();
-            if (dungeonMap.getTile(x, y).isDoor() && entity.isPlayer()){
+            if (dungeonMap.getTile(x, y).isDoor()){
                 int index = ru.myitschool.cubegame.dungeon.Door.getDoorIndex(x, y);
                 if (index == -1){
                     System.out.println("404 NOT FOUND!");
@@ -677,6 +717,7 @@ public class DungeonScreen implements Screen {
                     if (room.isEncounter()){
                         entity.triggerEncounter();
                     }
+                    Entity.getNowPlaying().setRoomOpened(true);
                 }
             }
         } else {

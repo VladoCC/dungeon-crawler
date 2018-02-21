@@ -1,16 +1,17 @@
 package ru.myitschool.cubegame.encounters;
 
+import com.badlogic.gdx.utils.Array;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.utils.AdvancedArray;
 
 /**
  * Created by Voyager on 17.02.2018.
  */
-public abstract class Encounter {
+public abstract class Encounter implements Cloneable {
 
     public static final float FULL_TIME = 3f;
     private static AdvancedArray<Encounter> encounters = new AdvancedArray<Encounter>();
-    private static Encounter nowPlaying;
+    private static Array<Encounter> nowPlayings = new Array<Encounter>();
     private Entity entity;
     private String text = "";
     private String name = "";
@@ -21,19 +22,23 @@ public abstract class Encounter {
     }
 
     public void trigger(Entity entity){
-        setNowPlaying(this);
+        addNowPlaying(this);
         this.entity = entity;
     }
 
     protected abstract void activate(Entity entity);
 
     public static void update(float delta) {
-        if (nowPlaying != null) {
-            nowPlaying.time += delta;
-            if (nowPlaying.time >= FULL_TIME) {
-                nowPlaying.activate(nowPlaying.entity);
-                nowPlaying.entity = null;
-                nowPlaying = null;
+        for (Encounter encounter : nowPlayings) {
+            if (encounter != null) {
+                encounter.time += delta;
+                if (encounter.time >= FULL_TIME) {
+                    encounter.activate(encounter.entity);
+                    encounter.time = 0f;
+                    nowPlayings.removeValue(encounter, true);
+                    encounter.entity = null;
+                    encounter = null;
+                }
             }
         }
     }
@@ -42,11 +47,11 @@ public abstract class Encounter {
     }
 
     public static Encounter getEncounter(int index){
-        return encounters.get(index);
+        return encounters.get(index).clone();
     }
 
     public static Encounter getRandomEncounter(){
-        return encounters.getRandom();
+        return encounters.getRandom().clone();
     }
 
     public String getText() {
@@ -65,14 +70,30 @@ public abstract class Encounter {
         this.name = name;
     }
 
-    public static Encounter getNowPlaying() {
-        return nowPlaying;
+    public static Array<Encounter> getNowPlayings() {
+        return nowPlayings;
     }
 
-    public static void setNowPlaying(Encounter nowPlaying) {
-        if (Encounter.nowPlaying != null){
-            Encounter.nowPlaying.activate(Encounter.nowPlaying.entity);
+    public static Encounter getNowPlaying(int index){
+        return nowPlayings.get(index);
+    }
+
+    public static void addNowPlaying(Encounter nowPlaying) {
+        nowPlayings.add(nowPlaying);
+    }
+
+    public static boolean hasNowPlayimg(){
+        return nowPlayings.size > 0;
+    }
+
+    @Override
+    protected Encounter clone(){
+        try {
+            Encounter encounter = (Encounter) super.clone();
+            return encounter;
+        } catch (Exception e){
+            e.printStackTrace();
         }
-        Encounter.nowPlaying = nowPlaying;
+        return null;
     }
 }

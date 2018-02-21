@@ -1,7 +1,4 @@
-#Fri Feb 16 17:50:09 VLAT 2018
-base.0=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6738dab665e85e174b5b920ffd88c8b2c2577c59
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_07bb4083334d8646aee88bc312fbb315f4bb7b81\\classes.dex
-base.1=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_07bb4083334d8646aee88bc312fbb315f4bb7b81
-file.0=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_6738dab665e85e174b5b920ffd88c8b2c2577c59\\classes.dex
+#Wed Feb 21 18:34:53 VLAT 2018
+base.0=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+renamed.0=classes.dex
+file.0=D\:\\cubegame-master\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

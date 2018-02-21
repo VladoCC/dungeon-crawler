@@ -684,6 +684,14 @@ public class Entity extends EventAdapter {
         }
     }
 
+    public boolean isRoomOpened() {
+        return roomOpened;
+    }
+
+    public void setRoomOpened(boolean roomOpened) {
+        this.roomOpened = roomOpened;
+    }
+
     public void triggerEncounter(){
         Encounter.getRandomEncounter().trigger(this);
     }
@@ -956,7 +964,7 @@ public class Entity extends EventAdapter {
     /** Effects */
     @Override
     public void endTurn(){
-        if (isPlayer() && !roomOpened){
+        if (isPlayer() && !isRoomOpened()){
             triggerEncounter();
         }
         roomOpened = false;
