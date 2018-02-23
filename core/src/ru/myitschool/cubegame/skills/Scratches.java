@@ -31,13 +31,14 @@ public class Scratches extends Skill {
         };
         Action action = new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success){
                     MathAction attackAction = new SumAction(new DiceAction(1, 6), new NumberAction(4));
                     attackAction = countAttackAction(attackAction);
                     Entity entity = target.getEntity();
                     int damage = -attackAction.act();
                     entity.addHp(damage);
+                    mark.addText(damage + "");
                 }
             }
         };

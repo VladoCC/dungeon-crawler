@@ -1,7 +1,6 @@
 package ru.myitschool.cubegame.skills;
 
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.cubegame.entities.Entity;
 
 /**
  * Created by Voyager on 28.06.2017.
@@ -16,10 +15,10 @@ public abstract class Play {
         actions.add(action);
     }
 
-    public void act(Target target){
+    public void act(Target target, FloatingDamageMark mark){
         boolean success = check(target);
         for (Action action : actions){
-            action.act(target, success);
+            action.act(target, success, mark);
         }
     }
 }

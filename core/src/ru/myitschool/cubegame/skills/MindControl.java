@@ -32,10 +32,10 @@ public class MindControl extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success){
-
                     target.getEntity().addEffect(new ControlledEffect(target.getEntity()));
+                    mark.addText("Success");
                 }
             }
         });

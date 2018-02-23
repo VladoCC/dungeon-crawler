@@ -30,11 +30,13 @@ public class Strike extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     attackAction = new DiceAction(2, 6);
                     attackAction = countAttackAction(attackAction);
-                    target.getEntity().addHp(-attackAction.act());
+                    int damage = -attackAction.act();
+                    target.getEntity().addHp(damage);
+                    mark.addText(damage + "");
                 }
             }
         });

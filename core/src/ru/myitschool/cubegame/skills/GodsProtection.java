@@ -24,6 +24,7 @@ public class GodsProtection extends Skill {
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_SELF);
         setType(SKILL_TYPE_ENCOUNTER);
+        setMark(false);
     }
 
     @Override

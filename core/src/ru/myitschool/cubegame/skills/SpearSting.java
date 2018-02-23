@@ -34,12 +34,14 @@ public class SpearSting extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     attackAction = new DiceAction(1, 12);
                     attackAction = countAttackAction(attackAction);
                     Entity entity = target.getEntity();
-                    entity.addHp(-attackAction.act());
+                    int damage = -attackAction.act();
+                    entity.addHp(damage);
+                    mark.addText(damage + "");
                 }
             }
         });

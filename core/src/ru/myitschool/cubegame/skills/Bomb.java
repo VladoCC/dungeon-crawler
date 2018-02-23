@@ -1,7 +1,6 @@
 package ru.myitschool.cubegame.skills;
 
 import com.badlogic.gdx.graphics.Texture;
-import ru.myitschool.cubegame.effects.ControlledEffect;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.math.DiceAction;
 import ru.myitschool.cubegame.math.MathAction;
@@ -36,12 +35,14 @@ public class Bomb extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     attackAction = new DiceAction(1, 4);
                     attackAction = countAttackAction(attackAction);
                     Entity entity = target.getEntity();
-                    entity.addHp(-attackAction.act());
+                    int damage = -attackAction.act();
+                    entity.addHp(damage);
+                    mark.addText(damage + "");
                 }
             }
         });

@@ -19,6 +19,7 @@ public class Battlecry extends Skill {
         setName("Battle cry");
         setDescription("You gets additional +" + accuracyBonus + " accuracy and additional " + action.getDescription() + " damage for all attack on your next turn");
         setIcon(new Texture("battle_cry.png"));
+        setMark(false);
         setTargetType(SKILL_TARGET_TYPE_SELF);
     }
 

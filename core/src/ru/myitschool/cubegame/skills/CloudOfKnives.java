@@ -42,10 +42,12 @@ public class CloudOfKnives extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     Entity entity = target.getEntity();
-                    entity.addHp(-attackAction.act());
+                    int damage = -attackAction.act();
+                    entity.addHp(damage);
+                    mark.addText(damage + "");
                 } else {
                     System.out.println("MISS!");
                 }

@@ -35,9 +35,10 @@ public class Immobilize extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     target.getEntity().addEffect(new ImmobilizedEffect(target.getEntity(), 1));
+                    mark.addText("Success");
                 }
             }
         });

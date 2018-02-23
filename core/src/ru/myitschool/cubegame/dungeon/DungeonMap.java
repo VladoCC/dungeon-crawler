@@ -13,7 +13,6 @@ import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
 import ru.myitschool.cubegame.ai.pathfinding.Node;
 import ru.myitschool.cubegame.ai.pathfinding.NodePath;
 import ru.myitschool.cubegame.ai.pathfinding.Pathfinder;
-import ru.myitschool.cubegame.effects.BloodiedEffect;
 import ru.myitschool.cubegame.effects.FloorEffect;
 import ru.myitschool.cubegame.entities.Character;
 import ru.myitschool.cubegame.entities.Enemy;
@@ -22,6 +21,7 @@ import ru.myitschool.cubegame.entities.enemies.Dummy;
 import ru.myitschool.cubegame.entities.enemies.GoblinWarrior;
 import ru.myitschool.cubegame.layer.DynamicTileLayer;
 import ru.myitschool.cubegame.layer.PathTileLayer;
+import ru.myitschool.cubegame.skills.FloatingDamageMark;
 import ru.myitschool.cubegame.skills.Target;
 import ru.myitschool.cubegame.tiles.ColorTile;
 import ru.myitschool.cubegame.tiles.DungeonTile;
@@ -156,7 +156,7 @@ public class DungeonMap extends TiledMap {
                 } else if (keycode == Input.Keys.G){
                     spawn = !spawn;
                 } else if (keycode == Input.Keys.T){
-                    Entity.getNowPlaying().addEffect(new BloodiedEffect(Entity.getNowPlaying(), 0, 0));
+                    new FloatingDamageMark(1, 1, "very long test text field");
                 }
                 return false;
             }

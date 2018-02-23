@@ -36,7 +36,7 @@ public class ForceWave extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     AdvancedArray<Vector2> array = AITweaks.getCellRaytrace(doer.getTileX(), doer.getTileY(), target.getX(), target.getY(), 2);
                     array.clip(array.size - 3, array.size - 1);
@@ -47,6 +47,7 @@ public class ForceWave extends Skill {
                     Vector2 start = array.getFirst();
                     Vector2 end = array.getLast();
                     target.getEntity().throwEntity(new Vector2(end.x - start.x, end.y - start.y));
+                    mark.addText("Success");
                 }
             }
         });

@@ -30,10 +30,12 @@ public class Heal extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     Entity entity = target.getEntity();
-                    entity.addHp(healAction.act());
+                    int heal = healAction.act();
+                    entity.addHp(heal);
+                    mark.addText(heal + "");
                 }
             }
         });

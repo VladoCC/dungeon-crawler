@@ -38,11 +38,13 @@ public class Skill {
     private Array<Play> plays = new Array<Play>();
     private Array<Target> targets = new Array<Target>();
 
-    private char[] diceFaces = {'⚅', '⚄', '⚃', '⚂', '⚁', '⚀'};
+    private static final char[] diceFaces = {'⚅', '⚄', '⚃', '⚂', '⚁', '⚀'};
 
     private boolean cooldown = false;
     private boolean wallTargets = false;
     private boolean obstruct = false;
+    private boolean mark = true;
+    private boolean markEverything = false;
 
     private int type;
     private int targetType;
@@ -67,8 +69,12 @@ public class Skill {
 
     public void use(){
         for (Target target : targets) {
+            FloatingDamageMark mark = new FloatingDamageMark(target.getX(), target.getY(), "Miss");
             for (Play play : plays) {
-                play.act(target);
+                play.act(target, mark);
+            }
+            if (isMark() && (isMarkEverything() || target.getEntity() != null)) {
+                mark.show();
             }
         }
         clearTargets();
@@ -254,6 +260,22 @@ public class Skill {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isMark() {
+        return mark;
+    }
+
+    public void setMark(boolean mark) {
+        this.mark = mark;
+    }
+
+    public boolean isMarkEverything() {
+        return markEverything;
+    }
+
+    public void setMarkEverything(boolean markEverything) {
+        this.markEverything = markEverything;
     }
 
     public void addTarget(Target target){

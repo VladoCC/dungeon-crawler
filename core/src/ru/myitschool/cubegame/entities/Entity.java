@@ -315,6 +315,7 @@ public class Entity extends EventAdapter {
     }
 
     public void throwEntity(Vector2 tiles){
+        System.out.println("throw " + tiles.x + " " + tiles.y);
         float x = Math.abs(tiles.x);
         float y = Math.abs(tiles.y);
         if (x > y){
@@ -335,9 +336,9 @@ public class Entity extends EventAdapter {
     }
 
     public void throwing(float delta){
+        System.out.println("throwing");
         float stepXLength = throwXSpeed * delta;
         float stepYLength = throwYSpeed * delta;
-        boolean end = false;
         if (throwXDistance > stepXLength){
             throwXDistance -= stepXLength;
         } else {
@@ -357,14 +358,13 @@ public class Entity extends EventAdapter {
         }
         if (!throwXDirection){
             stepXLength = -stepXLength;
-            end = true;
         }
         if (!throwYDirection){
             stepYLength = -stepYLength;
         }
         x += stepXLength;
         y += stepYLength;
-        if (end){
+        if (!throwing){
             x = Math.round(x / DungeonTile.TILE_WIDTH) * DungeonTile.TILE_WIDTH;
             y = Math.round(y / DungeonTile.TILE_HEIGHT) * DungeonTile.TILE_HEIGHT;
         }

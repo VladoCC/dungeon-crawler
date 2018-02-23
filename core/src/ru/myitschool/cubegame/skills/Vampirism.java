@@ -30,13 +30,15 @@ public class Vampirism extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     MathAction attackAction = new DiceAction(1, 6);
                     attackAction = countAttackAction(attackAction);
                     Entity entity = target.getEntity();
-                    int hp = entity.addHp(-attackAction.act());
+                    int damage = -attackAction.act();
+                    int hp = entity.addHp(damage);
                     doer.addHp(Math.abs(hp));
+                    mark.addText(damage + "");
                 }
             }
         });

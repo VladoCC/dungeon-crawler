@@ -1,7 +1,6 @@
 package ru.myitschool.cubegame.skills;
 
 import com.badlogic.gdx.graphics.Texture;
-import ru.myitschool.cubegame.effects.Effect;
 import ru.myitschool.cubegame.effects.MarkedEffect;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.math.DiceAction;
@@ -33,13 +32,14 @@ public class Mark extends Skill {
         };
         play.addAction(new Action() {
             @Override
-            public void act(Target target, boolean success) {
+            public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     if (effect != null){
                         effect.getEntity().removeEffect(effect);
                     }
                     effect = new MarkedEffect(target.getEntity(), getDoer(), -5);
                     target.getEntity().addEffect(effect);
+                    mark.addText("Success");
                 }
             }
         });

@@ -17,10 +17,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -99,6 +96,7 @@ public class DungeonScreen implements Screen {
     Table turnButtonTable;
     Table guiTable;
     Table tooltipGroup;
+    Group markTable;
     static Table frameTable;
 
     protected BitmapFont font;
@@ -296,6 +294,11 @@ public class DungeonScreen implements Screen {
         attackButtonTable.add(attackButton).width(w / 10).height(h / 18).padTop(h / 36).padBottom(h / 72);
         cancelButtonTable.add(cancelButton).width(w / 10).height(h / 18).padTop(h / 72).padBottom(h / 36);
 
+        markTable = new Group();
+        markTable.setPosition(0, h / 6);
+        markTable.setSize(w, h - h / 6);
+        stage.addActor(markTable);
+
         buttonsGroup = new VerticalGroup();
         buttonsGroup.setWidth(w / 10);
         buttonsGroup.setHeight(h / 6);
@@ -403,6 +406,20 @@ public class DungeonScreen implements Screen {
         }
         Room.getAddingArray().clear();
         charBatch.end();
+
+        markTable.clear();
+        for (FloatingDamageMark mark : FloatingDamageMark.getMarks()){
+            Color color = Color.WHITE;
+            Label.LabelStyle style = new Label.LabelStyle(font, color);
+            Label textLabel = new Label(mark.getText(), style);
+            textLabel.setAlignment(Align.center);
+            float x = mark.getTileX() * DungeonTile.TILE_WIDTH + DungeonTile.TILE_WIDTH / 2;
+            float y = (mark.getTileY() + 2) * DungeonTile.TILE_HEIGHT + DungeonTile.TILE_HEIGHT / 2 - DungeonTile.TILE_HEIGHT / 2 * mark.getTime() / FloatingDamageMark.MAX_TIME; //TODO DON'T KNOW WHY THIS NEEDS TO HAVE +2
+            Vector3 vector = camera.project(new Vector3(x, y, 0));
+            textLabel.setPosition(vector.x, vector.y, Align.center);
+            textLabel.setWrap(false);
+            markTable.addActor(textLabel);
+        }
 
         encounterGroup.clear();
         if (Encounter.hasNowPlayimg()){
