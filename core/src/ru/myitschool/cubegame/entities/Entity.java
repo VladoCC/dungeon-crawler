@@ -367,6 +367,7 @@ public class Entity extends EventAdapter {
         if (!throwing){
             x = Math.round(x / DungeonTile.TILE_WIDTH) * DungeonTile.TILE_WIDTH;
             y = Math.round(y / DungeonTile.TILE_HEIGHT) * DungeonTile.TILE_HEIGHT;
+            DungeonMap.updateEntityPos(this);
         }
         sprite.setPosition(x, y);
     }

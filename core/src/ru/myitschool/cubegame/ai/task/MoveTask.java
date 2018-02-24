@@ -34,7 +34,8 @@ public class MoveTask extends Task {
     @Override
     void startTask() {
         entity.setPath(path);
-        DungeonMap.moveChar();
+        entity.setMovement();
+        DungeonMap.updateEntityPos(entity);
     }
 
     @Override

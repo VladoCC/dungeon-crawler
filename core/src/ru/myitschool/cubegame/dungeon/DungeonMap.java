@@ -93,7 +93,8 @@ public class DungeonMap extends TiledMap {
                             character.addTarget(cellX, cellY);
                             character.getUsedSkill().drawTargets();
                         } else if (!character.isMovement()) {
-                            moveChar();
+                            character.setMovement();
+                            updateEntityPos(character);
                         }
                     }
                 } else {
@@ -371,8 +372,7 @@ public class DungeonMap extends TiledMap {
         tileLayer.getCell(entity.getTileX(), entity.getTileY()).setEntity(entity);
     }
 
-    public static void moveChar(){
-        Entity entity = Entity.getNowPlaying();
+    public static void updateEntityPos(Entity entity){
         NodePath path = entity.getPath();
         if (path != null && path.getCount() > 1){
             pathLayer.clearLayer();
@@ -384,7 +384,6 @@ public class DungeonMap extends TiledMap {
             tileLayer.getCell(end.getX(), end.getY()).setEntity(entity);
             GraphStorage.createBottomGraph(tileLayer);
         }
-        Entity.getNowPlaying().setMovement();
     }
 
     public static void drawTargets(Array<Target> targets){
