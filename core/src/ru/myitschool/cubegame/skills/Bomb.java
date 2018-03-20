@@ -23,6 +23,7 @@ public class Bomb extends Skill {
         setDistanceMin(2);
         setRange(2);
         setTargetType(SKILL_TARGET_TYPE_FLOOR_SPLASH);
+        setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_SPLASH);
         Play play = new Play() {
             @Override
             public boolean check(Target target) {

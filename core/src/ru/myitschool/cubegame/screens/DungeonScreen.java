@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -50,7 +51,8 @@ import java.awt.*;
  */
 public class DungeonScreen implements Screen {
 
-    OrthographicCamera camera;
+    OrthographicCamera mainCamera;
+    OrthographicCamera yUpCamera;
     ru.myitschool.cubegame.dungeon.DungeonMap dungeonMap;
     OrthogonalTiledMapRenderer renderer;
 
@@ -80,7 +82,8 @@ public class DungeonScreen implements Screen {
 
     private static Array<String> logs = new Array<String>();
 
-    Stage stage;
+    Stage mainStage;
+    Stage cameraStage;
 
     TextButton nextTurnButton;
     TextButton attackButton;
@@ -121,15 +124,21 @@ public class DungeonScreen implements Screen {
         //final float w = Gdx.graphics.getWidth();
         //final float h = Gdx.graphics.getHeight();
         tooltipGroup = new Table();
-        camera = new OrthographicCamera(w, h);
-        camera.setToOrtho(true);
-        camera.update();
+        yUpCamera = new OrthographicCamera(w, h);
+        yUpCamera.setToOrtho(false);
+        yUpCamera.update();
+        yUpCamera.zoom = 0.6f;
+        yUpCamera.position.x = 0;
+        yUpCamera.position.y = 0;
+        mainCamera = new OrthographicCamera(w, h);
+        mainCamera.setToOrtho(true);
+        mainCamera.update();
         input.addProcessor(new InputAdapter(){
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 mouseX = screenX;
                 mouseY = screenY;
-                Vector3 coords = camera.unproject(new Vector3(screenX,screenY, 0));
+                Vector3 coords = mainCamera.unproject(new Vector3(screenX,screenY, 0));
                 System.out.println(coords);
                 float wMoveField = w/20;
                 float hMoveField = h/20;
@@ -171,9 +180,9 @@ public class DungeonScreen implements Screen {
                 } else if (keycode == Input.Keys.R){
                     restart = false;
                     if (restartTimer >= 5){
-                        camera.position.x = 0;
-                        camera.position.y = 0;
-                        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(12, 3, 21, camera, input);
+                        mainCamera.position.x = 0;
+                        mainCamera.position.y = 0;
+                        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(12, 3, 21, mainCamera, input);
                         renderer = new OrthogonalTiledMapRenderer(dungeonMap);
                     }
                     return true;
@@ -223,7 +232,10 @@ public class DungeonScreen implements Screen {
                     String s = gson.toJson(DungeonTile.tiles.items, DungeonTile[].class);
                     file.writeString(s, false);
                 } else if (keycode == Input.Keys.K){
-                    System.out.println(Entity.getPlayingEntities().size());
+                    Entity.getPlayingEntities().get(1).addHp(-30);
+                } else if (keycode == Input.Keys.M){
+                    mainCamera.position.x = 0;
+                    mainCamera.position.y = 0;
                 }
                 System.out.println(Input.Keys.toString(keycode));
                 return false;
@@ -240,7 +252,7 @@ public class DungeonScreen implements Screen {
             }
         });
         createFonts();
-        stage = new Stage();
+        mainStage = new Stage();
         guiTable = new Table();
         guiTable.setPosition(1,1);
         guiTable.setHeight(h/6 - 1);
@@ -259,7 +271,7 @@ public class DungeonScreen implements Screen {
                 return true;
             }
         });
-        stage.addActor(guiTable);
+        mainStage.addActor(guiTable);
 
         atlas = new TextureAtlas("buttons.pack");
         skin = new Skin(atlas);
@@ -287,6 +299,7 @@ public class DungeonScreen implements Screen {
                 Entity.getNowPlaying().setUsedSkill(null);
                 changeButton(false);
                 DungeonMap.clearTargetLayer();
+                DungeonMap.clearTargetingZoneLayer();
             }
         });
         attackButtonTable = new Table();
@@ -297,7 +310,7 @@ public class DungeonScreen implements Screen {
         markTable = new Group();
         markTable.setPosition(0, h / 6);
         markTable.setSize(w, h - h / 6);
-        stage.addActor(markTable);
+        mainStage.addActor(markTable);
 
         buttonsGroup = new VerticalGroup();
         buttonsGroup.setWidth(w / 10);
@@ -312,7 +325,7 @@ public class DungeonScreen implements Screen {
         encounterGroup.setHeight(h - h / 6);
         encounterGroup.setPosition(w - w / 6, h / 6);
         encounterGroup.center();
-        stage.addActor(encounterGroup);
+        mainStage.addActor(encounterGroup);
 
         effectGroup = new HorizontalGroup();
         effectGroup.setPosition(w / 5,  h / 8);
@@ -338,13 +351,33 @@ public class DungeonScreen implements Screen {
         Image frame = new Image(frameDrawable);
         frameTable.add(frame);
 
-        input.addProcessor(stage);
-        camera.position.x = 0;
-        camera.position.y = 0;
-        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(12, 3, 21, camera, input);
+        input.addProcessor(mainStage);
+        mainCamera.position.x = 0;
+        mainCamera.position.y = 0;
+        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(12, 3, 21, mainCamera, input);
+
+        cameraStage = new Stage();
+        cameraStage.getViewport().setCamera(yUpCamera);
+        Stack stack = new Stack();
+        Group effectGroup = new Group();
+        effectGroup.setSize(w, h);
+        stack.add(effectGroup);
+        DungeonMap.setEffectGroup(effectGroup);
+        Group targetingZoneGroup = new Group();
+        stack.add(targetingZoneGroup);
+        DungeonMap.setTargetingZoneGroup(targetingZoneGroup);
+        Group displayTargetGroup = new Group();
+        stack.add(displayTargetGroup);
+        DungeonMap.setDisplayTargetGroup(displayTargetGroup);
+        Group choosenTargetsGroup = new Group();
+        stack.add(choosenTargetsGroup);
+        DungeonMap.setChoosenTargetsGroup(choosenTargetsGroup);
+        System.out.println("Stack: " + stack.getMinWidth() + " " + stack.getMinHeight() + " / " + stack.getPrefWidth() + " " + stack.getPrefHeight() + " / " + stack.getMaxWidth() + " " + stack.getMaxHeight());
+        cameraStage.addActor(stack);
         Character.setFirstPlaying();
+
         renderer = new OrthogonalTiledMapRenderer(dungeonMap);
-        camera.zoom = 0.6f;
+        mainCamera.zoom = 0.6f;
         shapeRenderer.setAutoShapeType(true);
         //Character character = new Character(new Texture("Char1.png"), 64, 64);
     }
@@ -358,39 +391,44 @@ public class DungeonScreen implements Screen {
         if (restartTimer >= 5){
             restartTimer = 0;
             input.removeProcessor(input.size()-1);
-            camera.position.x = 0;
-            camera.position.y = 0;
-            dungeonMap = new DungeonMap(12, 3, 21, camera, input);
+            mainCamera.position.x = 0;
+            mainCamera.position.y = 0;
+            dungeonMap = new DungeonMap(12, 3, 21, mainCamera, input);
             renderer = new OrthogonalTiledMapRenderer(dungeonMap);
         }
-        if (moveLeft || moveRight || moveUp || moveDown) {
+        if (moveLeft || moveRight || moveUp || moveDown) { //TODO add method for camera moving
             final float w = Gdx.graphics.getWidth();
             final float h = Gdx.graphics.getHeight();
             if (moveLeft) {
-                camera.translate(-500 * delta, 0); //TODO сделать скорость зависящей от расстояния до стенки
-                camera.update();
+                mainCamera.translate(-500 * delta, 0); //TODO сделать скорость зависящей от расстояния до стенки
+                mainCamera.update();
             } else if (moveRight) {
-                camera.translate(500 * delta, 0);
-                camera.update();
+                mainCamera.translate(500 * delta, 0);
+                mainCamera.update();
             }
             if (moveUp) {
-                camera.translate(0, -500 * delta);
-                camera.update();
+                mainCamera.translate(0, -500 * delta);
+                mainCamera.update();
             } else if (moveDown) {
-                camera.translate(0, 500 * delta);
-                camera.update();
+                mainCamera.translate(0, 500 * delta);
+                mainCamera.update();
             }
+            yUpCamera.position.x = mainCamera.position.x;
+            yUpCamera.position.y = -mainCamera.position.y;
+            yUpCamera.update();
         }
-        camera.update();
-        charBatch.setProjectionMatrix(camera.combined);
+        mainCamera.update();
+        charBatch.setProjectionMatrix(mainCamera.combined);
 
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //camera.update();
+        //mainCamera.update();
 
-        renderer.setView(camera);
-        renderer.render();
+        renderer.setView(mainCamera);
+        renderMapLayers(0, 0);//TODO move to the end of method
+        cameraStage.draw();
+        renderMapLayers(1, dungeonMap.getLayersCount() - 1);
 
         Encounter.update(delta);
         FloatingDamageMark.update(delta);
@@ -401,10 +439,7 @@ public class DungeonScreen implements Screen {
             act(entity, delta);
             entity.getSprite().draw(charBatch);
         }
-        for (Entity entity : Room.getAddingArray()){
-            entity.add(Entity.getNowPlayingIndex() + 1); //TODO CHECK adding after now playing entity WORKING CORRECTLY
-        }
-        Room.getAddingArray().clear();
+        Entity.getPlayingEntities().removeIf(entity -> !entity.isAlive());
         charBatch.end();
 
         markTable.clear();
@@ -415,7 +450,7 @@ public class DungeonScreen implements Screen {
             textLabel.setAlignment(Align.center);
             float x = mark.getTileX() * DungeonTile.TILE_WIDTH + DungeonTile.TILE_WIDTH / 2;
             float y = (mark.getTileY() + 2) * DungeonTile.TILE_HEIGHT + DungeonTile.TILE_HEIGHT / 2 - DungeonTile.TILE_HEIGHT / 2 * mark.getTime() / FloatingDamageMark.MAX_TIME; //TODO DON'T KNOW WHY THIS NEEDS TO HAVE +2
-            Vector3 vector = camera.project(new Vector3(x, y, 0));
+            Vector3 vector = mainCamera.project(new Vector3(x, y, 0));
             textLabel.setPosition(vector.x, vector.y, Align.center);
             textLabel.setWrap(false);
             markTable.addActor(textLabel);
@@ -477,6 +512,7 @@ public class DungeonScreen implements Screen {
             System.out.println("UPDATE!");
             skillGroup.clear();
             final Entity entity = Entity.getNowPlaying();
+            final boolean canUse = entity.canUseSkill();
             for (int i = 0; i < entity.getSkills().size; i++){
                 final Skill skill = entity.getSkills().get(i);
                 Texture texture = skill.getIcon();
@@ -488,7 +524,7 @@ public class DungeonScreen implements Screen {
                 Table table = new Table();
                 table.add(image).padLeft(h / 110).padRight(h / 110);
                 stack.add(table);
-                if (skill.isCooldown()){
+                if (skill.isCooldown() || !canUse){
                     Table cooldownTable = new Table();
                     Drawable cooldownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("cooldown.png")));
                     cooldownDrawable.setMinHeight(h / 11);
@@ -510,7 +546,7 @@ public class DungeonScreen implements Screen {
 
                     @Override
                     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                        if (!skill.isCooldown()) {
+                        if (!skill.isCooldown() && canUse) {
                             if (entity.getUsedSkill() != skill) {
                                 entity.setUsedSkill(skill);
                                 changeButton(true);
@@ -528,6 +564,7 @@ public class DungeonScreen implements Screen {
                         return true;
                     }
                 });
+                System.out.println("Stack: " + stack.getMinWidth() + " " + stack.getMinHeight() + " / " + stack.getPrefWidth() + " " + stack.getPrefHeight() + " / " + stack.getMaxWidth() + " " + stack.getMaxHeight());
                 skillGroup.addActor(stack);
             }
         }
@@ -581,7 +618,7 @@ public class DungeonScreen implements Screen {
             tooltipGroup.pack();
             Drawable background = skin.getDrawable("tooltip_background");
             tooltipGroup.setBackground(background);
-            stage.addActor(tooltipGroup);
+            mainStage.addActor(tooltipGroup);
         }
 
         effectGroup.clear();
@@ -608,7 +645,7 @@ public class DungeonScreen implements Screen {
         }
 
         int detailedEffect = nowPlayingEntity.getDetailedEffect();
-        if (detailedEffect != -1){
+        if (detailedEffect != -1 && detailedEffect < effectGroup.getChildren().size){
             Effect effect = nowPlayingEntity.getEffects().get(detailedEffect);
             tooltipGroup.remove();
             tooltipGroup = new Table(skin);
@@ -633,7 +670,7 @@ public class DungeonScreen implements Screen {
             descriptionLabel.setPosition(0, -descriptionLabel.getHeight());
             tooltipGroup.add(descriptionLabel).width(w/6).padLeft(10).padRight(10).padBottom(10);
             //System.out.println(image.getX() + " " + image.getY() + " " + image.getImageWidth());
-            float effectWidth = ((Table) effectGroup.getChildren().get(detailedEffect)).getChildren().get(0).getWidth() * 1.1f;
+            float effectWidth = ((Table) effectGroup.getChildren().get(detailedEffect)).getChildren().get(0).getWidth() * 1.1f; //TODO constants
             int count = effectGroup.getChildren().size;
             System.out.println(effectWidth + " - effect width");
             int half = count/ 2;
@@ -648,103 +685,124 @@ public class DungeonScreen implements Screen {
             tooltipGroup.pack();
             Drawable background = skin.getDrawable("tooltip_background");
             tooltipGroup.setBackground(background);
-            stage.addActor(tooltipGroup);
+            mainStage.addActor(tooltipGroup);
         }
 
         if (debugInfo) {
-            font.draw(interfaceBatch, "camera: " + camera.position + " " + '\u2685', 10, h - 50);
+            font.draw(interfaceBatch, "mainCamera: " + mainCamera.position + " " + '\u2685', 10, h - 50);
             for (int i = 0; i < logs.size ; i++) {
                 font.draw(interfaceBatch, logs.get(i), 10, h - 80 - 30 * i);
             }
         }
         interfaceBatch.end();
-        stage.draw();
+        mainStage.draw();
     }
 
     private void act(Entity entity, float delta){
-        if (entity.isMovement() || entity.isThrowing()) {
-            //float delta = Gdx.graphics.getDeltaTime();
-            System.out.println("1. " + entity.getAnimTime() + " " + delta);
-            if (entity.isMovement()) {
-                entity.addAnimTime(delta); //TODO if entity ends movement on his next turn, then it acts buggy
-                //animTime += delta;
-                entity.move(delta);
-            } else if (entity.isThrowing()){
-                System.out.println("throwing");
-                entity.throwing(delta);
-            }
-            System.out.println("2. " + entity.getAnimTime() + " " + delta);
-            int x = entity.getTileX();
-            int y = entity.getTileY();
-            if (dungeonMap.getTile(x, y).isDoor()){
-                int index = ru.myitschool.cubegame.dungeon.Door.getDoorIndex(x, y);
-                if (index == -1){
-                    System.out.println("404 NOT FOUND!");
-                    dungeonMap.removeDoorTile(x, y);
-                } else {
-                    ru.myitschool.cubegame.dungeon.Door door = ru.myitschool.cubegame.dungeon.Door.getDoor(index);
-                    int direction = door.getDirection();
-                    int newRoomStartX = x / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH;
-                    int newRoomStartY = y / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT;
-                    if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_NORTH){
-                        System.out.println("North: y - " + newRoomStartY + " Critical: 0");
-                        if (newRoomStartY == 0){
-                            dungeonMap.addUp(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT);
-                            ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(0, ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT));
-                            camera.translate(0, ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT * DungeonTile.TILE_HEIGHT);
-                        } else {
-                            newRoomStartY--;
-                        }
-                    } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_EAST){
-                        System.out.println("East: x - " + newRoomStartX + " Critical: " + (dungeonMap.getWidth() - 1));
-                        if (newRoomStartX == (dungeonMap.getWidth() - 1) / DungeonMap.ROOM_WIDTH){
-                            dungeonMap.addRight(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH);
-                        }
-                        newRoomStartX++;
-                    } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_SOUTH){
-                        System.out.println("South: y - " + newRoomStartY + " Critical: " + (dungeonMap.getHeight() - 1));
-                        if (newRoomStartY == (dungeonMap.getHeight() - 1) / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT){
-                            dungeonMap.addDown(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT);
-                        }
-                        newRoomStartY++;
-                    } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_WEST){
-                        System.out.println("West: x - " + newRoomStartX + " Critical: 0");
-                        if (newRoomStartX == 0){
-                            dungeonMap.addLeft(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH);
-                            ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH, 0));
-                            camera.translate(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH * DungeonTile.TILE_WIDTH, 0);
-                        } else {
-                            newRoomStartX--;
-                        }
-                    }
-                    for (Point cell : door.getDoorCells()) {
-                        dungeonMap.removeDoorTile((int) cell.getX(), (int) cell.getY());
-                    }
-                    System.out.println("Room X: " + newRoomStartX + " Room Y: " + newRoomStartY);
-                    ru.myitschool.cubegame.dungeon.Door.removeDoor(index);
-                    newRoomStartX *= ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH;
-                    newRoomStartY *= ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT;
-                    int side = direction + 2;
-                    if (side >= 4){
-                        side -= 4;
-                    }
-                    System.out.println("Direction: " + direction + " Side: " + side);
-                    Room room = dungeonMap.placeRoom(newRoomStartX, newRoomStartY, side);
-                    GraphStorage.createBottomGraph(dungeonMap.getTileLayer());
-                    if (room.isEncounter()){
-                        entity.triggerEncounter();
-                    }
-                    Entity.getNowPlaying().setRoomOpened(true);
+        if (entity.isAlive()) {
+            if (entity.isMovement() || entity.isThrowing()) {
+                //float delta = Gdx.graphics.getDeltaTime();
+                System.out.println("1. " + entity.getAnimTime() + " " + delta);
+                if (entity.isMovement()) {
+                    entity.addAnimTime(delta); //TODO if entity ends movement on his next turn, then it acts buggy
+                    //animTime += delta;
+                    entity.move(delta);
+                } else if (entity.isThrowing()) {
+                    System.out.println("throwing");
+                    entity.throwing(delta);
                 }
+                System.out.println("2. " + entity.getAnimTime() + " " + delta);
+                int x = entity.getTileX();
+                int y = entity.getTileY();
+                if (dungeonMap.getTile(x, y).isDoor()) {
+                    int index = ru.myitschool.cubegame.dungeon.Door.getDoorIndex(x, y);
+                    if (index == -1) {
+                        System.out.println("404 NOT FOUND!");
+                        dungeonMap.removeDoorTile(x, y);
+                    } else {
+                        ru.myitschool.cubegame.dungeon.Door door = ru.myitschool.cubegame.dungeon.Door.getDoor(index);
+                        int direction = door.getDirection();
+                        int newRoomStartX = x / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH;
+                        int newRoomStartY = y / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT;
+                        if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_NORTH) {
+                            System.out.println("North: y - " + newRoomStartY + " Critical: 0");
+                            if (newRoomStartY == 0) {
+                                dungeonMap.addUp(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT);
+                                ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(0, ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT));
+                                mainCamera.translate(0, ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT * DungeonTile.TILE_HEIGHT);
+                            } else {
+                                newRoomStartY--;
+                            }
+                        } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_EAST) {
+                            System.out.println("East: x - " + newRoomStartX + " Critical: " + (dungeonMap.getWidth() - 1));
+                            if (newRoomStartX == (dungeonMap.getWidth() - 1) / DungeonMap.ROOM_WIDTH) {
+                                dungeonMap.addRight(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH);
+                            }
+                            newRoomStartX++;
+                        } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_SOUTH) {
+                            System.out.println("South: y - " + newRoomStartY + " Critical: " + (dungeonMap.getHeight() - 1));
+                            if (newRoomStartY == (dungeonMap.getHeight() - 1) / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT) {
+                                dungeonMap.addDown(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT);
+                            }
+                            newRoomStartY++;
+                        } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_WEST) {
+                            System.out.println("West: x - " + newRoomStartX + " Critical: 0");
+                            if (newRoomStartX == 0) {
+                                dungeonMap.addLeft(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH);
+                                ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH, 0));
+                                mainCamera.translate(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH * DungeonTile.TILE_WIDTH, 0);
+                            } else {
+                                newRoomStartX--;
+                            }
+                        }
+                        for (Point cell : door.getDoorCells()) {
+                            dungeonMap.removeDoorTile((int) cell.getX(), (int) cell.getY());
+                        }
+                        System.out.println("Room X: " + newRoomStartX + " Room Y: " + newRoomStartY);
+                        ru.myitschool.cubegame.dungeon.Door.removeDoor(index);
+                        newRoomStartX *= ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH;
+                        newRoomStartY *= ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT;
+                        int side = direction + 2;
+                        if (side >= 4) {
+                            side -= 4;
+                        }
+                        System.out.println("Direction: " + direction + " Side: " + side);
+                        Room room = dungeonMap.placeRoom(newRoomStartX, newRoomStartY, side);
+                        GraphStorage.createBottomGraph(dungeonMap.getTileLayer());
+                        if (room.isEncounter()) {
+                            entity.triggerEncounter();
+                        }
+                        Entity.getNowPlaying().setRoomOpened(true);
+                    }
+                }
+            } else {
+                entity.setAnimTime(0);
+            }
+
+            //System.out.println("Enemy attacks: " + entity.isEnemy() + " "+ entity.isSkillUse());
+            if (entity.isEnemy() && entity.isSkillUse()) {
+                Enemy enemy = (Enemy) entity;
+                enemy.addSkillTime(delta);
             }
         } else {
-            entity.setAnimTime(0);
+            if (entity == Entity.getNowPlaying()) {
+                Entity.nextTurn();
+            }
         }
+    }
 
-        //System.out.println("Enemy attacks: " + entity.isEnemy() + " "+ entity.isSkillUse());
-        if (entity.isEnemy() && entity.isSkillUse()){
-            Enemy enemy = (Enemy) entity;
-            enemy.addSkillTime(delta);
+    private void renderMapLayers(int startLayer, int endLayer){
+        Array<Integer> unvisualized = new Array<Integer>();
+        for (int i = 0; i < dungeonMap.getLayers().getCount(); i++) {
+            MapLayer layer = dungeonMap.getLayers().get(i);
+            if ((i > endLayer || i < startLayer) && layer.isVisible()){
+                unvisualized.add(i);
+                layer.setVisible(false);
+            }
+        }
+        renderer.render();
+        for (Integer visualize : unvisualized){
+            dungeonMap.getLayers().get(visualize).setVisible(true);
         }
     }
 

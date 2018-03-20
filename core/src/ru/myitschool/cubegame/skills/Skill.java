@@ -9,6 +9,7 @@ import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.math.DiceAction;
 import ru.myitschool.cubegame.math.MathAction;
+import ru.myitschool.cubegame.skills.targeting.*;
 
 /**
  * Created by Voyager on 29.06.2017.
@@ -23,8 +24,8 @@ public class Skill {
 
     //public static final int SKILL_TARGET_TYPE_
     public static final int SKILL_TARGET_TYPE_ENTITY = 0;
-    public static final int SKILL_TARGET_TYPE_FLOOR_SPLASH = 1;
-    public static final int SKILL_TARGET_TYPE_FLOOR_WAVE = 2;
+    public static final int SKILL_TARGET_TYPE_FLOOR_SPLASH = 1; /**area centered in chosen point */
+    public static final int SKILL_TARGET_TYPE_FLOOR_WAVE = 2; /** line that starts in chosen point */
     public static final int SKILL_TARGET_TYPE_FLOOR_SWING = 3;
     public static final int SKILL_TARGET_TYPE_FLOOR_WAVE_CONTROLLABLE = 4;
     public static final int SKILL_TARGET_TYPE_FLOOR_SPLASH_NOCENTER = 5;
@@ -45,6 +46,7 @@ public class Skill {
     private boolean obstruct = false;
     private boolean mark = true;
     private boolean markEverything = false;
+    private boolean checkAllTargets = false;
 
     private int type;
     private int targetType;
@@ -63,8 +65,12 @@ public class Skill {
 
     private Entity doer;
 
+    private TargetRenderer renderer;
+
     public Skill(Entity doer) {
         this.doer = doer;
+        renderer = new TargetRenderer(this);
+        renderer.addDisplayer(new RaytraceDisplayer());
     }
 
     public void use(){
@@ -214,6 +220,14 @@ public class Skill {
         this.targetCountMax = targetCountMax;
     }
 
+    public boolean isCheckAllTargets() {
+        return checkAllTargets;
+    }
+
+    public void setCheckAllTargets(boolean checkAllTargets) {
+        this.checkAllTargets = checkAllTargets;
+    }
+
     public int getRange() {
         return range;
     }
@@ -235,6 +249,11 @@ public class Skill {
     }
 
     public void setDistanceMax(int distanceMax) {
+        this.distanceMax = distanceMax;
+    }
+
+    public void setDistance(int distanceMin, int distanceMax){
+        this.distanceMin = distanceMin;
         this.distanceMax = distanceMax;
     }
 
@@ -279,15 +298,18 @@ public class Skill {
     }
 
     public void addTarget(Target target){
-        if (targetWallCheck(target)) {
-            targets.add(target);
-        }
-        for (Target linked : target.getLinkedTargets()){
-            if (targetWallCheck(linked)) {
-                targets.add(linked);
+        target = target.getMain();
+        if (targetObstructionCheck(target, false)) {
+            if (targetWallCheck(target) && (!checkAllTargets || targetObstructionCheck(target, true))) {
+                targets.add(target);
             }
+            for (Target linked : target.getLinkedTargets()) {
+                if (targetWallCheck(linked) && (!checkAllTargets || targetObstructionCheck(linked, true))) {
+                    targets.add(linked);
+                }
+            }
+            drawTargets();
         }
-        drawTargets();
     }
 
     public Array<Target> getTargets() {
@@ -350,6 +372,57 @@ public class Skill {
         this.obstruct = obstruct;
     }
 
+    public void setRenderer(TargetRenderer renderer) {
+        this.renderer = renderer;
+    }
+
+    public void setTypeDisplayer(int targetType){
+        clearDisplayers();
+        addDisplayer(new RaytraceDisplayer());
+        switch (targetType){
+            case SKILL_TARGET_TYPE_ENTITY:
+                addDisplayer(new EntityDisplayer());
+                break;
+            case SKILL_TARGET_TYPE_FLOOR_SPLASH:
+                addDisplayer(new SplashDisplayer(true));
+                break;
+            case SKILL_TARGET_TYPE_FLOOR_WAVE:
+                addDisplayer(new WaveDisplayer());
+                break;
+            case SKILL_TARGET_TYPE_FLOOR_SWING:
+                addDisplayer(new SwingDisplayer());
+                break;
+            case SKILL_TARGET_TYPE_FLOOR_WAVE_CONTROLLABLE:
+                break;
+            case SKILL_TARGET_TYPE_FLOOR_SPLASH_NOCENTER:
+                addDisplayer(new SplashDisplayer(false));
+                break;
+            case SKILL_TARGET_TYPE_ENEMY:
+                addDisplayer(new EnemyDisplayer());
+                break;
+            case SKILL_TARGET_TYPE_CHARACTER:
+                addDisplayer(new CharacterDisplayer());
+                break;
+            case SKILL_TARGET_TYPE_FLOOR_SINGLE:
+                addDisplayer(new FloorSingleDisplayer());
+                break;
+            case SKILL_TARGET_TYPE_SELF:
+                break;
+        }
+    }
+
+    public Array<TilePos> displayTarget(int x, int y){
+        return renderer.displayTarget(x, y);
+    }
+
+    public void addDisplayer(TargetDisplayer displayer){
+        renderer.addDisplayer(displayer);
+    }
+
+    public void clearDisplayers(){
+        renderer.clearDisplayers();
+    }
+
     private boolean targetWallCheck(Target target){
         boolean targ = false;
         if (wallTargets){
@@ -358,13 +431,27 @@ public class Skill {
             Node node = GraphStorage.getNodeBottom(target.getX(), target.getY());
             targ = node != null && node.getTile().isReachable();
         }
-        boolean obst = false;
+        /*boolean obst = false;
         if (!obstruct){
             obst = true;
         } else {
             obst = !AITweaks.isPathObstructed(doer.getTileX(), doer.getTileY(), target.getX(), target.getY());
+        }*/
+        return /*obst && */targ;
+    }
+
+    /** can check real X and Y or checkX and checkY
+     * return true if path not obstructed*/
+    private boolean targetObstructionCheck(Target target, boolean realCoords){
+        int x = realCoords? target.getX() : target.getCheckX();
+        int y = realCoords? target.getY() : target.getCheckY();
+        boolean notObstructed = false;
+        if (!obstruct){
+            notObstructed = true;
+        } else {
+            notObstructed = !AITweaks.isPathObstructed(doer.getTileX(), doer.getTileY(), x, y);
         }
-        return obst && targ;
+        return notObstructed;
     }
 
     public void startCooldown(){

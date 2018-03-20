@@ -1,9 +1,6 @@
 package ru.myitschool.cubegame.skills;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.Array;
-import ru.myitschool.cubegame.dungeon.DungeonCell;
-import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.effects.CloudOfKnivesEffect;
 import ru.myitschool.cubegame.effects.FloorClearingEffect;
 import ru.myitschool.cubegame.effects.FloorEffect;
@@ -29,6 +26,7 @@ public class CloudOfKnives extends Skill {
         setDistanceMin(3);
         setRange(3);
         setTargetType(SKILL_TARGET_TYPE_FLOOR_SPLASH);
+        setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_SPLASH);
         setType(SKILL_TYPE_ENCOUNTER);
         setWallTargets(true);
         Play play = new Play() {
@@ -60,12 +58,8 @@ public class CloudOfKnives extends Skill {
     public void use() {
         attackAction = new DiceAction(1, 6);
         attackAction = countAttackAction(attackAction);
-        Array<DungeonCell> cells = new Array<DungeonCell>();
-        for (Target target : getTargets()){
-            cells.add(DungeonMap.getCell(target.getX(), target.getY()));
-        }
         FloorEffect effect = null;
-        effect = new FloorEffect(cells, new CloudOfKnivesEffect(effect, attackAction));
+        effect = new FloorEffect(getTargets(), new CloudOfKnivesEffect(effect, attackAction));
         getDoer().addEffect(new FloorClearingEffect(effect));
         super.use();
     }

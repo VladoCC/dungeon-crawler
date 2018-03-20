@@ -24,6 +24,7 @@ public class Mark extends Skill {
         setDistanceMin(1);
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_ENEMY);
+        setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         Play play = new Play() {
             @Override
             public boolean check(Target target) {

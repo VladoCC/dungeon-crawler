@@ -23,6 +23,7 @@ public class GodsProtection extends Skill {
         setDistanceMin(0);
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_SELF);
+        setTypeDisplayer(SKILL_TARGET_TYPE_SELF);
         setType(SKILL_TYPE_ENCOUNTER);
         setMark(false);
     }

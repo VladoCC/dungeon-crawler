@@ -23,6 +23,7 @@ public class Shoot extends Skill {
         setDistanceMin(1);
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_ENEMY);
+        setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         setObstruct(true);
         Play play = new Play() {
             @Override

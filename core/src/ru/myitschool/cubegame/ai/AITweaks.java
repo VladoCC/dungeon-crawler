@@ -3,6 +3,7 @@ package ru.myitschool.cubegame.ai;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
+import ru.myitschool.cubegame.ai.pathfinding.Node;
 import ru.myitschool.cubegame.ai.pathfinding.NodePath;
 import ru.myitschool.cubegame.ai.pathfinding.Pathfinder;
 import ru.myitschool.cubegame.dungeon.DungeonMap;
@@ -40,7 +41,7 @@ public class AITweaks {
         boolean finish = false;
         int count = 0;
 
-        while (count < additional) {
+        while (!finish || count < additional) {
             cells.add(new Vector2(xStart, yStart));
 
             if (finish){
@@ -78,10 +79,12 @@ public class AITweaks {
         return isPathObstructed(getCellRaytrace(xStart, yStart, xEnd, yEnd, 0));
     }
 
+    /** return all cells, that obstructs path*/
     public static Array<Vector2> getPathObstructor(Array<Vector2> cells){
         AdvancedArray<Vector2> obstructors = new AdvancedArray<Vector2>();
         for (Vector2 cell : cells){
-            if (!GraphStorage.getNodeBottom((int) cell.x, (int) cell.y).getTile().isReachable()){
+            Node node = GraphStorage.getNodeBottom((int) cell.x, (int) cell.y);
+            if (node == null || !node.getTile().isReachable()){
                 obstructors.add(cell);
             }
         }
@@ -92,11 +95,13 @@ public class AITweaks {
         return getPathObstructor(getCellRaytrace(xStart, yStart, xEnd, yEnd, 0));
     }
 
+    /** return indexes of obstructors */
     public static Array<Integer> getObstructorsPos(Array<Vector2> cells){
         Array<Integer> obstructorsPos = new Array<Integer>();
         for (int i = 0; i < cells.size; i++) {
             Vector2 cell = cells.get(i);
-            if (!GraphStorage.getNodeBottom((int) cell.x, (int) cell.y).getTile().isReachable()){
+            Node node = GraphStorage.getNodeBottom((int) cell.x, (int) cell.y);
+            if (node == null || !node.getTile().isReachable()){
                 obstructorsPos.add(i);
             }
         }

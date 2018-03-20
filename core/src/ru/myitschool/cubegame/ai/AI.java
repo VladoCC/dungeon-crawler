@@ -1,6 +1,7 @@
 package ru.myitschool.cubegame.ai;
 
 import ru.myitschool.cubegame.ai.task.Task;
+import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.entities.EventAdapter;
 import ru.myitschool.cubegame.math.MathAction;
@@ -177,10 +178,20 @@ public abstract class AI extends EventAdapter implements Cloneable {
     }
 
     @Override
-    public void onEncounter() {
+    public void onEncounter(Encounter encounter) {
         Task task = tasks.peek();
         if (task != null) {
-            task.onEncounter();
+            task.onEncounter(encounter);
+        }
+        handleTask();
+    }
+
+    @Override
+    public void onDeath() {
+        super.onDeath();
+        Task task = tasks.peek();
+        if (task != null) {
+            task.onDeath();
         }
         handleTask();
     }

@@ -1,8 +1,6 @@
 package ru.myitschool.cubegame.effects;
 
-import com.badlogic.gdx.graphics.Texture;
 import ru.myitschool.cubegame.entities.Entity;
-import ru.myitschool.cubegame.screens.DungeonScreen;
 
 /**
  * Created by Voyager on 01.12.2017.
@@ -10,13 +8,10 @@ import ru.myitschool.cubegame.screens.DungeonScreen;
 public class CellEffect extends Effect implements Cloneable {
 
     FloorEffect floorEffect;
-    int index;
-    static int count = 0;
 
     public CellEffect(FloorEffect floorEffect) {
         super(null);
         this.floorEffect = floorEffect;
-        index = DungeonScreen.addLog("");
     }
 
     public FloorEffect getFloorEffect() {
@@ -30,13 +25,9 @@ public class CellEffect extends Effect implements Cloneable {
     public void onStepTo(int x1, int y1, int x2, int y2, Entity entity){
         if (!hasCell(x1, y1) && hasCell(x2, y2)){
             stepToAction(entity);
-            count++;
-            DungeonScreen.changeLog(count + ": To zone", index);
             System.out.println("TO ZONE!!!");
         } else if (hasCell(x1, y1) && hasCell(x2, y2)){
             movingInZoneAction(entity);
-            count++;
-            DungeonScreen.changeLog(count + ": In zone", index);
             System.out.println("IN ZONE!!!");
         }
     }
@@ -52,8 +43,6 @@ public class CellEffect extends Effect implements Cloneable {
     public void onStepFrom(int x1, int y1, int x2, int y2, Entity entity){
         if (!hasCell(x2, y2) && hasCell(x1, y1)){
             stepFromAction(entity);
-            count++;
-            DungeonScreen.changeLog(count + ": From zone", index);
             System.out.println("FROM ZONE!!!");
         }
     }
@@ -88,5 +77,15 @@ public class CellEffect extends Effect implements Cloneable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CellEffect effect = (CellEffect) o;
+
+        return floorEffect != null ? floorEffect.equals(effect.floorEffect) : effect.floorEffect == null;
     }
 }

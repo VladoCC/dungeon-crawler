@@ -22,6 +22,7 @@ public class Slash  extends Skill {
         setTargetCountMax(1);
         setDistanceMax(1);
         setDistanceMin(1);
+        setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_SWING);
         setTargetType(SKILL_TARGET_TYPE_FLOOR_SWING);
         Play play = new Play() {
             @Override

@@ -31,12 +31,12 @@ public class AttackEffect extends Effect {
             used = true;
         }if (getEntity().isMoved()){
             setDelete(true);
+            Entity.updateSkills();
         }
     }
 
     @Override
     public void endMove() {
-
     }
 
     @Override
@@ -65,6 +65,7 @@ public class AttackEffect extends Effect {
     @Override
     public void endSkill() {
         setDelete(true);
+        Entity.updateSkills();
     }
 
     @Override

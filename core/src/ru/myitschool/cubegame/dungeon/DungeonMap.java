@@ -3,11 +3,17 @@ package ru.myitschool.cubegame.dungeon;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
 import ru.myitschool.cubegame.ai.pathfinding.Node;
@@ -21,8 +27,9 @@ import ru.myitschool.cubegame.entities.enemies.Dummy;
 import ru.myitschool.cubegame.entities.enemies.GoblinWarrior;
 import ru.myitschool.cubegame.layer.DynamicTileLayer;
 import ru.myitschool.cubegame.layer.PathTileLayer;
-import ru.myitschool.cubegame.skills.FloatingDamageMark;
+import ru.myitschool.cubegame.skills.Skill;
 import ru.myitschool.cubegame.skills.Target;
+import ru.myitschool.cubegame.skills.targeting.TilePos;
 import ru.myitschool.cubegame.tiles.ColorTile;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 
@@ -43,8 +50,15 @@ public class DungeonMap extends TiledMap {
 
     static private DynamicTileLayer tileLayer;
     static private PathTileLayer pathLayer;
-    static private DynamicTileLayer targetLayer;
-    static private DynamicTileLayer effectLayer;
+    //static private DynamicTileLayer choosenTargetsLayer;
+    //static private DynamicTileLayer effectLayer;
+    static private DynamicTileLayer displayTargetLayer;
+    //static private DynamicTileLayer targetingZoneLayer;
+
+    static private Group effectGroup;
+    static private Group targetingZoneGroup;
+    static private Group displayTargetGroup;
+    static private Group choosenTargetsGroup;
 
     private InputMultiplexer input;
     private Pathfinder pathfinder;
@@ -60,10 +74,14 @@ public class DungeonMap extends TiledMap {
         //final float camYStart = camera.position.y;
         tileLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(tileLayer);
-        effectLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
-        getLayers().add(effectLayer);
-        targetLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
-        getLayers().add(targetLayer);
+        //effectLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+        //getLayers().add(effectLayer);
+        //targetingZoneLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+        //getLayers().add(targetingZoneLayer);
+        displayTargetLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+        getLayers().add(displayTargetLayer);
+        //choosenTargetsLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+        //getLayers().add(choosenTargetsLayer);
         pathLayer = new PathTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(pathLayer);
         createRooms(roomCountMax);
@@ -94,7 +112,6 @@ public class DungeonMap extends TiledMap {
                             character.getUsedSkill().drawTargets();
                         } else if (!character.isMovement()) {
                             character.setMovement();
-                            updateEntityPos(character);
                         }
                     }
                 } else {
@@ -118,8 +135,8 @@ public class DungeonMap extends TiledMap {
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 Vector3 pos = camera.unproject(new Vector3(screenX, screenY, 0));
-                int cellX = (int) (pos.x  / DungeonTile.TILE_WIDTH);
-                int cellY = (int) (pos.y / DungeonTile.TILE_HEIGHT);
+                int cellX = (int) Math.floor(pos.x  / DungeonTile.TILE_WIDTH);
+                int cellY = (int) Math.floor(pos.y / DungeonTile.TILE_HEIGHT);
                 DungeonCell cell = tileLayer.getCell(cellX, cellY);
                 Entity character = Entity.getNowPlaying();
                 int charX = Character.getNowPlaying().getTileX();
@@ -127,10 +144,11 @@ public class DungeonMap extends TiledMap {
                 System.out.println(character.isPlayer() + " ^ " + character.isControlled());
                 if (character.isPlayer() ^ character.isControlled()){
                     if (cellX != lastTileX || cellY != lastTileY) {
+                        displayTargetGroup.clear();
+                        lastTileX = cellX;
+                        lastTileY = cellY;
                         if (cell != null && !character.isMovement() && !character.isSkillUse()) {
                             System.out.println("CellX: " + cellX + ", CellY: " + cellY + ", tileX: " + lastTileX + ", tileY: " + lastTileY);
-                            lastTileX = cellX;
-                            lastTileY = cellY;
                             Node startNode = GraphStorage.getNodeBottom(charX, charY);
                             Node endNode = GraphStorage.getNodeBottom(cellX, cellY);
                             NodePath nodePath = Pathfinder.searchConnectionPath(startNode, endNode, true, character.getMp(false));
@@ -141,6 +159,11 @@ public class DungeonMap extends TiledMap {
                             } else {
                                character.setPath(null);
                                pathLayer.clearLayer();
+                            }
+                        } else if (character.isSkillUse()){
+                            Array<TilePos> array = character.getUsedSkill().displayTarget(cellX, cellY);
+                            for (TilePos tilePos : array){
+                                addCellToGroup(tilePos.getX(), tilePos.getY(), tilePos.getTile().getTextureRegion(), displayTargetGroup);
                             }
                         }
                     }
@@ -157,7 +180,8 @@ public class DungeonMap extends TiledMap {
                 } else if (keycode == Input.Keys.G){
                     spawn = !spawn;
                 } else if (keycode == Input.Keys.T){
-                    new FloatingDamageMark(1, 1, "very long test text field");
+                    System.out.println(effectGroup.getWidth() + " " + effectGroup.getHeight());
+                    System.out.println(choosenTargetsGroup.getWidth() + " " + choosenTargetsGroup.getHeight());
                 }
                 return false;
             }
@@ -165,7 +189,29 @@ public class DungeonMap extends TiledMap {
     }
 
     public static void clearTargetLayer(){
-        targetLayer.clearLayer();
+        choosenTargetsGroup.clear();
+    }
+
+    public static void clearTargetingZoneLayer(){
+        targetingZoneGroup.clear();
+    }
+
+    public static void drawTargetingZone(Skill skill){
+        if (skill.getType() != Skill.SKILL_TARGET_TYPE_SELF) {
+            int x = skill.getDoer().getTileX();
+            int y = skill.getDoer().getTileY();
+            int distanceMax = skill.getDistanceMax();
+            int distanceMin = skill.getDistanceMin();
+            System.out.println("drawing zone");
+            for (int i = x - distanceMax; i < x + distanceMax + 1; i++) {
+                for (int j = y - distanceMax; j < y + distanceMax + 1; j++) {
+                    int distance = Math.abs(x - i) + Math.abs(y - j);
+                    if (distanceMin <= distance && distance <= distanceMax) {
+                        addCellToGroup(i, j, new ColorTile(Color.CYAN, 1, false).getTextureRegion(), targetingZoneGroup);
+                    }
+                }
+            }
+        }
     }
 
     public static void clearPathLayer(){
@@ -262,6 +308,12 @@ public class DungeonMap extends TiledMap {
             }
         }
 
+        for (Entity entity : Room.getAddingArray()){
+            entity.add(Entity.getNowPlayingIndex() + 1);
+            addEntity(entity);
+        }
+        Room.getAddingArray().clear();
+
         roomsPool.removeIndex(0);
         roomsPlaced.add(room);
         return room;
@@ -313,6 +365,7 @@ public class DungeonMap extends TiledMap {
             ((DynamicTileLayer) layer).addUp(count);
         }
         /**Map moving code*/
+        FloorEffect.updateEffects(new Vector2(0, ROOM_HEIGHT));
         for (Entity entity : Entity.getPlayingEntities()) {
             entity.teleport(new Vector2(0, count));
         }
@@ -327,6 +380,7 @@ public class DungeonMap extends TiledMap {
         for (MapLayer layer : getLayers()){
             ((DynamicTileLayer) layer).addDown(count);
         }
+        FloorEffect.updateEffects(new Vector2(0, 0));
         /*for (Entity entity : Entity.getPlayingEntities()) {
             entity.teleport(new Vector2(0, -count));
         }*/
@@ -337,6 +391,7 @@ public class DungeonMap extends TiledMap {
         for (MapLayer layer : getLayers()){
             ((DynamicTileLayer) layer).addRight(count);
         }
+        FloorEffect.updateEffects(new Vector2(0, 0));
         //GraphStorage.createBottomGraph(tileLayer);
         /*for (Entity entity : Entity.getPlayingEntities()) {
             entity.teleport(new Vector2(count, 0));
@@ -349,6 +404,7 @@ public class DungeonMap extends TiledMap {
             ((DynamicTileLayer) layer).addLeft(count);
         }
         /**Map moving code*/
+        FloorEffect.updateEffects(new Vector2(ROOM_WIDTH, 0));
         for (Entity entity : Entity.getPlayingEntities()) {
             entity.teleport(new Vector2(count, 0));
         }
@@ -378,33 +434,49 @@ public class DungeonMap extends TiledMap {
             pathLayer.clearLayer();
             Node start = path.get(0);
             Node end = path.getLast();
-            tileLayer.getCell(start.getX(), start.getY()).setOccupied(false);
-            tileLayer.getCell(start.getX(), start.getY()).setEntity(null);
-            tileLayer.getCell(end.getX(), end.getY()).setOccupied(true);
-            tileLayer.getCell(end.getX(), end.getY()).setEntity(entity);
-            GraphStorage.createBottomGraph(tileLayer);
+            updateEntityPos(entity, start.getX(), start.getY(), end.getX(), end.getY());
         }
     }
 
+    public static void updateEntityPos(Entity entity, int x1, int y1, int x2, int y2){
+        tileLayer.getCell(x1, y1).setOccupied(false);
+        tileLayer.getCell(x1, y1).setEntity(null);
+        tileLayer.getCell(x2, y2).setOccupied(true);
+        tileLayer.getCell(x2, y2).setEntity(entity);
+        GraphStorage.createBottomGraph(tileLayer);
+    }
+
     public static void drawTargets(Array<Target> targets){
-        targetLayer.clearLayer();
+        choosenTargetsGroup.clear();
         for (Target target : targets){
-            DungeonCell cell = new DungeonCell(DungeonTile.targetTile);
-            targetLayer.setCell(target.getX(), target.getY(), cell);
+            addCellToGroup(target.getX(), target.getY(), DungeonTile.targetTile.getTextureRegion(), choosenTargetsGroup);
         }
     }
 
     public static void updateEffects(){
-        effectLayer.clearLayer();
+        effectGroup.clear();
         for (FloorEffect effect : FloorEffect.getEffects()) {
             if (effect.isShow()) {
                 ColorTile tile = new ColorTile(effect.getColor());
+                TextureRegionDrawable drawable = new TextureRegionDrawable(tile.getTextureRegion());
                 for (DungeonCell cell : effect.getCells()){
-                    DungeonCell effectCell = new DungeonCell(tile);
-                    effectLayer.setCell(cell.getX(), cell.getY(), effectCell);
+                    addCellToGroup(cell.getX(), cell.getY(), drawable, effectGroup);
+                }
+                for (Target target : effect.getNullCells()){
+                    addCellToGroup(target.getX(), target.getY(), drawable, effectGroup);
                 }
             }
         }
+    }
+
+    private static void addCellToGroup(int x, int y, Drawable drawable, Group group){
+        Image image = new Image(drawable);
+        image.setPosition(x * DungeonTile.TILE_WIDTH, - (y + 1) * DungeonTile.TILE_HEIGHT);
+        group.addActor(image);
+    }
+
+    private static void addCellToGroup(int x, int y, TextureRegion region, Group group){
+        addCellToGroup(x, y, new TextureRegionDrawable(region), group);
     }
 
     public int getWidth(){
@@ -417,5 +489,25 @@ public class DungeonMap extends TiledMap {
 
     public DynamicTileLayer getTileLayer() {
         return tileLayer;
+    }
+
+    public int getLayersCount(){
+        return getLayers().getCount();
+    }
+
+    public static void setEffectGroup(Group effectGroup) {
+        DungeonMap.effectGroup = effectGroup;
+    }
+
+    public static void setTargetingZoneGroup(Group targetingZoneGroup) {
+        DungeonMap.targetingZoneGroup = targetingZoneGroup;
+    }
+
+    public static void setDisplayTargetGroup(Group displayTargetGroup) {
+        DungeonMap.displayTargetGroup = displayTargetGroup;
+    }
+
+    public static void setChoosenTargetsGroup(Group choosenTargetsGroup) {
+        DungeonMap.choosenTargetsGroup = choosenTargetsGroup;
     }
 }

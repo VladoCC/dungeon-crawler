@@ -22,6 +22,7 @@ public class MindControl extends Skill {
         setDistanceMax(5);
         setDistanceMin(1);
         setTargetType(SKILL_TARGET_TYPE_ENEMY);
+        setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         setType(SKILL_TYPE_COOLDOWN);
         setCooldownMax(4);
         Play play = new Play() {

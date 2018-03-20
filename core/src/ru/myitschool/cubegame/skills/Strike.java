@@ -21,7 +21,8 @@ public class Strike extends Skill {
         setTargetCountMax(1);
         setDistanceMax(1);
         setDistanceMin(1);
-        setTargetType(SKILL_TARGET_TYPE_CHARACTER);
+        setTargetType(SKILL_TARGET_TYPE_ENEMY);
+        setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         Play play = new Play() {
             @Override
             public boolean check(Target target) {

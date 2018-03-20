@@ -1,5 +1,6 @@
 package ru.myitschool.cubegame.entities;
 
+import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.math.MathAction;
 
 /**
@@ -33,5 +34,7 @@ public interface Event {
 
     void onAny();
 
-    void onEncounter();
+    void onEncounter(Encounter encounter);
+
+    void onDeath();
 }

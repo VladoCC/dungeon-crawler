@@ -12,12 +12,20 @@ public class ColorTile extends DungeonTile {
 
     private final int ID = 1;
 
-    public ColorTile(Color color) {
+    public ColorTile(Color color){
+        this(color, 0.75f, true);
+    }
+
+    public ColorTile(Color color, float alpha, boolean filled) {
         super(null, 1, true, 1);
-        color.a = 0.75f;
+        color.a = alpha;
         Pixmap pixmap = new Pixmap(DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT, Pixmap.Format.RGBA8888);
         pixmap.setColor(color);
-        pixmap.fill();
+        if (filled) {
+            pixmap.fill();
+        } else {
+            pixmap.drawRectangle(1, 1, DungeonTile.TILE_WIDTH - 2, DungeonTile.TILE_HEIGHT - 2);
+        }
         TextureRegion tileRegion = new TextureRegion(new Texture(pixmap));
         setTextureRegion(tileRegion);
     }

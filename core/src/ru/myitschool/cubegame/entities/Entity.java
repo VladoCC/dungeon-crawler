@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.cubegame.ai.AITweaks;
 import ru.myitschool.cubegame.ai.pathfinding.Node;
 import ru.myitschool.cubegame.ai.pathfinding.NodePath;
 import ru.myitschool.cubegame.dungeon.DungeonCell;
 import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.effects.AttackEffect;
-import ru.myitschool.cubegame.effects.CellEffect;
 import ru.myitschool.cubegame.effects.Effect;
 import ru.myitschool.cubegame.effects.EffectArray;
 import ru.myitschool.cubegame.encounters.Encounter;
@@ -20,6 +20,7 @@ import ru.myitschool.cubegame.screens.DungeonScreen;
 import ru.myitschool.cubegame.skills.Skill;
 import ru.myitschool.cubegame.skills.Target;
 import ru.myitschool.cubegame.tiles.DungeonTile;
+import ru.myitschool.cubegame.utils.AdvancedArray;
 
 import java.util.ArrayList;
 
@@ -48,6 +49,7 @@ public class Entity extends EventAdapter {
     private boolean controlled = false;
     private boolean immobilized = false;
     private boolean roomOpened = false;
+    private boolean alive = true;
 
     private boolean throwXDirection;
     private boolean throwYDirection;
@@ -173,6 +175,7 @@ public class Entity extends EventAdapter {
         if (path != null) {
             movement = true;
             mp -= path.getCount() - 1;
+            DungeonMap.updateEntityPos(this);
             startMove();
             planMovement();
         }
@@ -273,13 +276,15 @@ public class Entity extends EventAdapter {
             }
             DungeonCell lastCell = DungeonMap.getCell((int) lastX, (int) lastY);
             DungeonCell cell = DungeonMap.getCell((int) thisX, (int) thisY);
-            if (lastCell.getEffect() != null){
+            /*if (lastCell.getEffect() != null){
                 CellEffect effect = lastCell.getEffect();
                 effect.onStepFrom((int) lastX,(int)  lastY,(int)  thisX,(int)  thisY, this);
             }
             if (cell.getEffect() != null){
                 cell.getEffect().onStepTo((int) lastX,(int)  lastY,(int)  thisX,(int)  thisY, this);
-            }
+            }*/
+            lastCell.onStepFrom((int) lastX,(int)  lastY,(int)  thisX,(int)  thisY, this);
+            cell.onStepTo((int) lastX,(int)  lastY,(int)  thisX,(int)  thisY, this);
 
             planMovement();
             if (path == null || path.getCount() < 1){
@@ -290,6 +295,10 @@ public class Entity extends EventAdapter {
 
     public static ArrayList<Entity> getPlayingEntities() {
         return playingEntities;
+    }
+
+    public static void removePlayingEntity(Entity entity){
+        playingEntities.remove(entity);
     }
 
     public Sprite getSprite() {
@@ -333,6 +342,7 @@ public class Entity extends EventAdapter {
         throwing = true;
         throwXEnd = false;
         throwYEnd = false;
+        DungeonMap.updateEntityPos(this, getTileX(), getTileY(), getTileX() + (int) tiles.x, getTileY() + (int) tiles.y);
     }
 
     public void throwing(float delta){
@@ -367,7 +377,6 @@ public class Entity extends EventAdapter {
         if (!throwing){
             x = Math.round(x / DungeonTile.TILE_WIDTH) * DungeonTile.TILE_WIDTH;
             y = Math.round(y / DungeonTile.TILE_HEIGHT) * DungeonTile.TILE_HEIGHT;
-            DungeonMap.updateEntityPos(this);
         }
         sprite.setPosition(x, y);
     }
@@ -452,7 +461,7 @@ public class Entity extends EventAdapter {
         addTarget(target.getX(), target.getY());
     }
 
-    public void addTarget(int cellX, int cellY){
+    public void addTarget(int cellX, int cellY){ //TODO move to skill
         if (isSkillUse()){
             setPath(null);
             //pathLayer.clearLayer();
@@ -506,6 +515,7 @@ public class Entity extends EventAdapter {
                     skill.setTargetCount(++count);
                 } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_SPLASH_NOCENTER) {
                     main = new Target(cellX - range + 1, cellY - range + 1);
+                    main.setCheckCoords(cellX, cellY);
                     for (int i = 0; i < 2 * (range - 1) + 1; i++) {
                         for (int j = 0; j < 2 * (range - 1) + 1; j++) {
                             if (!(cellX - range + 1 + i == cellX && cellY - range + 1 + j == cellY) && !(i == 0 && j == 0)){
@@ -637,44 +647,16 @@ public class Entity extends EventAdapter {
                         skill.setTargetCount(++count);
                     }
                 } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_WAVE) {
-                    if (cellY == charY && cellX > charX){
-                        for (int i = 1; i < range; i++) {
-                            Target linked = new Target(cellX + i, cellY);
-                            linked.setMain(main);
-                            linked.setLinked(true);
-                            System.out.println("Linked: " + linked.isLinked());
-                            main.addLinkedTarget(linked);
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    } else if (cellY == charY && cellX < charX){
-                        for (int i = 1; i < range; i++) {
-                            Target linked = new Target(cellX - i, cellY);
-                            linked.setMain(main);
-                            linked.setLinked(true);
-                            main.addLinkedTarget(linked);
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    } else if (cellX == charX && cellY > charY){
-                        for (int i = 1; i < range; i++) {
-                            Target linked = new Target(cellX, cellY + i);
-                            linked.setMain(main);
-                            linked.setLinked(true);
-                            main.addLinkedTarget(linked);
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    } else if (cellX == charX && cellY < charY){
-                        for (int i = 1; i < range; i++) {
-                            Target linked = new Target(cellX, cellY - i);
-                            linked.setMain(main);
-                            linked.setLinked(true);
-                            main.addLinkedTarget(linked);
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
+                    AdvancedArray<Vector2> array = AITweaks.getCellRaytrace(getTileX(), getTileY(), cellX, cellY, range - 1);
+                    array.clip(array.size - range + 1, array.size - 1);
+                    for (Vector2 pos : array){
+                        Target linked = new Target((int) pos.x, (int) pos.y);
+                        linked.setMain(main);
+                        linked.setLinked(true);
+                        main.addLinkedTarget(linked);
                     }
+                    skill.addTarget(main);
+                    skill.setTargetCount(++count);
                 } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_WAVE_CONTROLLABLE) {
                     //TODO
                 } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_SINGLE){
@@ -737,19 +719,22 @@ public class Entity extends EventAdapter {
             change = onHeal(change);
             if (hp + change > hpMax){
                 hp = hpMax;
-                return hpMax - hp;
+                change = hpMax - hp;
             } else {
                 hp += change;
             }
         } else if (change < 0){
             change = -onDamage(Math.abs(change));
-            if (hp < change){
+            if (hp <= change){
                 int lastHp = hp;
                 hp = 0;
-                return lastHp;
+                change = lastHp;
             } else {
                 hp += change;
             }
+        }
+        if (hp < 1){
+            onDeath();
         }
         return change;
     }
@@ -842,6 +827,10 @@ public class Entity extends EventAdapter {
         return moved;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
     public boolean isImmobilized() {
         return immobilized;
     }
@@ -929,6 +918,10 @@ public class Entity extends EventAdapter {
         skills.removeValue(skill, true);
     }
 
+    public static void updateSkills() {
+        Entity.updateSkills = true;
+    }
+
     public boolean isSkillUse() {
         return skillUse;
     }
@@ -976,10 +969,7 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            effect.endTurn();
-        }
+        DungeonMap.getCell(getTileX(), getTileY()).endTurn();
 
         for (int i = 0; i < skills.size; i++) {
             skills.get(i).cooldown();
@@ -1000,10 +990,7 @@ public class Entity extends EventAdapter {
             checkRemoveEffect(i);
         }
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            effect.startTurn();
-        }
+        DungeonMap.getCell(getTileX(), getTileY()).startTurn();
     }
 
     @Override
@@ -1013,10 +1000,7 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            effect.startMove();
-        }
+        DungeonMap.getCell(getTileX(), getTileY()).startMove();
 
         moved = true;
     }
@@ -1030,29 +1014,23 @@ public class Entity extends EventAdapter {
         checkRemoveEffects();
         System.out.println("MP: " + getMp(false) + " : " + getMp(true));
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            effect.endMove();
-        }
+        DungeonMap.getCell(getTileX(), getTileY()).endMove();
     }
 
     @Override
     public int countMp(boolean withMovement) {
         int mpEffect = 0;
         for (int i = 0; i < effects.size(); i++) {
-            mpEffect = effects.get(i).countMp(withMovement);
+            mpEffect += effects.get(i).countMp(withMovement);
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            mpEffect = effect.countMp(withMovement);
-        }
+        mpEffect += DungeonMap.getCell(getTileX(), getTileY()).countMp(withMovement);
         return mpEffect;
     }
 
     @Override
-    public boolean canUseSkill() { //TODO this code not used for now
+    public boolean canUseSkill() {
         boolean use = false;
         for (int i = 0; i < effects.size(); i++){
             if (effects.get(i).isSkillUse()) {
@@ -1061,12 +1039,13 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            if (effect.isSkillUse()) {
+        DungeonCell cell = DungeonMap.getCell(getTileX(), getTileY());/** calls to cell.canUseSkill() not working properly*/
+        for (Effect effect : cell.getEffects()){
+            if (effect.isSkillUse()){
                 use = effect.canUseSkill();
             }
         }
+        System.out.println("Can use: " + use);
         return use;
     }
 
@@ -1077,10 +1056,8 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            effect.startSkill();
-        }
+        DungeonMap.drawTargetingZone(usedSkill);
+        DungeonMap.getCell(getTileX(), getTileY()).startSkill();
     }
 
     @Override
@@ -1090,10 +1067,8 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            effect.endSkill();
-        }
+        DungeonMap.getCell(getTileX(), getTileY()).endSkill();
+        DungeonMap.clearTargetingZoneLayer();
     }
 
     @Override
@@ -1103,10 +1078,7 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            action = effect.attackBonus(action);
-        }
+        action = DungeonMap.getCell(getTileX(), getTileY()).attackBonus(action);
         return action;
     }
 
@@ -1118,10 +1090,7 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            accuracy = effect.accuracyBonus(accuracy, target);
-        }
+        accuracy = DungeonMap.getCell(getTileX(), getTileY()).accuracyBonus(accuracy, target);
         return accuracy;
     }
 
@@ -1132,10 +1101,7 @@ public class Entity extends EventAdapter {
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            damage = effect.onDamage(damage);
-        }
+        damage = DungeonMap.getCell(getTileX(), getTileY()).onDamage(damage);
 
         if (damage > 0){
             return damage;
@@ -1146,18 +1112,37 @@ public class Entity extends EventAdapter {
     @Override
     public int onHeal(int heal) {//TODO maybe funcs needs to get default heal?
         for (int i = 0; i < effects.size(); i++) {
-            heal = effects.get(i).onDamage(heal);
+            heal = effects.get(i).onHeal(heal);
         }
         checkRemoveEffects();
 
-        Effect effect = DungeonMap.getCell(getTileX(), getTileY()).getEffect();
-        if (effect != null){
-            heal = effect.onHeal(heal);
-        }
+        heal = DungeonMap.getCell(getTileX(), getTileY()).onHeal(heal);
 
         if (heal > 0){
             return heal;
         }
         return 0;
+    }
+
+    @Override
+    public void onEncounter(Encounter encounter) {//TODO this code not used for now
+        for (int i = 0; i < effects.size(); i++) {
+            effects.get(i).onEncounter(encounter);
+        }
+        checkRemoveEffects();
+
+        DungeonMap.getCell(getTileX(), getTileY()).onEncounter(encounter);
+    }
+
+    @Override
+    public void onDeath() {
+        for (int i = 0; i < effects.size(); i++) {
+            effects.get(i).onDeath();
+        }
+        checkRemoveEffects();
+
+        DungeonMap.getCell(getTileX(), getTileY()).onDeath();
+
+        alive = false;
     }
 }

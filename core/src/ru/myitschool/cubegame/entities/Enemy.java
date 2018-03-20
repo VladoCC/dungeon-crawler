@@ -1,6 +1,7 @@
 package ru.myitschool.cubegame.entities;
 
 import ru.myitschool.cubegame.ai.AI;
+import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.entities.enemies.GoblinWarrior;
 import ru.myitschool.cubegame.math.MathAction;
 
@@ -231,10 +232,18 @@ public abstract class Enemy extends Entity implements Cloneable {
     }
 
     @Override
-    public void onEncounter() {
-        super.onEncounter();
+    public void onEncounter(Encounter encounter) {
+        super.onEncounter(encounter);
         if (!isControlled() && enemyAI != null) {
-            enemyAI.onEncounter();
+            enemyAI.onEncounter(encounter);
+        }
+    }
+
+    @Override
+    public void onDeath() {
+        super.onDeath();
+        if (!isControlled() && enemyAI != null) {
+            enemyAI.onDeath();
         }
     }
 }

@@ -23,6 +23,7 @@ public class SpearSting extends Skill {
         setDistanceMin(1);
         setRange(2);
         setTargetType(SKILL_TARGET_TYPE_FLOOR_WAVE);
+        setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_WAVE);
         Play play = new Play() {
             @Override
             public boolean check(Target target) {

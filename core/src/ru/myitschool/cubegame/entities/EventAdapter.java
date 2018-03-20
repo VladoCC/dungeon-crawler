@@ -1,5 +1,6 @@
 package ru.myitschool.cubegame.entities;
 
+import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.math.MathAction;
 
 /**
@@ -7,7 +8,7 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 
 /**
- * After every update of this class and Event interface, Enemy and AI is need to be updated
+ * After every update of this class and Event interface, Enemy, DungeonCell and AI is need to be updated
  */
 public class EventAdapter implements Event {
     @Override
@@ -77,10 +78,15 @@ public class EventAdapter implements Event {
     }
 
     @Override
-    public void onEncounter() {
+    public void onEncounter(Encounter encounter) {
         onAny();
     }
 
     @Override
     public void onAny() {}
+
+    @Override
+    public void onDeath() {
+
+    }
 }

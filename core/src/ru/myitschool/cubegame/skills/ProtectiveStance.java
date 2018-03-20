@@ -26,6 +26,7 @@ public class ProtectiveStance extends Skill {
         setDistanceMax(1);
         setDistanceMin(1);
         setTargetType(SKILL_TARGET_TYPE_CHARACTER);
+        setTypeDisplayer(SKILL_TARGET_TYPE_CHARACTER);
         Play play = new Play() {
             @Override
             public boolean check(Target target) {

@@ -23,6 +23,7 @@ public class Immobilize extends Skill {
         setDistanceMin(1);
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_ENEMY);
+        setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         setType(SKILL_TYPE_COOLDOWN_DICE);
         setCooldownMax(2);
         setObstruct(false);

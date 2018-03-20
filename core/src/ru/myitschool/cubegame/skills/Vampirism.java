@@ -22,6 +22,7 @@ public class Vampirism extends Skill {
         setDistanceMin(1);
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_ENEMY);
+        setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         Play play = new Play() {
             @Override
             public boolean check(Target target) {
@@ -39,6 +40,8 @@ public class Vampirism extends Skill {
                     int hp = entity.addHp(damage);
                     doer.addHp(Math.abs(hp));
                     mark.addText(damage + "");
+                    FloatingDamageMark damageMark = new FloatingDamageMark(doer.getTileX(), doer.getTileY(), -damage + "");
+                    damageMark.show();
                 }
             }
         });

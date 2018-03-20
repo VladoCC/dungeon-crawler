@@ -21,6 +21,7 @@ public class Battlecry extends Skill {
         setIcon(new Texture("battle_cry.png"));
         setMark(false);
         setTargetType(SKILL_TARGET_TYPE_SELF);
+        setTypeDisplayer(SKILL_TARGET_TYPE_SELF);
     }
 
     @Override

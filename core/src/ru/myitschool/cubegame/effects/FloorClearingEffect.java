@@ -1,7 +1,6 @@
 package ru.myitschool.cubegame.effects;
 
 import com.badlogic.gdx.graphics.Texture;
-import ru.myitschool.cubegame.entities.Entity;
 
 /**
  * Created by Voyager on 29.11.2017.
@@ -21,8 +20,8 @@ public class FloorClearingEffect extends Effect {
         setDescription(description);
         setIcon(icon);
         setPositive(positive);
-        setStackable(false);
-        setStackSize(0);
+        setStackable(true);
+        setStackSize(4096);
         setExpiring(true);
         setExpireTurns(1);
         setHide(true);
