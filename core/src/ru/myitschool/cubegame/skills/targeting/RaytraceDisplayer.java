@@ -18,7 +18,7 @@ public class RaytraceDisplayer implements TargetDisplayer {
             AdvancedArray<Vector2> cells = AITweaks.getCellRaytrace(skill.getDoer().getTileX(), skill.getDoer().getTileY(), x, y, 0);
             cells.clip(1, cells.size - 2);
             int max = cells.size;
-            Array<Integer> poses = AITweaks.getObstructorsPos(cells);
+            Array<Integer> poses = AITweaks.getObstructorIndexes(cells);
             System.out.println("X: " + x + " Y: " + y);
             if (obstruct) {
                 if (poses.size > 0) {

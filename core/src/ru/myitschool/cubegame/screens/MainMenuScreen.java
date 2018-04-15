@@ -2,10 +2,7 @@ package ru.myitschool.cubegame.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,15 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
-import ru.myitschool.cubegame.dungeon.DungeonMap;
-import ru.myitschool.cubegame.entities.Character;
-import ru.myitschool.cubegame.skills.*;
-import ru.myitschool.cubegame.tiles.DungeonTile;
+import ru.myitschool.cubegame.entities.Entity;
 
 
-public class MainMenuScreen implements Screen
-{
+public class MainMenuScreen extends AdvancedScreen {
 	private TextureAtlas atlas;
 	private Skin skin;
 	//private Table table;
@@ -34,12 +26,8 @@ public class MainMenuScreen implements Screen
 	private DungeonScreen gameScreen;
 	private Table table;
 	private Stage stage;
-	private InputMultiplexer input;
-
 	
-	public MainMenuScreen(InputMultiplexer input)
-	{
-	    this.input = input;
+	public MainMenuScreen() {
 		this.stage = new Stage();
 		this.atlas = new TextureAtlas("data/ui/ui.pack");
 		this.font = new BitmapFont();
@@ -54,62 +42,10 @@ public class MainMenuScreen implements Screen
 		this.buttonStyle.font = this.font;
 		
 		this.skin.add("default", this.buttonStyle);
-		
-		
+
 		this.playButton = new TextButton("Play", this.skin);
 		this.exitButton = new TextButton("Exit", this.skin);
 	}
-
-	private void genChars(int count){
-	    int x = DungeonMap.ROOM_WIDTH / 2 - 1;
-	    int y = DungeonMap.ROOM_HEIGHT / 2 - 1;
-        if (count  > 0){
-            x *= DungeonTile.TILE_WIDTH;
-            y *= DungeonTile.TILE_HEIGHT;
-            System.out.println(x + "; " + y);
-            Character warrior = new Character(new Texture("sprites/Char1.png"), new Texture("warrior.png"), x, y, 20, 20, 6, 6,15);
-            Array<Skill> skills = new Array<Skill>();
-            skills.add(new SpearSting(warrior));
-            skills.add(new Slash(warrior));
-            skills.add(new ShieldBash(warrior));
-            skills.add(new Mark(warrior));
-            warrior.setSkills(skills);
-            count--;
-        }
-        if (count > 0){
-            x += DungeonTile.TILE_WIDTH;
-            Character mage = new Character(new Texture("sprites/Char1.png"), new Texture("mage.png"), x, y, 20, 20, 6, 6,15);
-            Array<Skill> skills = new Array<Skill>();
-            skills.add(new MindControl(mage));
-            skills.add(new CloudOfKnives(mage));
-            skills.add(new ForceWave(mage));
-            skills.add(new Immobilize(mage));
-            mage.setSkills(skills);
-            count--;
-        }
-        if (count > 0){
-            y += DungeonTile.TILE_HEIGHT;
-            Character rogue = new Character(new Texture("sprites/Char1.png"), new Texture("rogue.png"), x, y, 15, 20, 6,6,15);
-            Array<Skill> skills = new Array<Skill>();
-            skills.add(new Strike(rogue));
-            skills.add(new JaggedSword(rogue));
-            skills.add(new Shoot(rogue));
-            skills.add(new Battlecry(rogue));
-            rogue.setSkills(skills);
-            count--;
-        }
-        if (count > 0){
-            x -= DungeonTile.TILE_WIDTH;
-            Character cleric = new Character(new Texture("sprites/Char1.png"), new Texture("cleric.png"), x, y, 20, 20, 6, 6,15);
-            Array<Skill> skills = new Array<Skill>();
-            skills.add(new Heal(cleric));
-            skills.add(new GodsProtection(cleric));
-            skills.add(new Vampirism(cleric));
-            skills.add(new Bomb(cleric));
-            cleric.setSkills(skills);
-            count--;
-        }
-    }
 
 	@Override
 	public void render(float delta) 
@@ -134,8 +70,9 @@ public class MainMenuScreen implements Screen
 			@Override
 	        public void clicked(InputEvent event, float x, float y) 
 	        {
-	        	input.removeProcessor(stage );
-	            ((Game)Gdx.app.getApplicationListener()).setScreen(new DungeonScreen(input));
+	        	getInput().removeProcessor(stage);
+                Entity.getPlayingEntities().removeIf(entity -> entity.isEnemy());
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new CharGenScreen());
 	            //Gdx.graphics.setWindowedMode(1280, 720);
 	        }
 	    });
@@ -152,8 +89,7 @@ public class MainMenuScreen implements Screen
         table.setFillParent(true);
         stage.addActor(table);
 
-        input.addProcessor(stage);
-        genChars(4);
+        getInput().addProcessor(stage);
 	}
 
 	@Override

@@ -16,6 +16,8 @@ public class MyGdxGame extends Game
     protected BitmapFont font;
     protected SpriteBatch batch;
 
+    private static InputMultiplexer input;
+
     @Override
     public void create() {
         font = new BitmapFont();
@@ -23,10 +25,11 @@ public class MyGdxGame extends Game
         DungeonTile.initTiles();
         Encounter.initEncouters();
         Enemy.createCRTable();
-        InputMultiplexer input = new InputMultiplexer();
+        input = new InputMultiplexer();
+        input.addProcessor(new InputAdapter());
 
         //this.gameScreen = new GameScreen(this);
-        this.mainMenuScreen = new MainMenuScreen(input);
+        this.mainMenuScreen = new MainMenuScreen();
         this.setScreen(this.mainMenuScreen);
         input.addProcessor(new InputAdapter(){
             @Override
@@ -42,6 +45,10 @@ public class MyGdxGame extends Game
             }
         });
         Gdx.input.setInputProcessor(input);
+    }
+
+    public static void setScreenInput(InputProcessor inputProcessor){
+        input.getProcessors().set(0, inputProcessor);
     }
 
     @Override

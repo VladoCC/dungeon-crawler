@@ -17,26 +17,54 @@ public class FloorEffect {
     Array<DungeonCell> cells = new Array<DungeonCell>();
     Array<Target> nullCells = new Array<Target>();
 
-    Color color = Color.PURPLE;
+    Color color;
     boolean show = true;
+    boolean activate = true;
     CellEffect effect;
 
-    public FloorEffect(Array<Target> cells, CellEffect effect) {
-        effects.add(this);
+    public FloorEffect(Array<Target> cells, CellEffect effect, Color color, boolean show, boolean activate) {
         effect.setFloorEffect(this);
         this.effect = effect;
         for (Target cell : cells){
-            if (!addCell(cell)){
+            if (!activate || (activate && !addCell(cell))){
                 nullCells.add(cell);
             }
         }
-        DungeonMap.updateEffects();
+        this.activate = activate;
+        this.color = color;
+        this.show = show;
+        if (activate) {
+            effects.add(this);
+            DungeonMap.updateEffects();
+        }
     }
 
     public FloorEffect(Array<Target> cells, CellEffect effect, Color color, boolean show) {
-        this(cells, effect);
-        this.color = color;
-        this.show = show;
+        this(cells, effect, color, show, true);
+    }
+
+    public FloorEffect(Array<Target> cells, CellEffect effect, boolean show, boolean activate) {
+        this(cells, effect, null, show, activate);
+    }
+
+    public FloorEffect(Array<Target> cells, CellEffect effect, boolean activate) {
+        this(cells, effect, null, false, activate);
+    }
+
+    public void activate(){
+        if (!activate){
+            activate = true;
+            Array<Target> newCells = new Array<Target>();
+            for (int i = 0; i < nullCells.size; i++) {
+                Target cell = nullCells.get(i);
+                if (!addCell(cell)){
+                    newCells.add(cell);
+                }
+            }
+            nullCells = newCells;
+        }
+        effects.add(this);
+        DungeonMap.updateEffects();
     }
 
     public boolean addCell(Target target) {
@@ -44,16 +72,16 @@ public class FloorEffect {
         if (cell != null){
             cells.add(cell);
             cell.addEffect((CellEffect) effect.clone());
-            DungeonMap.updateEffects();
             return true;
         }
         return false;
     }
 
     public void updateCells(Vector2 movement){
-        for (Target target : nullCells){
+        for (int i = 0; i < nullCells.size; i++) {
+            Target target = nullCells.get(i);
             target.move(movement);
-            if (addCell(target)){
+            if (addCell(target)) {
                 nullCells.removeValue(target, false);
             }
         }
@@ -63,6 +91,14 @@ public class FloorEffect {
         for (FloorEffect effect : effects){
             effect.updateCells(movements);
         }
+        DungeonMap.updateEffects();
+    }
+
+    public static void clearEffects(){
+        for (FloorEffect effect : effects){
+            effect.removeEffect(false);
+        }
+        effects.clear();
     }
 
     public CellEffect getEffect() {
@@ -78,13 +114,15 @@ public class FloorEffect {
         DungeonMap.updateEffects();
     }
 
-    public void removeEffect(){
+    public void removeEffect(boolean update){
         for (DungeonCell cell : cells) {
             cell.removeEffect(effect);
         }
         cells.clear();
         setShow(false);
-        DungeonMap.updateEffects();
+        if (update) {
+            DungeonMap.updateEffects();
+        }
     }
 
     public boolean hasCell(int x, int y){

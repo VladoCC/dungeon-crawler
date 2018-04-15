@@ -36,7 +36,7 @@ public class ForceWave extends Skill {
             public boolean targetCreation(int x, int y, Array<TilePos> array, Skill skill) {
                 AdvancedArray<Vector2> raytrace = AITweaks.getCellRaytrace(doer.getTileX(), doer.getTileY(), x, y, 2);
                 raytrace.clip(raytrace.size - 2, raytrace.size - 1);
-                Array<Integer> poses = AITweaks.getObstructorsPos(raytrace);
+                Array<Integer> poses = AITweaks.getObstructorIndexes(raytrace, true);
                 if (poses.size > 0){
                     raytrace.clip(0, poses.get(0) - 1);
                 }
@@ -59,13 +59,13 @@ public class ForceWave extends Skill {
             public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success) {
                     AdvancedArray<Vector2> array = AITweaks.getCellRaytrace(doer.getTileX(), doer.getTileY(), target.getX(), target.getY(), 2);
-                    array.clip(array.size - 3, array.size - 1);
-                    Array<Integer> poses = AITweaks.getObstructorsPos(array);
-                    if (poses.size > 0){
-                        array.clip(0, poses.get(0) - 1);
-                    }
-                    Vector2 start = array.getFirst();
+                    Vector2 start = array.get(array.size - 3);
+                    array.clip(array.size - 2, array.size - 1);
+                    Array<Integer> poses = AITweaks.getObstructorIndexes(array, true);
                     Vector2 end = array.getLast();
+                    if (poses.size > 0){
+                        end = array.get(poses.get(0) - 1);
+                    }
                     target.getEntity().throwEntity(new Vector2(end.x - start.x, end.y - start.y));
                     mark.addText("Success");
                 }

@@ -13,7 +13,7 @@ public class ColorTile extends DungeonTile {
     private final int ID = 1;
 
     public ColorTile(Color color){
-        this(color, 0.75f, true);
+        this(color, getAlpha(color.a), true);
     }
 
     public ColorTile(Color color, float alpha, boolean filled) {
@@ -28,6 +28,13 @@ public class ColorTile extends DungeonTile {
         }
         TextureRegion tileRegion = new TextureRegion(new Texture(pixmap));
         setTextureRegion(tileRegion);
+    }
+
+    public static float getAlpha(float defaultAlpha){
+        if (defaultAlpha == 1){
+            return 0.75f;
+        }
+        return defaultAlpha;
     }
 
     public int getID() {

@@ -1,6 +1,7 @@
 package ru.myitschool.cubegame.ai;
 
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.cubegame.ai.pathfinding.EntityPath;
 import ru.myitschool.cubegame.ai.pathfinding.NodePath;
 import ru.myitschool.cubegame.ai.task.MoveTask;
 import ru.myitschool.cubegame.ai.task.SkillTask;
@@ -34,21 +35,27 @@ public class GoblinAI extends AI {
 
     @Override
     public void aiAnalyze() {
-        Object[] nearest = AITweaks.getNearestEntityAndPath(controlledEntity.getTileX(), controlledEntity.getTileY(), AITweaks.TYPE_CHARACTER);
+        /*Object[] nearest = AITweaks.getNearestEntityAndPath(controlledEntity.getTileX(), controlledEntity.getTileY(), AITweaks.TYPE_CHARACTER);
         Entity entity = (Entity) nearest[0];
-        NodePath path = (NodePath) nearest[1];
-        path.cutLast();
-        int distance = path.getCost();
-        int speed = controlledEntity.getSpeed();
-        if (distance > 0 && distance <= controlledEntity.getSpeed()){
-            addTask(new MoveTask(controlledEntity, path));
-            Array<Target> targets = new Array<Target>();
-            targets.add(new Target(entity.getTileX(), entity.getTileY()));
-            addTask(new SkillTask(controlledEntity, scratchSkill, targets));
-        } else if (distance > speed){
-            addTask(new MoveTask(controlledEntity, path, true, true));
-        } else if (distance == 0) {
-            addTask(new SkillTask(controlledEntity, stanceSkill, new Target(entity.getTileX(), entity.getTileY())));
+        NodePath path = (NodePath) nearest[1];*/
+        Array<EntityPath> paths = AITweaks.getAllEntityPaths(controlledEntity.getTileX(), controlledEntity.getTileY(), AITweaks.TYPE_CHARACTER, false);
+        if (paths.size > 0) {
+            EntityPath entityPath = paths.first();
+            Entity entity = entityPath.getEntity();
+            NodePath path = entityPath.getPath();
+            path.cutLast();
+            int distance = path.getCost();
+            int speed = controlledEntity.getSpeed();
+            if (distance > 0 && distance <= controlledEntity.getSpeed()) {
+                addTask(new MoveTask(controlledEntity, path));
+                Array<Target> targets = new Array<Target>();
+                targets.add(new Target(entity.getTileX(), entity.getTileY()));
+                addTask(new SkillTask(controlledEntity, scratchSkill, targets));
+            } else if (distance > speed) {
+                addTask(new MoveTask(controlledEntity, path, true, true));
+            } else if (distance == 0) {
+                addTask(new SkillTask(controlledEntity, stanceSkill, new Target(entity.getTileX(), entity.getTileY())));
+            }
         }
     }
 

@@ -32,6 +32,6 @@ public class FloorClearingEffect extends Effect {
     @Override
     public void onExpire() {
         super.onExpire();
-        effect.removeEffect();
+        effect.removeEffect(true);
     }
 }

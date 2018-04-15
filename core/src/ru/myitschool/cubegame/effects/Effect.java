@@ -2,14 +2,13 @@ package ru.myitschool.cubegame.effects;
 
 import com.badlogic.gdx.graphics.Texture;
 import ru.myitschool.cubegame.entities.Entity;
-import ru.myitschool.cubegame.entities.Event;
 import ru.myitschool.cubegame.entities.EventAdapter;
 import ru.myitschool.cubegame.math.MathAction;
 
 /**
  * Created by Voyager on 04.06.2017.
  */
-public class Effect extends EventAdapter {
+public class Effect extends EventAdapter implements Cloneable {
 
     protected int type;
 
@@ -145,6 +144,29 @@ public class Effect extends EventAdapter {
 
     public void onExpire(){
 
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            Effect effect = (Effect) super.clone();
+            effect.setStackSize(getStackSize());
+            effect.setType(getType());
+            effect.setStackable(isStackable());
+            effect.setSkillUse(isSkillUse());
+            effect.setDelete(isDelete());
+            effect.setDescription(getDescription());
+            effect.setExpireTurns(getExpireTurns());
+            effect.setExpiring(isExpiring());
+            effect.setHide(isHide());
+            effect.setIcon(getIcon());
+            effect.setName(getName());
+            effect.setPositive(isPositive());
+            return effect;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /** Events */

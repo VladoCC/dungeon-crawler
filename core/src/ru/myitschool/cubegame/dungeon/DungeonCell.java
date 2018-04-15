@@ -2,6 +2,7 @@ package ru.myitschool.cubegame.dungeon;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
 import ru.myitschool.cubegame.effects.CellEffect;
 import ru.myitschool.cubegame.effects.Effect;
 import ru.myitschool.cubegame.encounters.Encounter;
@@ -75,13 +76,13 @@ public class DungeonCell extends TiledMapTileLayer.Cell implements Event {
 
     public void onStepTo(int x1, int y1, int x2, int y2, Entity entity){
         for (CellEffect effect : effects){
-            effect.onStepTo(x1, y1, x2, y2, entity);
+            effect.stepToAction(x1, y1, x2, y2, entity);
         }
     }
 
     public void onStepFrom(int x1, int y1, int x2, int y2, Entity entity){
         for (CellEffect effect : effects){
-            effect.onStepFrom(x1, y1, x2, y2, entity);
+            effect.stepFromAction(x1, y1, x2, y2, entity);
         }
     }
 
@@ -231,5 +232,8 @@ public class DungeonCell extends TiledMapTileLayer.Cell implements Event {
             Effect effect = effects.get(i);
             effect.onDeath();
         }
+        occupied = false;
+        entity = null;
+        GraphStorage.createBottomGraph();
     }
 }

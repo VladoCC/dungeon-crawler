@@ -1,6 +1,8 @@
 package ru.myitschool.cubegame.screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -33,6 +35,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.myitschool.cubegame.InterfaceElements;
 import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
+import ru.myitschool.cubegame.dungeon.Dungeon;
 import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.dungeon.Room;
 import ru.myitschool.cubegame.effects.Effect;
@@ -45,18 +48,19 @@ import ru.myitschool.cubegame.skills.Skill;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 
 import java.awt.*;
+import java.util.Iterator;
 
 /**
  * Created by Voyager on 22.04.2017.
  */
-public class DungeonScreen implements Screen {
+public class DungeonScreen extends AdvancedScreen {
 
     OrthographicCamera mainCamera;
     OrthographicCamera yUpCamera;
     ru.myitschool.cubegame.dungeon.DungeonMap dungeonMap;
     OrthogonalTiledMapRenderer renderer;
 
-    private InputMultiplexer input;
+    private Dungeon dungeon;
 
     private boolean moveLeft = false;
     private boolean moveRight = false;
@@ -112,8 +116,8 @@ public class DungeonScreen implements Screen {
     TextureAtlas atlas;
     Skin skin;
 
-    public DungeonScreen(InputMultiplexer input) {
-        this.input = input;
+    public DungeonScreen(Dungeon dungeon) {
+        this.dungeon = dungeon;
     }
 
     @Override
@@ -133,7 +137,7 @@ public class DungeonScreen implements Screen {
         mainCamera = new OrthographicCamera(w, h);
         mainCamera.setToOrtho(true);
         mainCamera.update();
-        input.addProcessor(new InputAdapter(){
+        getInput().addProcessor(new InputAdapter(){
             @Override
             public boolean mouseMoved(int screenX, int screenY) {
                 mouseX = screenX;
@@ -182,7 +186,7 @@ public class DungeonScreen implements Screen {
                     if (restartTimer >= 5){
                         mainCamera.position.x = 0;
                         mainCamera.position.y = 0;
-                        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(12, 3, 21, mainCamera, input);
+                        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(dungeon, mainCamera, getInput());
                         renderer = new OrthogonalTiledMapRenderer(dungeonMap);
                     }
                     return true;
@@ -351,10 +355,10 @@ public class DungeonScreen implements Screen {
         Image frame = new Image(frameDrawable);
         frameTable.add(frame);
 
-        input.addProcessor(mainStage);
+        getInput().addProcessor(mainStage);
         mainCamera.position.x = 0;
         mainCamera.position.y = 0;
-        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(12, 3, 21, mainCamera, input);
+        dungeonMap = new ru.myitschool.cubegame.dungeon.DungeonMap(dungeon, mainCamera, getInput());
 
         cameraStage = new Stage();
         cameraStage.getViewport().setCamera(yUpCamera);
@@ -390,10 +394,10 @@ public class DungeonScreen implements Screen {
         }
         if (restartTimer >= 5){
             restartTimer = 0;
-            input.removeProcessor(input.size()-1);
+            getInput().removeProcessor(getInput().size()-1);
             mainCamera.position.x = 0;
             mainCamera.position.y = 0;
-            dungeonMap = new DungeonMap(12, 3, 21, mainCamera, input);
+            dungeonMap = new DungeonMap(dungeon, mainCamera, getInput());
             renderer = new OrthogonalTiledMapRenderer(dungeonMap);
         }
         if (moveLeft || moveRight || moveUp || moveDown) { //TODO add method for camera moving
@@ -401,21 +405,18 @@ public class DungeonScreen implements Screen {
             final float h = Gdx.graphics.getHeight();
             if (moveLeft) {
                 mainCamera.translate(-500 * delta, 0); //TODO сделать скорость зависящей от расстояния до стенки
-                mainCamera.update();
             } else if (moveRight) {
                 mainCamera.translate(500 * delta, 0);
-                mainCamera.update();
             }
             if (moveUp) {
                 mainCamera.translate(0, -500 * delta);
-                mainCamera.update();
             } else if (moveDown) {
                 mainCamera.translate(0, 500 * delta);
-                mainCamera.update();
             }
-            yUpCamera.position.x = mainCamera.position.x;
-            yUpCamera.position.y = -mainCamera.position.y;
-            yUpCamera.update();
+            updateCamera();
+        }
+        if (DungeonMap.isUpdateCamera()){
+            updateCamera();
         }
         mainCamera.update();
         charBatch.setProjectionMatrix(mainCamera.combined);
@@ -435,11 +436,19 @@ public class DungeonScreen implements Screen {
 
         Entity nowPlayingEntity = Entity.getNowPlaying();
         charBatch.begin();
-        for (Entity entity : Entity.getPlayingEntities()) {
+        Entity.getPlayingEntities().removeIf(entity -> !entity.isAlive());
+        for (Entity entity : Room.getAddingArray()){
+            entity.add(Entity.getNowPlayingIndex() + 1);
+            DungeonMap.addEntity(entity);
+        }
+        Room.getAddingArray().clear();
+
+        Iterator<Entity> entityIterator = Entity.getPlayingEntities().iterator();
+        while (entityIterator.hasNext()) {
+            Entity entity = entityIterator.next();
             act(entity, delta);
             entity.getSprite().draw(charBatch);
         }
-        Entity.getPlayingEntities().removeIf(entity -> !entity.isAlive());
         charBatch.end();
 
         markTable.clear();
@@ -547,6 +556,7 @@ public class DungeonScreen implements Screen {
                     @Override
                     public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                         if (!skill.isCooldown() && canUse) {
+                            DungeonMap.clearSkillLayers();
                             if (entity.getUsedSkill() != skill) {
                                 entity.setUsedSkill(skill);
                                 changeButton(true);
@@ -722,35 +732,35 @@ public class DungeonScreen implements Screen {
                     } else {
                         ru.myitschool.cubegame.dungeon.Door door = ru.myitschool.cubegame.dungeon.Door.getDoor(index);
                         int direction = door.getDirection();
-                        int newRoomStartX = x / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH;
-                        int newRoomStartY = y / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT;
+                        int newRoomStartX = x / ru.myitschool.cubegame.dungeon.Dungeon.ROOM_WIDTH;
+                        int newRoomStartY = y / ru.myitschool.cubegame.dungeon.Dungeon.ROOM_HEIGHT;
                         if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_NORTH) {
                             System.out.println("North: y - " + newRoomStartY + " Critical: 0");
                             if (newRoomStartY == 0) {
-                                dungeonMap.addUp(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT);
-                                ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(0, ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT));
-                                mainCamera.translate(0, ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT * DungeonTile.TILE_HEIGHT);
+                                dungeonMap.addUp(ru.myitschool.cubegame.dungeon.Dungeon.ROOM_HEIGHT);
+                                ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(0, ru.myitschool.cubegame.dungeon.Dungeon.ROOM_HEIGHT));
+                                mainCamera.translate(0, ru.myitschool.cubegame.dungeon.Dungeon.ROOM_HEIGHT * DungeonTile.TILE_HEIGHT);
                             } else {
                                 newRoomStartY--;
                             }
                         } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_EAST) {
                             System.out.println("East: x - " + newRoomStartX + " Critical: " + (dungeonMap.getWidth() - 1));
-                            if (newRoomStartX == (dungeonMap.getWidth() - 1) / DungeonMap.ROOM_WIDTH) {
-                                dungeonMap.addRight(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH);
+                            if (newRoomStartX == (dungeonMap.getWidth() - 1) / Dungeon.ROOM_WIDTH) {
+                                dungeonMap.addRight(ru.myitschool.cubegame.dungeon.Dungeon.ROOM_WIDTH);
                             }
                             newRoomStartX++;
                         } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_SOUTH) {
                             System.out.println("South: y - " + newRoomStartY + " Critical: " + (dungeonMap.getHeight() - 1));
-                            if (newRoomStartY == (dungeonMap.getHeight() - 1) / ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT) {
-                                dungeonMap.addDown(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT);
+                            if (newRoomStartY == (dungeonMap.getHeight() - 1) / ru.myitschool.cubegame.dungeon.Dungeon.ROOM_HEIGHT) {
+                                dungeonMap.addDown(ru.myitschool.cubegame.dungeon.Dungeon.ROOM_HEIGHT);
                             }
                             newRoomStartY++;
                         } else if (direction == ru.myitschool.cubegame.dungeon.Exit.DIRECTION_WEST) {
                             System.out.println("West: x - " + newRoomStartX + " Critical: 0");
                             if (newRoomStartX == 0) {
-                                dungeonMap.addLeft(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH);
-                                ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH, 0));
-                                mainCamera.translate(ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH * DungeonTile.TILE_WIDTH, 0);
+                                dungeonMap.addLeft(ru.myitschool.cubegame.dungeon.Dungeon.ROOM_WIDTH);
+                                ru.myitschool.cubegame.dungeon.Door.moveDoors(new Vector2(ru.myitschool.cubegame.dungeon.Dungeon.ROOM_WIDTH, 0));
+                                mainCamera.translate(ru.myitschool.cubegame.dungeon.Dungeon.ROOM_WIDTH * DungeonTile.TILE_WIDTH, 0);
                             } else {
                                 newRoomStartX--;
                             }
@@ -760,15 +770,15 @@ public class DungeonScreen implements Screen {
                         }
                         System.out.println("Room X: " + newRoomStartX + " Room Y: " + newRoomStartY);
                         ru.myitschool.cubegame.dungeon.Door.removeDoor(index);
-                        newRoomStartX *= ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_WIDTH;
-                        newRoomStartY *= ru.myitschool.cubegame.dungeon.DungeonMap.ROOM_HEIGHT;
+                        newRoomStartX *= ru.myitschool.cubegame.dungeon.Dungeon.ROOM_WIDTH;
+                        newRoomStartY *= ru.myitschool.cubegame.dungeon.Dungeon.ROOM_HEIGHT;
                         int side = direction + 2;
                         if (side >= 4) {
                             side -= 4;
                         }
                         System.out.println("Direction: " + direction + " Side: " + side);
                         Room room = dungeonMap.placeRoom(newRoomStartX, newRoomStartY, side);
-                        GraphStorage.createBottomGraph(dungeonMap.getTileLayer());
+                        GraphStorage.createBottomGraph();
                         if (room.isEncounter()) {
                             entity.triggerEncounter();
                         }
@@ -786,7 +796,7 @@ public class DungeonScreen implements Screen {
             }
         } else {
             if (entity == Entity.getNowPlaying()) {
-                Entity.nextTurn();
+                Entity.nextTurn(entity);
             }
         }
     }
@@ -827,6 +837,13 @@ public class DungeonScreen implements Screen {
         }
     }
 
+    private void updateCamera(){
+        mainCamera.update();
+        yUpCamera.position.x = mainCamera.position.x;
+        yUpCamera.position.y = -mainCamera.position.y;
+        yUpCamera.update();
+    }
+
     @Override
     public void resize(int width, int height) {
         h = height;
@@ -859,7 +876,7 @@ public class DungeonScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        Entity.getPlayingEntities().removeIf(entity -> entity.isEnemy());
     }
 
     private void createFonts(){
@@ -898,7 +915,7 @@ public class DungeonScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 DungeonMap.clearTargetLayer();
-                Entity.nextTurn();
+                Entity.nextTurn(Entity.getNowPlaying());
                 //nextTurnButton.setDisabled(!Entity.getNowPlaying().isPlayer());
             }
         });

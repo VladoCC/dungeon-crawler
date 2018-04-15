@@ -1,9 +1,13 @@
 package ru.myitschool.cubegame.entities;
 
+import com.badlogic.gdx.utils.Array;
 import ru.myitschool.cubegame.ai.AI;
+import ru.myitschool.cubegame.effects.Effect;
+import ru.myitschool.cubegame.effects.EffectArray;
 import ru.myitschool.cubegame.encounters.Encounter;
 import ru.myitschool.cubegame.entities.enemies.GoblinWarrior;
 import ru.myitschool.cubegame.math.MathAction;
+import ru.myitschool.cubegame.skills.Skill;
 
 /**
  * Created by Voyager on 08.08.2017.
@@ -27,22 +31,6 @@ public abstract class Enemy extends Entity implements Cloneable {
 
     public static void createCRTable(){
         (new GoblinWarrior(0, 0)).addToCRTable();
-        GoblinWarrior warrior1 = new GoblinWarrior(0, 0);
-        warrior1.setChallengeRating(2);
-        warrior1.addToCRTable();
-        GoblinWarrior warrior2 = new GoblinWarrior(0, 0);
-        warrior2.setChallengeRating(3);
-        warrior2.addToCRTable();
-        GoblinWarrior warrior3 = new GoblinWarrior(0, 0);
-        warrior3.setChallengeRating(4);
-        warrior3.addToCRTable();
-        GoblinWarrior warrior4 = new GoblinWarrior(0, 0);
-        warrior4.setChallengeRating(5);
-        warrior4.addToCRTable();
-        GoblinWarrior warrior5 = new GoblinWarrior(0, 0);
-        warrior5.setChallengeRating(5);
-        warrior5.setSolo(true);
-        warrior5.addToCRTable();
     }
 
     private static void addToCRTable(Enemy enemy){
@@ -124,6 +112,17 @@ public abstract class Enemy extends Entity implements Cloneable {
     public Enemy clone(){
         try {
             Enemy enemy = (Enemy) super.clone();
+            Array<Skill> skills = new Array<>();
+            for (Skill skill : this.getSkills()){
+                skills.add(skill);
+            }
+            enemy.setSkills(skills);
+            enemy.setModel(this.getModel());
+            EffectArray effects = new EffectArray();
+            for (Effect effect : this.getEffects()){
+                effects.add((Effect) effect.clone());
+            }
+            enemy.setEffects(effects);
             return enemy;
         } catch (Exception e){
             e.printStackTrace();

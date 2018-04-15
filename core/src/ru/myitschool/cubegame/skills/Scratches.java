@@ -12,7 +12,7 @@ import ru.myitschool.cubegame.math.SumAction;
  */
 public class Scratches extends Skill {
 
-    MathAction rollAction = new SumAction(new DiceAction(1, 20), new NumberAction(5));
+    MathAction rollAction = new SumAction(new DiceAction(1, 20), new NumberAction(1));
 
     public Scratches(final Entity doer) {
         super(doer);
@@ -30,11 +30,11 @@ public class Scratches extends Skill {
                 return rollAction.act() + getAccuracyBonus() > armor;
             }
         };
-        Action action = new Action() {
+        Action action = new Action(){
             @Override
             public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success){
-                    MathAction attackAction = new SumAction(new DiceAction(1, 6), new NumberAction(4));
+                    MathAction attackAction = new DiceAction(1, 6);
                     attackAction = countAttackAction(attackAction);
                     Entity entity = target.getEntity();
                     int damage = -attackAction.act();

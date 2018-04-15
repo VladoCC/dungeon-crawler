@@ -3,10 +3,13 @@ package ru.myitschool.cubegame.dungeon;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Predicate;
 import com.google.gson.Gson;
+import ru.myitschool.cubegame.effects.FloorEffect;
 import ru.myitschool.cubegame.entities.CRTable;
 import ru.myitschool.cubegame.entities.Enemy;
 import ru.myitschool.cubegame.entities.Entity;
+import ru.myitschool.cubegame.skills.Target;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 import ru.myitschool.cubegame.utils.AdvancedArray;
 
@@ -24,11 +27,11 @@ public class Room {
 
     public static final int EXIT_SIZE = 2;
 
-    public static final float[] ENTITIES_PERCENT = {0.2f, 0.7f, 0.1f};
+    public static final float[] ENTITIES_PERCENT = {0.35f, 0.6f, 0.05f};
 
     private int width;
     private int height;
-    private int exitCount;
+    private int exitCount = 0;
     private int x;
     private int y;
     private int monsterCount = 0;
@@ -44,6 +47,7 @@ public class Room {
     private Array<Exit> exits;
     private Array<Entity> entities = new Array<Entity>();
     private Array<ExitPattern> patterns;
+    private Array<FloorEffect> effects = new Array<>();
 
     //private ArrayList<Integer> exitPositions = new ArrayList<Integer>();
 
@@ -91,7 +95,7 @@ public class Room {
 
    public void addExits(Array<Integer> exitPositions){
        if (Exit.canOpenDoor()){
-           exitCount = new Random().nextInt(3) + 1;
+           exitCount = Math.max(new Random().nextInt(3) + 2, Exit.getExitsLeft());
        } /*else {
            exitCount = new Random().nextInt(4);
        }*/
@@ -132,6 +136,10 @@ public class Room {
        Exit exit = new Exit(EXIT_SIZE, direction);
        exit.setOpened(true);
        addExit(direction, exit);
+   }
+
+   public void addEffect(FloorEffect effect){
+       effects.add(effect);
    }
 
    public void rotate(int rotation){
@@ -218,8 +226,8 @@ public class Room {
                enemy.activateAI();
                Vector2 point = points.getRandom();
                points.removeValue(point, true);
-               point.x += x * DungeonMap.ROOM_WIDTH;
-               point.y += y * DungeonMap.ROOM_HEIGHT;
+               point.x += x * Dungeon.ROOM_WIDTH;
+               point.y += y * Dungeon.ROOM_HEIGHT;
                enemy.teleport(point);
                entities.add(enemy);
            }
@@ -277,6 +285,22 @@ public class Room {
        return cells[x][y];
     }
 
+    public Array<Target> getReachableCells(){
+        return getCells(i -> DungeonTile.getTile(i).isReachable());
+    }
+
+    public Array<Target> getCells(Predicate<Integer> predicate){
+        Array<Target> targets = new Array<>();
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[0].length; j++) {
+                if (predicate.evaluate(cells[i][j])){
+                    targets.add(new Target(i, j));
+                }
+            }
+        }
+        return targets;
+    }
+
     public void setCell(int x, int y, int cellType){
         cells[x][y] = cellType;
     }
@@ -305,6 +329,10 @@ public class Room {
 
     public int getY() {
         return y;
+    }
+
+    public Array<FloorEffect> getEffects() {
+        return effects;
     }
 
     public boolean hasExit(){

@@ -1,5 +1,6 @@
 package ru.myitschool.cubegame.skills;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import ru.myitschool.cubegame.effects.CloudOfKnivesEffect;
 import ru.myitschool.cubegame.effects.FloorClearingEffect;
@@ -12,6 +13,8 @@ import ru.myitschool.cubegame.math.MathAction;
  * Created by Voyager on 30.11.2017.
  */
 public class CloudOfKnives extends Skill {
+
+    private static final Color color = new Color(0xa020f0bf);
 
     MathAction rollAction = new DiceAction(1, 20);
     MathAction attackAction = new DiceAction(1, 6);
@@ -59,7 +62,7 @@ public class CloudOfKnives extends Skill {
         attackAction = new DiceAction(1, 6);
         attackAction = countAttackAction(attackAction);
         FloorEffect effect = null;
-        effect = new FloorEffect(getTargets(), new CloudOfKnivesEffect(effect, attackAction));
+        effect = new FloorEffect(getTargets(), new CloudOfKnivesEffect(effect, attackAction), color, true, true);
         getDoer().addEffect(new FloorClearingEffect(effect));
         super.use();
     }

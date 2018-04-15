@@ -32,7 +32,7 @@ public abstract class AI extends EventAdapter implements Cloneable {
     public boolean handleTask(){
         Task task = tasks.peek();
         if (task == null){
-            Entity.nextTurn();
+            Entity.nextTurn(controlledEntity);
             return false;
         } else if (!task.isStarted()){
             task.activate();

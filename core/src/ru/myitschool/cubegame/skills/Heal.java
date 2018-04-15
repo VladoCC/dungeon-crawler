@@ -16,7 +16,7 @@ public class Heal extends Skill {
         super(doer);
         setIcon(new Texture("heal.png"));
         setName("Heal");
-        setDescription("You can heal your ally for" + healAction.act());
+        setDescription("You can heal your ally for" + healAction.getDescription());
         setTargetCountMax(1);
         setDistanceMax(4);
         setDistanceMin(1);

@@ -2,7 +2,6 @@ package ru.myitschool.cubegame.entities.enemies;
 
 import com.badlogic.gdx.graphics.Texture;
 import ru.myitschool.cubegame.ai.AI;
-import ru.myitschool.cubegame.ai.DummyAI;
 import ru.myitschool.cubegame.ai.GoblinAI;
 import ru.myitschool.cubegame.entities.Enemy;
 
@@ -16,11 +15,11 @@ public class GoblinWarrior extends Enemy {
         setChallengeRating(1);
         setModel(new Texture("sprites/goblinwarrior.png"));
         setPortrait(new Texture("goblin.png"));
-        setHp(20);
-        setHpMax(20);
+        setHp(10);
+        setHpMax(10);
         setMp(6);
         setMpMax(6);
-        setArmor(10);
+        setArmor(5);
     }
 
     @Override

@@ -5,7 +5,7 @@ import ru.myitschool.cubegame.entities.Entity;
 /**
  * Created by Voyager on 01.12.2017.
  */
-public class CellEffect extends Effect implements Cloneable {
+public class CellEffect extends Effect {
 
     FloorEffect floorEffect;
 
@@ -22,32 +22,32 @@ public class CellEffect extends Effect implements Cloneable {
         this.floorEffect = floorEffect;
     }
 
-    public void onStepTo(int x1, int y1, int x2, int y2, Entity entity){
+    public void stepToAction(int x1, int y1, int x2, int y2, Entity entity){
         if (!hasCell(x1, y1) && hasCell(x2, y2)){
-            stepToAction(entity);
+            onStepTo(entity);
             System.out.println("TO ZONE!!!");
         } else if (hasCell(x1, y1) && hasCell(x2, y2)){
-            movingInZoneAction(entity);
+            onMovingInZone(entity);
             System.out.println("IN ZONE!!!");
         }
     }
 
-    protected void stepToAction(Entity entity){
+    protected void onStepTo(Entity entity){
 
     }
 
-    protected void movingInZoneAction(Entity entity){
+    protected void onMovingInZone(Entity entity){
 
     }
 
-    public void onStepFrom(int x1, int y1, int x2, int y2, Entity entity){
+    public void stepFromAction(int x1, int y1, int x2, int y2, Entity entity){
         if (!hasCell(x2, y2) && hasCell(x1, y1)){
-            stepFromAction(entity);
+            onStepFrom(entity);
             System.out.println("FROM ZONE!!!");
         }
     }
 
-    protected void stepFromAction(Entity entity){
+    protected void onStepFrom(Entity entity){
 
     }
 
@@ -56,21 +56,9 @@ public class CellEffect extends Effect implements Cloneable {
     }
 
     @Override
-    protected Object clone() {
+    public Object clone() {
         try {
             CellEffect effect = (CellEffect) super.clone();
-            effect.setStackSize(getStackSize());
-            effect.setType(getType());
-            effect.setStackable(isStackable());
-            effect.setSkillUse(isSkillUse());
-            effect.setDelete(isDelete());
-            effect.setDescription(getDescription());
-            effect.setExpireTurns(getExpireTurns());
-            effect.setExpiring(isExpiring());
-            effect.setHide(isHide());
-            effect.setIcon(getIcon());
-            effect.setName(getName());
-            effect.setPositive(isPositive());
             effect.setFloorEffect(getFloorEffect());
             return effect;
         } catch (Exception e){

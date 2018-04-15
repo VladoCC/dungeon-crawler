@@ -1,39 +1,40 @@
 package ru.myitschool.cubegame.entities;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by Voyager on 25.04.2017.
  */
 public class Character extends Entity {
 
-    private static int pos = 0;
     private static final int CHARS_MAX = 4;
 
-    private int stepsMax = 6;
-    private int actionsMax = 1;
-    private int actionCount = 0;
-
     private boolean moved = false;
+    private static boolean created = false;
 
-    private static Character[] chars = new Character[CHARS_MAX];
+    private static Array<Character> chars = new Array<>(CHARS_MAX);
 
     public Character(Texture texture, Texture portrait, float x, float y, int hp, int hpMax, int mp, int mpMax, int armor) {
         super(texture, portrait, x, y, hp, hpMax, mp, mpMax, armor);
-        if (pos < CHARS_MAX){
-            chars[pos] = this;
-            pos++;
-        }
+        chars.add(this);
         Entity.add(this);
     }
 
     public static Character getChar(int num) {
-        return chars[num];
+        return chars.get(num);
     }
 
-    public static Character[] getChars() {
+    public static Array<Character> getChars() {
         return chars;
+    }
+
+    public static boolean isCreated() {
+        return created;
+    }
+
+    public static void setCreated(boolean created) {
+        Character.created = created;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package ru.myitschool.cubegame.ai.pathfinding;
 
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.cubegame.dungeon.DungeonMap;
+import ru.myitschool.cubegame.dungeon.Dungeon;
 
 /**
  * Created by Voyager on 02.05.2017.
@@ -13,10 +13,10 @@ public class Pathfinder {
     public static final int PATH_MAX_LENGTH_ROOM = 50;
 
     public static NodePath searchRoomPath(int startCellX, int startCellY, int endCellX, int endCellY){
-        int x1 = startCellX / DungeonMap.ROOM_WIDTH;
-        int x2 = endCellX / DungeonMap.ROOM_WIDTH;
-        int y1 = startCellY / DungeonMap.ROOM_HEIGHT;
-        int y2 = endCellY / DungeonMap.ROOM_HEIGHT;
+        int x1 = startCellX / Dungeon.ROOM_WIDTH;
+        int x2 = endCellX / Dungeon.ROOM_WIDTH;
+        int y1 = startCellY / Dungeon.ROOM_HEIGHT;
+        int y2 = endCellY / Dungeon.ROOM_HEIGHT;
 
         Node startNode = GraphStorage.getNodeTop(x1, y1);
         Node endNode = GraphStorage.getNodeTop(x2, y2);

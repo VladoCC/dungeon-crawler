@@ -33,68 +33,48 @@ import ru.myitschool.cubegame.skills.targeting.TilePos;
 import ru.myitschool.cubegame.tiles.ColorTile;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 
-import java.awt.*;
-
 /**
  * Created by Voyager on 18.04.2017.
  */
 public class DungeonMap extends TiledMap {
 
-    public static final int ROOM_WIDTH = 8;
-    public static final int ROOM_HEIGHT = 8;
-
     private int lastTileX = -1;
     private int lastTileY = -1;
 
     private boolean spawn = false;
+    private static boolean updateCamera = false;
 
-    static private DynamicTileLayer tileLayer;
-    static private PathTileLayer pathLayer;
-    //static private DynamicTileLayer choosenTargetsLayer;
-    //static private DynamicTileLayer effectLayer;
-    static private DynamicTileLayer displayTargetLayer;
-    //static private DynamicTileLayer targetingZoneLayer;
+    private static DynamicTileLayer tileLayer;
+    private static PathTileLayer pathLayer;
+    private static DynamicTileLayer displayTargetLayer;
 
-    static private Group effectGroup;
-    static private Group targetingZoneGroup;
-    static private Group displayTargetGroup;
-    static private Group choosenTargetsGroup;
+    private static Group effectGroup;
+    private static Group targetingZoneGroup;
+    private static Group displayTargetGroup;
+    private static Group choosenTargetsGroup;
 
     private InputMultiplexer input;
     private Pathfinder pathfinder;
     private NodePath playerPath;
 
-    private Array<Room> roomsPool = new Array<Room>();
-    private Array<Room> roomsPlaced = new Array<Room>();
+    private Dungeon dungeon;
 
-    public DungeonMap(int roomCountMin, int roomCountDelta, int roomCountMax, final OrthographicCamera camera, final InputMultiplexer input) {
-        Exit.setExitsMax(roomCountMax - 1);
+    public DungeonMap(Dungeon dungeon, final OrthographicCamera camera, final InputMultiplexer input) {
         GraphStorage.createTopGraph(new Node(0, 0));
-        //final float camXStart = camera.position.x;
-        //final float camYStart = camera.position.y;
-        tileLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+        this.dungeon = dungeon;
+
+        tileLayer = new DynamicTileLayer(Dungeon.ROOM_WIDTH, Dungeon.ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(tileLayer);
-        //effectLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
-        //getLayers().add(effectLayer);
-        //targetingZoneLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
-        //getLayers().add(targetingZoneLayer);
-        displayTargetLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+        displayTargetLayer = new DynamicTileLayer(Dungeon.ROOM_WIDTH, Dungeon.ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(displayTargetLayer);
-        //choosenTargetsLayer = new DynamicTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
-        //getLayers().add(choosenTargetsLayer);
-        pathLayer = new PathTileLayer(ROOM_WIDTH, ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+        pathLayer = new PathTileLayer(Dungeon.ROOM_WIDTH, Dungeon.ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(pathLayer);
-        createRooms(roomCountMax);
-        int monsterCount = 0;
-        for (Room room : roomsPool) {
-            monsterCount += room.getMonsterCount();
-        }
         placeRoom(0,0, 0);
         for (Entity entity : Entity.getPlayingEntities()){
             tileLayer.getCell(entity.getTileX(), entity.getTileY()).setOccupied(true);
             tileLayer.getCell(entity.getTileX(), entity.getTileY()).setEntity(entity);
         }
-        GraphStorage.createBottomGraph(tileLayer);
+        GraphStorage.createBottomGraph();
         pathfinder = new Pathfinder();
         this.input = input;
         input.addProcessor(new InputAdapter(){
@@ -196,6 +176,11 @@ public class DungeonMap extends TiledMap {
         targetingZoneGroup.clear();
     }
 
+    public static void clearSkillLayers(){
+        DungeonMap.clearTargetLayer();
+        DungeonMap.clearTargetingZoneLayer();
+    }
+
     public static void drawTargetingZone(Skill skill){
         if (skill.getType() != Skill.SKILL_TARGET_TYPE_SELF) {
             int x = skill.getDoer().getTileX();
@@ -219,74 +204,7 @@ public class DungeonMap extends TiledMap {
     }
 
     public Room placeRoom(int x, int y, int side){
-        Room room = roomsPool.get(0);
-        room.rotate(side);
-
-        int roomX = x / ROOM_WIDTH;
-        int roomY = y / ROOM_HEIGHT;
-        System.out.println(roomX + ",ggnbgn " + roomY);
-        room.setPos(roomX, roomY);
-        Array<Integer> sides = new Array<Integer>();
-
-        Room left = getRoom(roomX - 1, roomY);
-        Room right = getRoom(roomX + 1, roomY);
-        Room up = getRoom(roomX, roomY - 1);
-        Room down = getRoom(roomX, roomY + 1);
-
-        boolean leftExit = false;
-        boolean rightExit = false;
-        boolean topExit = false;
-        boolean bottomExit = false;
-
-        if (left != null) {
-            if (left.hasExit(Exit.DIRECTION_EAST)) {
-                System.out.println("Left: Yes");
-                leftExit = true;
-                room.addDoor(Exit.DIRECTION_WEST);
-            }
-        } else {
-            sides.add(Exit.DIRECTION_WEST);
-        }
-        if (right != null){
-            if (right.hasExit(Exit.DIRECTION_WEST)){
-                System.out.println("Right: Yes");
-                rightExit = true;
-                room.addDoor(Exit.DIRECTION_EAST);
-            }
-        } else {
-            sides.add(Exit.DIRECTION_EAST);
-        }
-        if (up != null){
-            if (up.hasExit(Exit.DIRECTION_SOUTH)){
-                System.out.println("Up: Yes");
-                topExit = true;
-                room.addDoor(Exit.DIRECTION_NORTH);
-            }
-        } else {
-            sides.add(Exit.DIRECTION_NORTH);
-        }
-        if (down != null){
-            if (down.hasExit(Exit.DIRECTION_NORTH)){
-                System.out.println("Down: Yes");
-                bottomExit = true;
-                room.addDoor(Exit.DIRECTION_SOUTH);
-            }
-        } else {
-            sides.add(Exit.DIRECTION_SOUTH);
-        }
-        room.addExits(sides);
-
-        GraphStorage.addTopNode(new Node(roomX, roomY), leftExit, rightExit, topExit, bottomExit);
-        room.complete();
-
-        for (Exit exit : room.getExits()){
-            Point[] cells = exit.getExitCells();
-            for (Point cell : cells){
-                cell.x += x;
-                cell.y += y;
-            }
-            new Door(exit.getDirection(), cells);
-        }
+        Room room = dungeon.placeRoom(x, y, side);
 
         int width = room.getWidth();
         int height = room.getHeight();
@@ -294,13 +212,6 @@ public class DungeonMap extends TiledMap {
             for (int j = 0; j < height; j++) {
                 DungeonCell cell = new DungeonCell();
                 Integer cellId = room.getCell(i, j);
-                /*if (cellId == DungeonTile.floorTile.getId()){
-                    cell.setTile(DungeonTile.floorTile);
-                } else if (cellId == DungeonTile.doorTile.getId()){
-                    cell.setTile(DungeonTile.doorTile);
-                } else if (cellId == DungeonTile.wallTile.getId()){
-                    cell.setTile(DungeonTile.wallTile);
-                }*/
                 if (cellId != null) {
                     cell.setTile(DungeonTile.getTile(cellId));
                     tileLayer.setCell(x + i, y + j, cell);
@@ -308,39 +219,14 @@ public class DungeonMap extends TiledMap {
             }
         }
 
-        for (Entity entity : Room.getAddingArray()){
-            entity.add(Entity.getNowPlayingIndex() + 1);
-            addEntity(entity);
-        }
-        Room.getAddingArray().clear();
-
-        roomsPool.removeIndex(0);
-        roomsPlaced.add(room);
-        return room;
-    }
-
-    private void createRooms(int count){
-        for (int i = 0; i < count; i++) {
-            if (i == 0) {
-                createRoom(true);
-            } else {
-                createRoom(false);
+        for (FloorEffect effect : room.getEffects()){
+            for (Target target : effect.getNullCells()){
+                target.move(new Vector2(x, y));
             }
+            effect.activate();
         }
-    }
 
-    private void createRoom(boolean first){
-        int width = ROOM_WIDTH;
-        int height = ROOM_HEIGHT;
-        Room room;
-        if (first){
-            room = new Room("rooms/default.room");
-            room.setMobs(false);
-        } else {
-            room = new Room("rooms/corridor.room");
-        }
-        //room = new Room(width, height, first);
-        roomsPool.add(room);
+        return room;
     }
 
     public static DungeonCell getCell(int x, int y){
@@ -365,13 +251,11 @@ public class DungeonMap extends TiledMap {
             ((DynamicTileLayer) layer).addUp(count);
         }
         /**Map moving code*/
-        FloorEffect.updateEffects(new Vector2(0, ROOM_HEIGHT));
+        FloorEffect.updateEffects(new Vector2(0, Dungeon.ROOM_HEIGHT));
         for (Entity entity : Entity.getPlayingEntities()) {
             entity.teleport(new Vector2(0, count));
         }
-        for (Room room : roomsPlaced){
-            room.changePos(new Vector2(0, 1));
-        }
+        dungeon.moveRooms(new Vector2(0, 1));
         GraphStorage.moveNodesTop(new Vector2(0, 1));
     }
 
@@ -404,23 +288,12 @@ public class DungeonMap extends TiledMap {
             ((DynamicTileLayer) layer).addLeft(count);
         }
         /**Map moving code*/
-        FloorEffect.updateEffects(new Vector2(ROOM_WIDTH, 0));
+        FloorEffect.updateEffects(new Vector2(Dungeon.ROOM_WIDTH, 0));
         for (Entity entity : Entity.getPlayingEntities()) {
             entity.teleport(new Vector2(count, 0));
         }
-        for (Room room : roomsPlaced){
-            room.changePos(new Vector2(1, 0));
-        }
+        dungeon.moveRooms(new Vector2(1, 0));
         GraphStorage.moveNodesTop(new Vector2(1, 0));
-    }
-
-    public Room getRoom(int roomX, int roomY){
-        for (Room room : roomsPlaced){
-            if (room.getX() == roomX && room.getY() == roomY){
-                return room;
-            }
-        }
-        return null;
     }
 
     public static void addEntity(Entity entity){
@@ -443,7 +316,7 @@ public class DungeonMap extends TiledMap {
         tileLayer.getCell(x1, y1).setEntity(null);
         tileLayer.getCell(x2, y2).setOccupied(true);
         tileLayer.getCell(x2, y2).setEntity(entity);
-        GraphStorage.createBottomGraph(tileLayer);
+        GraphStorage.createBottomGraph();
     }
 
     public static void drawTargets(Array<Target> targets){
@@ -467,6 +340,7 @@ public class DungeonMap extends TiledMap {
                 }
             }
         }
+        updateCamera();
     }
 
     private static void addCellToGroup(int x, int y, Drawable drawable, Group group){
@@ -487,7 +361,19 @@ public class DungeonMap extends TiledMap {
         return tileLayer.getHeight();
     }
 
-    public DynamicTileLayer getTileLayer() {
+    public static boolean isUpdateCamera() {
+        return updateCamera;
+    }
+
+    public static void setUpdateCamera(boolean updateCamera) {
+        DungeonMap.updateCamera = updateCamera;
+    }
+
+    private static void updateCamera(){
+        setUpdateCamera(true);
+    }
+
+    public static DynamicTileLayer getTileLayer() {
         return tileLayer;
     }
 

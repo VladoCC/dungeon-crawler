@@ -3,6 +3,7 @@ package ru.myitschool.cubegame.ai.pathfinding;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import ru.myitschool.cubegame.dungeon.DungeonCell;
+import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.layer.DynamicTileLayer;
 import ru.myitschool.cubegame.tiles.DungeonTile;
 
@@ -15,7 +16,8 @@ public class GraphStorage {
     private static Array<Node> nodesBottom;
     private static Array<Node> nodesTop;
 
-    public static void createBottomGraph(DynamicTileLayer layer){
+    public static void createBottomGraph(){
+        DynamicTileLayer layer = DungeonMap.getTileLayer();
         int width = layer.getWidth();
         int height = layer.getHeight();
         nodeArr = new Node[width][height];

@@ -2,13 +2,13 @@ package ru.myitschool.cubegame.ai;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.cubegame.ai.pathfinding.GraphStorage;
-import ru.myitschool.cubegame.ai.pathfinding.Node;
-import ru.myitschool.cubegame.ai.pathfinding.NodePath;
-import ru.myitschool.cubegame.ai.pathfinding.Pathfinder;
+import ru.myitschool.cubegame.ai.pathfinding.*;
+import ru.myitschool.cubegame.dungeon.Dungeon;
 import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.utils.AdvancedArray;
+
+import java.util.Comparator;
 
 /**
  * Created by Voyager on 17.08.2017.
@@ -96,20 +96,55 @@ public class AITweaks {
     }
 
     /** return indexes of obstructors */
-    public static Array<Integer> getObstructorsPos(Array<Vector2> cells){
+    public static Array<Integer> getObstructorIndexes(Array<Vector2> cells, boolean checkOccupied){
         Array<Integer> obstructorsPos = new Array<Integer>();
         for (int i = 0; i < cells.size; i++) {
             Vector2 cell = cells.get(i);
             Node node = GraphStorage.getNodeBottom((int) cell.x, (int) cell.y);
-            if (node == null || !node.getTile().isReachable()){
+            if (node == null || !node.getTile().isReachable() || (checkOccupied && DungeonMap.getCell(node.getX(), node.getY()).isOccupied())){
                 obstructorsPos.add(i);
             }
         }
         return obstructorsPos;
     }
 
+    public static Array<Integer> getObstructorIndexes(Array<Vector2> cells){
+        return getObstructorIndexes(cells, false);
+    }
+
     public static int getLineLength(int xStart, int yStart, int xEnd, int yEnd){
         return getCellRaytrace(xStart, yStart, xEnd, yEnd, 0).size;
+    }
+
+    public static Array<EntityPath> getAllEntityPaths(int thisX, int thisY, int entityType, boolean checkThis){ //TODO make this function faster
+        Array<EntityPath> array = new Array<>();
+        for (Entity entity : Entity.getPlayingEntities()){
+            boolean valid = true;
+            switch (entityType){
+                case TYPE_CHARACTER:
+                    valid = entity.isPlayer();
+                    break;
+                case TYPE_ENEMY:
+                    valid = entity.isEnemy();
+                    break;
+            }
+            if (valid && (checkThis || entity.getTileX() != thisX || entity.getTileY() != thisY)){
+                NodePath path = Pathfinder.searchConnectionPath(GraphStorage.getNodeBottom(thisX, thisY), GraphStorage.getNodeBottom(entity.getTileX(), entity.getTileY()), false, 0, true);
+                array.add(new EntityPath(entity, path, true));
+            }
+        }
+        array.sort(new Comparator<EntityPath>() {
+            @Override
+            public int compare(EntityPath o1, EntityPath o2) {
+                if (o1.getPath() == null){
+                    return 1;
+                } else if (o2.getPath() == null){
+                    return -1;
+                }
+                return o1.getPath().getCost() - o2.getPath().getCost();
+            }
+        });
+        return array;
     }
 
     public static Array<Entity> getNearestEntities(int thisX, int thisY, int entityType){
@@ -118,7 +153,7 @@ public class AITweaks {
         Array<Entity> lastEntities = new Array<Entity>();
         for (Entity entity : Entity.getPlayingEntities()){
             boolean valid = true;
-            switch (entityType){ //TODO check for thisEntity === entity
+            switch (entityType){ //TODO check for thisEntity == entity
                 case TYPE_CHARACTER:
                     valid = entity.isPlayer();
                     break;
@@ -214,21 +249,21 @@ public class AITweaks {
         int targetY = -1;
         if (x3 != x2){
             if (x3 > x2) {
-                targetX = x3 * DungeonMap.ROOM_WIDTH;
+                targetX = x3 * Dungeon.ROOM_WIDTH;
             } else if (x3 < x2) {
-                targetX = x3 * DungeonMap.ROOM_WIDTH + DungeonMap.ROOM_WIDTH - 1;
+                targetX = x3 * Dungeon.ROOM_WIDTH + Dungeon.ROOM_WIDTH - 1;
             }
-            targetY = y3 * DungeonMap.ROOM_HEIGHT + DungeonMap.ROOM_HEIGHT / 2;
+            targetY = y3 * Dungeon.ROOM_HEIGHT + Dungeon.ROOM_HEIGHT / 2;
             if (y1 > y2){
                 targetY++;
             }
         } else if (y3 != y2){
             if (y3 > y2){
-                targetY = y3 * DungeonMap.ROOM_HEIGHT;
+                targetY = y3 * Dungeon.ROOM_HEIGHT;
             } else if (y3 < y2){
-                targetY = y3 * DungeonMap.ROOM_HEIGHT + DungeonMap.ROOM_HEIGHT - 1;
+                targetY = y3 * Dungeon.ROOM_HEIGHT + Dungeon.ROOM_HEIGHT - 1;
             }
-            targetX = x3 * DungeonMap.ROOM_WIDTH + DungeonMap.ROOM_WIDTH / 2;
+            targetX = x3 * Dungeon.ROOM_WIDTH + Dungeon.ROOM_WIDTH / 2;
             if (x3 > x2){
                 targetX--;
             }

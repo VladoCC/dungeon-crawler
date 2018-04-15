@@ -1,11 +1,8 @@
 package ru.myitschool.cubegame.effects;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.Array;
-import ru.myitschool.cubegame.dungeon.DungeonMap;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.math.MathAction;
-import ru.myitschool.cubegame.skills.Target;
 
 /**
  * Created by Voyager on 29.11.2017.
@@ -34,8 +31,8 @@ public class CloudOfKnivesEffect extends CellEffect {
     }
 
     @Override
-    protected void stepToAction(Entity entity) {
-        super.stepToAction(entity);
+    protected void onStepTo(Entity entity) {
+        super.onStepTo(entity);
         entity.addHp(-damage.act());
     }
 

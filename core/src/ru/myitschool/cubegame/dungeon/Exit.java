@@ -1,11 +1,6 @@
 package ru.myitschool.cubegame.dungeon;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-
 import java.awt.*;
-import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Created by Voyager on 23.04.2017.
@@ -37,12 +32,20 @@ public class Exit {
         exitCells = new Point[cellCount];
     }
 
-    static public boolean canOpenDoor(){
+    public static boolean canOpenDoor(){
         return exitsCount < exitsMax;
     }
 
-    static public void setExitsMax(int max){
+    public static int getExitsLeft(){
+        return exitsMax - exitsCount;
+    }
+
+    public static void setExitsMax(int max){
         exitsMax = max;
+    }
+
+    public static void resetExitsCount(){
+        exitsCount = 0;
     }
 
     public boolean isFilled(){

@@ -59,6 +59,7 @@ public class Entity extends EventAdapter {
     private static boolean updateSkills;
 
     private Texture portrait;
+    private Texture model;
 
     private Sprite sprite;
 
@@ -165,6 +166,7 @@ public class Entity extends EventAdapter {
     public void setModel(Texture texture){
         setSprite(texture);
         setTexture(texture);
+        this.model = texture;
     }
 
     protected void setPortrait(Texture portrait){
@@ -189,6 +191,10 @@ public class Entity extends EventAdapter {
 
     public void setSkills(Array<Skill> skills) {
         this.skills = skills;
+    }
+
+    public Texture getModel() {
+        return model;
     }
 
     private void planMovement(){
@@ -323,6 +329,34 @@ public class Entity extends EventAdapter {
         sprite.setPosition(x, y);
     }
 
+    public void setX(float x) {
+        this.x = x;
+        sprite.setPosition(this.x, this.y);
+    }
+
+    public void setY(float y) {
+        this.y = y;
+        sprite.setPosition(this.x, this.y);
+    }
+
+    public void setPos(float x, float y){
+        setX(x);
+        setY(y);
+    }
+
+    public void setPos(Vector2 pos){
+        setPos(pos.x, pos.y);
+    }
+
+    public void setCellPos(int x, int y){
+        setX(x * DungeonTile.TILE_WIDTH);
+        setY(y * DungeonTile.TILE_HEIGHT);
+    }
+
+    public void setCellPos(Vector2 pos){
+        setCellPos((int) pos.x, (int) pos.y);
+    }
+
     public void throwEntity(Vector2 tiles){
         System.out.println("throw " + tiles.x + " " + tiles.y);
         float x = Math.abs(tiles.x);
@@ -397,17 +431,19 @@ public class Entity extends EventAdapter {
         Entity.nowPlaying = nowPlaying;
     }
 
-    public static void nextTurn(){
-        nowPlaying.endTurn();
-        index++;
-        if (index >= playingEntities.size()){
-            index = 0;
+    public static void nextTurn(Entity nowPlayingEntity){
+        if (nowPlaying == nowPlayingEntity) {
+            nowPlaying.endTurn();
+            index++;
+            if (index >= playingEntities.size()) {
+                index = 0;
+            }
+            nowPlaying = playingEntities.get(index);
+            System.out.println("!!!");
+            nowPlaying.startTurn();
+            updateSkills = true;
+            DungeonScreen.clearFrame();
         }
-        nowPlaying = playingEntities.get(index);
-        System.out.println("!!!");
-        nowPlaying.startTurn();
-        updateSkills = true;
-        DungeonScreen.clearFrame();
     }
     
     public static int getNowPlayingIndex(){
@@ -424,11 +460,11 @@ public class Entity extends EventAdapter {
     }
 
     public int getTileX(){
-        return (int) x / DungeonTile.TILE_WIDTH;
+        return Math.round(x / DungeonTile.TILE_WIDTH);
     }
 
     public int getTileY(){
-        return (int) y / DungeonTile.TILE_HEIGHT;
+        return Math.round(y / DungeonTile.TILE_HEIGHT);
     }
 
     public float getX() {
@@ -851,6 +887,10 @@ public class Entity extends EventAdapter {
         this.animTime += delta;
     }
 
+    public void setEffects(EffectArray effects) {
+        this.effects = effects;
+    }
+
     public void addEffect(Effect effect){
         effects.add(effect);
     }
@@ -884,6 +924,10 @@ public class Entity extends EventAdapter {
         for (int i = 0; i < effects.size(); i++) {
             checkRemoveEffect(i);
         }
+    }
+
+    public void clearEffects(){
+        effects.clear();
     }
 
     public ArrayList<Effect> getEffects() {
@@ -980,7 +1024,7 @@ public class Entity extends EventAdapter {
     @Override
     public void startTurn(){
         moved = false;
-        if (isPlayer()) {
+        if (isPlayer() ^ isControlled()) {
             addFirstEffectNowPlaying(new AttackEffect(this));
         }
         checkRemoveEffects();

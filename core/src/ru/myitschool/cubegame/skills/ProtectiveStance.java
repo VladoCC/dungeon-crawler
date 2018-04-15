@@ -5,15 +5,13 @@ import ru.myitschool.cubegame.effects.ProtectionEffect;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.math.DiceAction;
 import ru.myitschool.cubegame.math.MathAction;
-import ru.myitschool.cubegame.math.NumberAction;
-import ru.myitschool.cubegame.math.SumAction;
 
 /**
  * Created by Voyager on 05.11.2017.
  */
 public class ProtectiveStance extends Skill {
 
-    MathAction rollAction = new SumAction(new DiceAction(1, 20), new NumberAction(2));
+    MathAction rollAction = new DiceAction(1, 20);
     MathAction attackAction = new DiceAction(1, 6);
     int armor = 5;
 
@@ -37,7 +35,7 @@ public class ProtectiveStance extends Skill {
             @Override
             public void act(Target target, boolean success, FloatingDamageMark mark) {
                 if (success){
-                    attackAction = new DiceAction(1, 6);
+                    attackAction = new DiceAction(1, 4);
                     attackAction = countAttackAction(attackAction);
                     int damage = -attackAction.act();
                     target.getEntity().addHp(damage);
