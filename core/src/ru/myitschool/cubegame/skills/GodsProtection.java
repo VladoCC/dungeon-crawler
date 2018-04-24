@@ -11,7 +11,7 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class GodsProtection extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
+    MathAction rollAction = new DiceAction(20);
 
     public GodsProtection(Entity doer) {
         super(doer);

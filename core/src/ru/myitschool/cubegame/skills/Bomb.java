@@ -10,8 +10,8 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class Bomb extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
-    MathAction attackAction = new DiceAction(1, 4);
+    MathAction rollAction = new DiceAction(20);
+    MathAction attackAction = new DiceAction(4);
 
     public Bomb(Entity doer) {
         super(doer);
@@ -24,29 +24,21 @@ public class Bomb extends Skill {
         setRange(2);
         setTargetType(SKILL_TARGET_TYPE_FLOOR_SPLASH);
         setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_SPLASH);
-        Play play = new Play() {
+        addPlayContainer().getEntityPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
+            public void act(Target target, int success, FloatingDamageMark mark) {
                 Entity entity = target.getEntity();
-                if (entity != null) {
-                    return rollAction.act() + getAccuracyBonus() > entity.getArmor();
+                int damage = 0;
+                if (success == Play.TARGETING_HIT) {
+                    damage = -countAttackAction(attackAction).act();
+                } else if (success == Play.TARGETING_CRIT_HIT){
+                    damage = -countAttackAction(attackAction).max();
                 }
-                return false;
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
-                    attackAction = new DiceAction(1, 4);
-                    attackAction = countAttackAction(attackAction);
-                    Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
-                    entity.addHp(damage);
+                entity.addHp(damage);
+                if (damage != 0) {
                     mark.addText(damage + "");
                 }
             }
         });
-        addPlay(play);
     }
 }

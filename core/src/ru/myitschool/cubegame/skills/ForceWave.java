@@ -18,7 +18,7 @@ import ru.myitschool.cubegame.utils.AdvancedArray;
  */
 public class ForceWave extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
+    MathAction rollAction = new DiceAction(20);
 
     public ForceWave(final Entity doer) {
         super(doer);
@@ -48,16 +48,10 @@ public class ForceWave extends Skill {
         });
         setObstruct(true);
         setWallTargets(false);
-        Play play = new Play() {
+        addPlayContainer().getEntityPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                if (success == Play.TARGETING_HIT || success == Play.TARGETING_CRIT_HIT) {
                     AdvancedArray<Vector2> array = AITweaks.getCellRaytrace(doer.getTileX(), doer.getTileY(), target.getX(), target.getY(), 2);
                     Vector2 start = array.get(array.size - 3);
                     array.clip(array.size - 2, array.size - 1);
@@ -71,6 +65,6 @@ public class ForceWave extends Skill {
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 }

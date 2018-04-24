@@ -5,5 +5,5 @@ package ru.myitschool.cubegame.skills;
  */
 public interface Action {
 
-    void act(Target target, boolean success, FloatingDamageMark mark);
+    void act(Target target, int success, FloatingDamageMark mark);
 }

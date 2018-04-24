@@ -10,8 +10,7 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class Shoot extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
-    MathAction attackAction = new DiceAction(1, 6);
+    MathAction attackAction = new DiceAction(6);
 
     public Shoot(Entity doer) {
         super(doer);
@@ -25,25 +24,20 @@ public class Shoot extends Skill {
         setTargetType(SKILL_TARGET_TYPE_ENEMY);
         setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         setObstruct(true);
-        Play play = new Play() {
+        addPlayContainer().getEnemyPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
-                    attackAction = new DiceAction(1, 6);
-                    attackAction = countAttackAction(attackAction);
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                if (success == Play.TARGETING_HIT || success == Play.TARGETING_CRIT_HIT) {
                     Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
+                    int damage = -countAttackAction(attackAction).act();
+                    if (success == Play.TARGETING_CRIT_HIT){
+                        damage = -countAttackAction(attackAction).max();
+                    }
                     entity.addHp(damage);
                     mark.addText(damage + "");
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 }

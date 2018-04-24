@@ -34,7 +34,7 @@ public class Skill {
     public static final int SKILL_TARGET_TYPE_FLOOR_SINGLE = 8;
     public static final int SKILL_TARGET_TYPE_SELF = 9;
 
-    private static final DiceAction dice = new DiceAction(1, 6);
+    private static final DiceAction dice = new DiceAction(6);
 
     private Array<Play> plays = new Array<Play>();
     private Array<Target> targets = new Array<Target>();
@@ -57,6 +57,7 @@ public class Skill {
     private int distanceMin = 0;
     private int distanceMax = 0;
     private int range = 1;
+    private int skillAccuracyBonus = 0;
 
     private String name;
     private String description;
@@ -92,16 +93,26 @@ public class Skill {
         return doer;
     }
 
-    protected int getAccuracyBonus(){
-        return doer.getAccuracyBonus();
+    public int getSkillAccuracyBonus() {
+        return skillAccuracyBonus;
+    }
+
+    public void setSkillAccuracyBonus(int skillAccuracyBonus) {
+        this.skillAccuracyBonus = skillAccuracyBonus;
+    }
+
+    public int getAccuracyBonus(){
+        return doer.getAccuracyBonus() + getSkillAccuracyBonus();
     }
 
     protected MathAction countAttackAction(MathAction action){
         return doer.attackBonus(action);
     }
 
-    public void addPlay(Play play){
-        plays.add(play);
+    public PlayContainer addPlayContainer(){
+        PlayContainer playContainer = new PlayContainer(this);
+        plays.add(playContainer);
+        return playContainer;
     }
 
     public Array<Play> getPlays() {
@@ -301,7 +312,7 @@ public class Skill {
         target = target.getMain();
         if (targetObstructionCheck(target, false)) {
             if (targetWallCheck(target) && (!checkAllTargets || targetObstructionCheck(target, true))) {
-                targets.add(target);
+                 targets.add(target);
             }
             for (Target linked : target.getLinkedTargets()) {
                 if (targetWallCheck(linked) && (!checkAllTargets || targetObstructionCheck(linked, true))) {

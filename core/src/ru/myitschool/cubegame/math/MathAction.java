@@ -8,4 +8,12 @@ public abstract class MathAction {
     public abstract int act();
 
     public abstract String getDescription();
+
+    public int max(){
+        return act();
+    }
+
+    public int min(){
+        return act();
+    }
 }

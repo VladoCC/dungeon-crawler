@@ -12,7 +12,7 @@ import ru.myitschool.cubegame.math.MathAction;
 public class Battlecry extends Skill {
 
     int accuracyBonus = 5;
-    MathAction action = new DiceAction(1, 6);
+    MathAction action = new DiceAction(6);
 
     public Battlecry(Entity doer) {
         super(doer);

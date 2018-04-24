@@ -11,7 +11,7 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class JaggedSword extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
+    MathAction attackAction = new DiceAction(6);
 
     public JaggedSword(Entity doer) {
         super(doer);
@@ -25,26 +25,25 @@ public class JaggedSword extends Skill {
         setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
         setType(SKILL_TYPE_COOLDOWN);
         setCooldownMax(4);
-        Play play = new Play() {
+
+        addPlayContainer().getEnemyPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success){
-                    MathAction attackAction = new DiceAction(1, 6);
-                    attackAction = countAttackAction(attackAction);
-                    Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
-                    entity.addHp(damage);
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                Entity entity = target.getEntity();
+                int damage = 0;
+                if (success == Play.TARGETING_HIT){
+                    damage = -countAttackAction(attackAction).act();
                     entity.addEffect(new BloodiedEffect(entity, 3, 3));
+                } else if (success == Play.TARGETING_CRIT_HIT){
+                    damage = -countAttackAction(attackAction).max();
+                    entity.addEffect(new BloodiedEffect(entity, 5, 3));
+                }
+                entity.addHp(damage);
+                if (damage != 0) {
                     mark.addText(damage + "");
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 }

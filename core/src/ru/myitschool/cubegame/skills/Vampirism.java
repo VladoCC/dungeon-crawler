@@ -10,8 +10,6 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class Vampirism extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
-
     public Vampirism(final Entity doer) {
         super(doer);
         setIcon(new Texture("vampirism.png"));
@@ -23,20 +21,16 @@ public class Vampirism extends Skill {
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_ENEMY);
         setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
-        Play play = new Play() {
+        addPlayContainer().getEnemyPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
-                    MathAction attackAction = new DiceAction(1, 6);
-                    attackAction = countAttackAction(attackAction);
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                if (success == Play.TARGETING_HIT || success == Play.TARGETING_CRIT_HIT) {
+                    MathAction attackAction = new DiceAction(6);
                     Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
+                    int damage = -countAttackAction(attackAction).act();
+                    if (success == Play.TARGETING_CRIT_HIT){
+                        damage = -countAttackAction(attackAction).max();
+                    }
                     int hp = entity.addHp(damage);
                     doer.addHp(Math.abs(hp));
                     mark.addText(damage + "");
@@ -45,6 +39,6 @@ public class Vampirism extends Skill {
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 }

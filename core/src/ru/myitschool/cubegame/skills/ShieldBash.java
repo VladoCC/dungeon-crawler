@@ -11,8 +11,7 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class ShieldBash extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
-    MathAction attackAction = new DiceAction(1, 4);
+    MathAction attackAction = new DiceAction(6);
 
     public ShieldBash(Entity doer) {
         super(doer);
@@ -29,26 +28,21 @@ public class ShieldBash extends Skill {
         setCooldownMax(2);
         setObstruct(false);
         setWallTargets(false);
-        Play play = new Play() {
+        addPlayContainer().getEnemyPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
-                    attackAction = new DiceAction(1, 4);
-                    attackAction = countAttackAction(attackAction);
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                if (success == Play.TARGETING_HIT || success == Play.TARGETING_CRIT_HIT) {
                     Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
+                    int damage = -countAttackAction(attackAction).act();
+                    if (success == Play.TARGETING_CRIT_HIT){
+                        damage = -countAttackAction(attackAction).max();
+                    }
                     entity.addHp(damage);
                     entity.addEffect(new ImmobilizedEffect(entity, 1));
                     mark.addText(damage + "");
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 }

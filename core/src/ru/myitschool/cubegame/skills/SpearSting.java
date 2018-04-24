@@ -10,8 +10,7 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class SpearSting extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
-    MathAction attackAction = new DiceAction(1, 12);
+    MathAction attackAction = new DiceAction(10);
 
     public SpearSting(Entity doer) {
         super(doer);
@@ -24,28 +23,20 @@ public class SpearSting extends Skill {
         setRange(2);
         setTargetType(SKILL_TARGET_TYPE_FLOOR_WAVE);
         setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_WAVE);
-        Play play = new Play() {
+        addPlayContainer().getEntityPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                if (target.getEntity() != null) {
-                    return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
-                }
-                return false;
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
-                    attackAction = new DiceAction(1, 12);
-                    attackAction = countAttackAction(attackAction);
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                if (success == Play.TARGETING_CRIT_HIT || success == Play.TARGETING_HIT) {
                     Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
+                    int damage = -countAttackAction(attackAction).act();
+                    if (success == Play.TARGETING_CRIT_HIT){
+                        damage = -countAttackAction(attackAction).max();
+                    }
                     entity.addHp(damage);
                     mark.addText(damage + "");
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 }

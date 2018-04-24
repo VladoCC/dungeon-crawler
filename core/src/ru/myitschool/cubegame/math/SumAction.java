@@ -5,21 +5,49 @@ package ru.myitschool.cubegame.math;
  */
 public class SumAction extends MathAction {
 
-    private MathAction first;
-    private MathAction second;
+    private MathAction[] actions;
 
-    public SumAction(MathAction first, MathAction second) {
-        this.first = first;
-        this.second = second;
+    public SumAction(ActionArray array){
+        this(array.getActions());
+    }
+
+    public SumAction(MathAction... actions) {
+        this.actions = actions;
     }
 
     @Override
     public int act() {
-        return first.act() + second.act();
+        int sum = 0;
+        for (int i = 0; i < actions.length; i++) {
+            sum += actions[i].act();
+        }
+        return sum;
     }
 
     @Override
     public String getDescription() {
-        return first.getDescription() + " + " + second.getDescription();
+        String description = "" + actions[0].getDescription();
+        for (int i = 1; i < actions.length; i++) {
+            description += " + " + actions[i].getDescription();
+        }
+        return description;
+    }
+
+    @Override
+    public int max() {
+        int sum = 0;
+        for (int i = 0; i < actions.length; i++) {
+            sum += actions[i].max();
+        }
+        return sum;
+    }
+
+    @Override
+    public int min() {
+        int sum = 0;
+        for (int i = 0; i < actions.length; i++) {
+            sum += actions[i].min();
+        }
+        return sum;
     }
 }

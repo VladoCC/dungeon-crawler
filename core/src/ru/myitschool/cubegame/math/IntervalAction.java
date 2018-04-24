@@ -26,4 +26,14 @@ public class IntervalAction extends MathAction {
     public String getDescription() {
         return "(" + min + "-" + max + ")";
     }
+
+    @Override
+    public int max() {
+        return max;
+    }
+
+    @Override
+    public int min() {
+        return min;
+    }
 }

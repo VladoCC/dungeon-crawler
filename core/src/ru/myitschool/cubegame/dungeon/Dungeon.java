@@ -8,6 +8,7 @@ import ru.myitschool.cubegame.entities.Character;
 import ru.myitschool.cubegame.story.quest.Quest;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * Created by Voyager on 25.03.2018.
@@ -188,7 +189,12 @@ public class Dungeon {
             room = new Room("rooms/default.room");
             room.setMobs(false);
         } else {
-            room = new Room("rooms/corridor.room");
+            int rnd = new Random().nextInt(10);
+            if (rnd < 6) {
+                room = new Room("rooms/corridor.room");
+            } else {
+                room = new Room("rooms/default.room");
+            }
         }
         return room;
     }

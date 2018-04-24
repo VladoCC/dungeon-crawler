@@ -4,15 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import ru.myitschool.cubegame.entities.Entity;
 import ru.myitschool.cubegame.math.DiceAction;
 import ru.myitschool.cubegame.math.MathAction;
-import ru.myitschool.cubegame.math.NumberAction;
-import ru.myitschool.cubegame.math.SumAction;
 
 /**
  * Created by Voyager on 26.10.2017.
  */
 public class Scratches extends Skill {
-
-    MathAction rollAction = new SumAction(new DiceAction(1, 20), new NumberAction(1));
 
     public Scratches(final Entity doer) {
         super(doer);
@@ -22,28 +18,23 @@ public class Scratches extends Skill {
         setDistanceMin(1);
         setTargetType(SKILL_TARGET_TYPE_CHARACTER);
         setTypeDisplayer(SKILL_TARGET_TYPE_CHARACTER);
-        Play play = new Play() {
-            @Override
-            public boolean check(Target target) {
-                Entity entity = target.getEntity();
-                int armor = entity.getArmor();
-                return rollAction.act() + getAccuracyBonus() > armor;
-            }
-        };
+        setSkillAccuracyBonus(1);
         Action action = new Action(){
             @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success){
-                    MathAction attackAction = new DiceAction(1, 6);
-                    attackAction = countAttackAction(attackAction);
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                if (success == Play.TARGETING_CRIT_HIT || success == Play.TARGETING_HIT){
+                    MathAction attackAction = new DiceAction(6);
                     Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
+                    int damage = -countAttackAction(attackAction).act();
+                    if (success == Play.TARGETING_CRIT_HIT){
+                        attackAction = new DiceAction(8);
+                        damage = -countAttackAction(attackAction).max();
+                    }
                     entity.addHp(damage);
                     mark.addText(damage + "");
                 }
             }
         };
-        play.addAction(action);
-        addPlay(play);
+        addPlayContainer().getPlayerPlay().addAction(action);
     }
 }

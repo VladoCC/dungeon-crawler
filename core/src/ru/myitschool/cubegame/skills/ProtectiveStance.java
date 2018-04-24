@@ -11,9 +11,8 @@ import ru.myitschool.cubegame.math.MathAction;
  */
 public class ProtectiveStance extends Skill {
 
-    MathAction rollAction = new DiceAction(1, 20);
-    MathAction attackAction = new DiceAction(1, 6);
-    int armor = 5;
+    MathAction attackAction = new DiceAction(4);
+    int armor = 3;
 
     public ProtectiveStance(final Entity doer) {
         super(doer);
@@ -25,25 +24,20 @@ public class ProtectiveStance extends Skill {
         setDistanceMin(1);
         setTargetType(SKILL_TARGET_TYPE_CHARACTER);
         setTypeDisplayer(SKILL_TARGET_TYPE_CHARACTER);
-        Play play = new Play() {
+        addPlayContainer().getPlayerPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success){
-                    attackAction = new DiceAction(1, 4);
-                    attackAction = countAttackAction(attackAction);
-                    int damage = -attackAction.act();
+            public void act(Target target, int success, FloatingDamageMark mark) {
+
+                if (success == Play.TARGETING_HIT || success == Play.TARGETING_CRIT_HIT){
+                    int damage = -countAttackAction(attackAction).act();
+                    if (success == Play.TARGETING_CRIT_HIT){
+                        damage = -countAttackAction(attackAction).max();
+                    }
                     target.getEntity().addHp(damage);
                     mark.addText(damage + "");
+                    doer.addEffect(new ProtectionEffect(doer, armor));
                 }
-                doer.addEffect(new ProtectionEffect(doer, armor));
             }
         });
-        addPlay(play);
     }
 }

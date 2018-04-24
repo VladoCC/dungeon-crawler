@@ -23,23 +23,29 @@ public class Heal extends Skill {
         setRange(1);
         setTargetType(SKILL_TARGET_TYPE_CHARACTER);
         setTypeDisplayer(SKILL_TARGET_TYPE_CHARACTER);
-        Play play = new Play() {
+        PlayContainer container = addPlayContainer();
+        container.getPlayerPlay().setPlayCheck(new PlayCheck(this) {
             @Override
-            public boolean check(Target target) {
-                return true;
+            public int check(Target target) {
+                return Play.TARGETING_HIT;
             }
-        };
-        play.addAction(new Action() {
+        });
+        container.getPlayerPlay().addAction(new Action() {
             @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
-                    Entity entity = target.getEntity();
-                    int heal = healAction.act();
-                    entity.addHp(heal);
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                Entity entity = target.getEntity();
+                int heal = 0;
+                if (success == Play.TARGETING_HIT) {
+                    heal = healAction.act();
+                } else if (success == Play.TARGETING_CRIT_HIT){
+                    heal = healAction.max();
+                }
+                entity.addHp(heal);
+                if (heal != 0) {
                     mark.addText(heal + "");
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 }

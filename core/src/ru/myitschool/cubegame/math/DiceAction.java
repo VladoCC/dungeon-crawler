@@ -7,12 +7,10 @@ import java.util.Random;
  */
 public class DiceAction extends MathAction {
 
-    private int count;
     private int dice;
     private Random random;
 
-    public DiceAction(int count, int dice) {
-        this.count = count;
+    public DiceAction(int dice) {
         this.dice = dice;
         random = new Random();
     }
@@ -21,14 +19,22 @@ public class DiceAction extends MathAction {
     @Override
     public int act() {
         int result = 0;
-        for (int i = 0; i < count; i++) {
-            result += random.nextInt(dice) + 1;
-        }
+        result += random.nextInt(dice) + 1;
         return result;
     }
 
     @Override
     public String getDescription() {
-        return count + "d" + dice;
+        return "d" + dice;
+    }
+
+    @Override
+    public int max() {
+        return dice;
+    }
+
+    @Override
+    public int min() {
+        return 1;
     }
 }

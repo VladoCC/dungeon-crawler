@@ -16,8 +16,8 @@ public class CloudOfKnives extends Skill {
 
     private static final Color color = new Color(0xa020f0bf);
 
-    MathAction rollAction = new DiceAction(1, 20);
-    MathAction attackAction = new DiceAction(1, 6);
+    MathAction rollAction = new DiceAction(20);
+    MathAction attackAction = new DiceAction(6);
 
     public CloudOfKnives(Entity doer) {
         super(doer);
@@ -32,37 +32,30 @@ public class CloudOfKnives extends Skill {
         setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_SPLASH);
         setType(SKILL_TYPE_ENCOUNTER);
         setWallTargets(true);
-        Play play = new Play() {
+        PlayContainer container = addPlayContainer();
+        container.getEntityPlay().addAction(new Action() {
             @Override
-            public boolean check(Target target) {
-                if (target.getEntity() != null) {
-                    return rollAction.act() + getAccuracyBonus() > target.getEntity().getArmor();
+            public void act(Target target, int success, FloatingDamageMark mark) {
+                int damage = 0;
+                if (success  == Play.TARGETING_HIT) {
+                     damage = -attackAction.act();
+                } else if (success == Play.TARGETING_CRIT_HIT){
+                    damage = -attackAction.max();
                 }
-                return false;
-            }
-        };
-        play.addAction(new Action() {
-            @Override
-            public void act(Target target, boolean success, FloatingDamageMark mark) {
-                if (success) {
-                    Entity entity = target.getEntity();
-                    int damage = -attackAction.act();
-                    entity.addHp(damage);
+                Entity entity = target.getEntity();
+                entity.addHp(damage);
+                if (damage != 0) {
                     mark.addText(damage + "");
-                } else {
-                    System.out.println("MISS!");
                 }
             }
         });
-        addPlay(play);
+        addPlayContainer();
     }
 
     @Override
     public void use() {
-        attackAction = new DiceAction(1, 6);
-        attackAction = countAttackAction(attackAction);
         FloorEffect effect = null;
-        effect = new FloorEffect(getTargets(), new CloudOfKnivesEffect(effect, attackAction), color, true, true);
+        effect = new FloorEffect(getTargets(), new CloudOfKnivesEffect(effect, countAttackAction(attackAction)), color, true, true);
         getDoer().addEffect(new FloorClearingEffect(effect));
         super.use();
     }

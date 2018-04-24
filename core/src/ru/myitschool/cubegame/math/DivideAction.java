@@ -13,7 +13,6 @@ public class DivideAction extends MathAction {
         this.divider = divider;
     }
 
-
     @Override
     public int act() {
         return dividend.act() / divider.act();
@@ -22,5 +21,15 @@ public class DivideAction extends MathAction {
     @Override
     public String getDescription() {
         return "(" + dividend.getDescription() + ")" + " / " + "(" + divider.getDescription() + ")";
+    }
+
+    @Override
+    public int max() {
+        return dividend.max() / divider.min();
+    }
+
+    @Override
+    public int min() {
+        return dividend.min() / divider.max();
     }
 }
