@@ -190,7 +190,7 @@ public class Dungeon {
             room.setMobs(false);
         } else {
             int rnd = new Random().nextInt(10);
-            if (rnd < 6) {
+            if (rnd > 3) {
                 room = new Room("rooms/corridor.room");
             } else {
                 room = new Room("rooms/default.room");
