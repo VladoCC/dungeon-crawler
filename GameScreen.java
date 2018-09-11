@@ -1,4 +1,4 @@
-package ru.myitschool.cubegame.screens;
+package ru.myitschool.dcrawler.screens;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import ru.myitschool.cubegame.Dungeon;
+import ru.myitschool.dcrawler.Dungeon;
 import com.devon.dungeon.DungeonGenerator;
 import com.devon.dungeon.InputHandler;
 import com.devon.dungeon.MyGdxGame;

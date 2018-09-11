@@ -3,7 +3,7 @@ apply plugin: "java"
 sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
 
-project.ext.mainClassName = "ru.myitschool.cubegame.desktop.DesktopLauncher"
+project.ext.mainClassName = "ru.myitschool.games.wolg_vlad.dcrawler.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets")
 
 task run(dependsOn: classes, type: JavaExec) {

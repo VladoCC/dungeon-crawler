@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "ru.myitschool.cubegame"
+        applicationId "ru.myitschool.games.wolg_vlad.dcrawler"
         minSdkVersion 8
         targetSdkVersion 23
     }
@@ -65,7 +65,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'ru.myitschool.cubegame/ru.myitschool.cubegame.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'ru.myitschool.games.wolg_vlad.dcrawler/ru.myitschool.games.wolg_vlad.dcrawler.AndroidLauncher'
 }
 // sets up the Android Eclipse project, using the old Ant based build.
 eclipse {

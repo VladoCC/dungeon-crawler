@@ -6,7 +6,6 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.2/b2da9f8444128651758719856de579eacff7f387/gson-2.8.2-sources.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.8.2/b2da9f8444128651758719856de579eacff7f387/gson-2.8.2-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

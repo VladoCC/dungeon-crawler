@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id=":core" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" external.system.module.group="game" external.system.module.version="1.0" type="JAVA_MODULE" version="4">
+<module external.linked.project.id=":core" external.linked.project.path="$MODULE_DIR$" external.root.project.path="$MODULE_DIR$/.." external.system.id="GRADLE" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
@@ -13,7 +13,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/build/classes/main" />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />
@@ -27,10 +27,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="gdx-ai-1.8.1" level="project" />
-    <orderEntry type="library" exported="" name="gdx-1.9.6" level="project" />
-    <orderEntry type="library" exported="" name="gdx-freetype-1.9.6" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.8.2" level="project" />
-    <orderEntry type="library" exported="" name="core.core-1.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-ai-1.8.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-1.9.6" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-freetype-1.9.6" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gson-2.8.2" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: core.core-1.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: core.core-1.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: core.core-1.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: core.core-1.0" level="project" />
   </component>
 </module>

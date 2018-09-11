@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.myitschool.cubegame.test">
+    package="ru.myitschool.games.wolg_vlad.dcrawler.test">
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="23" />
 
@@ -9,8 +9,8 @@
     </application>
 
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="ru.myitschool.cubegame"
+                     android:targetPackage="ru.myitschool.games.wolg_vlad.dcrawler"
                      android:handleProfiling="false"
                      android:functionalTest="false"
-                     android:label="Tests for ru.myitschool.cubegame"/>
+                     android:label="Tests for ru.myitschool.games.wolg_vlad.dcrawler"/>
 </manifest>

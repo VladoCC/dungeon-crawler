@@ -6,7 +6,6 @@
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-ai/1.8.1/a0e7e1f3732190d68e376360d894175af72fabf2/gdx-ai-1.8.1-sources.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-ai/1.8.1/a0e7e1f3732190d68e376360d894175af72fabf2/gdx-ai-1.8.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
