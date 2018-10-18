@@ -5,7 +5,7 @@ import ru.myitschool.dcrawler.entities.Entity;
 /**
  * Created by Voyager on 01.12.2017.
  */
-public class CellEffect extends Effect {
+public abstract class CellEffect extends Effect {
 
     FloorEffect floorEffect;
 

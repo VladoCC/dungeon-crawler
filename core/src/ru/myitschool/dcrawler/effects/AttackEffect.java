@@ -16,12 +16,56 @@ public class AttackEffect extends Effect {
 
     public AttackEffect(Entity entity) {
         super(entity);
-        setName(name);
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
-        setSkillUse(true);
-        type = 1;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return true;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return true;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return false;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 1;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return false;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return 0;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.attack";
     }
 
     @Override

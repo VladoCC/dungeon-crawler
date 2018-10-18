@@ -17,20 +17,14 @@ public class BattlecryEffect extends Effect {
     private boolean positive = true;
     private MathAction damage;
     private int accuracyBonus;
+    private int turns;
 
     public BattlecryEffect(Entity entity, int accuracyBonus, MathAction damage, int turns) {
         super(entity);
-        setName(name);
-        description += "Increases accuracy for " + accuracyBonus + " and damage for " + damage.getDescription() + " for " + turns + " turns.";
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
-        setExpiring(true);
-        setExpireTurns(turns);
+        this.turns = turns;
         this.damage = damage;
         this.accuracyBonus = accuracyBonus;
         entity.setAccuracyBonus(entity.getAccuracyBonus() + accuracyBonus);
-        type = 4;
     }
 
     @Override
@@ -38,6 +32,56 @@ public class BattlecryEffect extends Effect {
         action = super.attackBonus(action);
         MathAction resultAction = new SumAction(action, damage);
         return resultAction;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Increases accuracy for " + accuracyBonus + " and damage for " + damage.getDescription() + " for " + turns + " turns.";
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return false;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return true;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return false;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 0;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return true;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return turns;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.battlecry";
     }
 
     @Override

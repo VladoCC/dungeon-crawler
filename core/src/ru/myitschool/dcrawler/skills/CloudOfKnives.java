@@ -56,7 +56,7 @@ public class CloudOfKnives extends Skill {
     public void use() {
         FloorEffect effect = null;
         effect = new FloorEffect(getTargets(), new CloudOfKnivesEffect(effect, countAttackAction(attackAction)), color, true, true);
-        getDoer().addEffect(new FloorClearingEffect(effect));
+        getDoer().addEffect(new FloorClearingEffect(effect, 1));
         super.use();
     }
 }

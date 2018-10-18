@@ -17,23 +17,63 @@ public class CloudOfKnivesEffect extends CellEffect {
 
     public CloudOfKnivesEffect(FloorEffect floorEffect, MathAction damage) {
         super(floorEffect);
-        setName(name);
-        description += "";
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
-        setStackable(false);
-        setStackSize(0);
-        setExpiring(false);
-        setExpireTurns(0);
         this.damage = damage;
-        type = -2;
     }
 
     @Override
     protected void onStepTo(Entity entity) {
         super.onStepTo(entity);
         entity.addHp(-damage.act());
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return false;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return false;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return false;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 0;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return false;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return 0;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.cloud_of_knives";
     }
 
     @Override

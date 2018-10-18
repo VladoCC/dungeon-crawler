@@ -22,7 +22,7 @@ public class EffectArray extends ArrayList<Effect> {
             int count = 0;
             for (int i = size - 1; i >= 0; i--){
                 Effect oldEffet = get(i);
-                if (oldEffet.getType() == effect.getType()){
+                if (oldEffet.getType().equals(effect.getType())){
                     count++;
                     if (count >= stack){
                         remove(i);
@@ -32,7 +32,7 @@ public class EffectArray extends ArrayList<Effect> {
         } else {
             for (int i = size - 1; i >= 0; i--) {
                 Effect oldEffet = get(i);
-                if (oldEffet.getType() == effect.getType()){
+                if (oldEffet.getType().equals(effect.getType())){
                     remove(i);
                 }
             }
@@ -41,7 +41,8 @@ public class EffectArray extends ArrayList<Effect> {
             pos = size();
         }
         super.add(pos, effect);
-        effect.setId(id++);
+        effect.setId(id);
+        id++;
     }
 
     public void removeId(int id){

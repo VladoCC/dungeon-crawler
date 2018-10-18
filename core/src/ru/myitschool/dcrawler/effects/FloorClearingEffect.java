@@ -12,21 +12,63 @@ public class FloorClearingEffect extends Effect {
     private Texture icon = null;
     private boolean positive = true;
     FloorEffect effect;
+    private int turns;
 
-    public FloorClearingEffect(FloorEffect effect) {
+    public FloorClearingEffect(FloorEffect effect, int turns) {
         super(null);
-        setName(name);
-        description += "";
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
-        setStackable(true);
-        setStackSize(4096);
-        setExpiring(true);
-        setExpireTurns(1);
         setHide(true);
         this.effect = effect;
-        type = 7;
+        this.turns = turns;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return false;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return true;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return true;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 4096;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return true;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return turns;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.floor_clearing";
     }
 
     @Override

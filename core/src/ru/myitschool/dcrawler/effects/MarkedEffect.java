@@ -17,18 +17,8 @@ public class MarkedEffect extends Effect {
 
     public MarkedEffect(Entity entity, Entity marker, int penalty) {
         super(entity);
-        setName(name);
-        description += "All your attacks except of attacks to creature that marked you gets " + penalty + " accuracy penalty.";
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
-        setStackable(false);
-        setStackSize(0);
-        setExpiring(false);
-        setExpireTurns(0);
         this.penalty = penalty;
         this.marker = marker;
-        type = 6;
     }
 
     @Override
@@ -37,5 +27,55 @@ public class MarkedEffect extends Effect {
             accuracy += penalty;
         }
         return accuracy;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return "All your attacks except of attacks to creature that marked you gets " + penalty + " accuracy penalty.";
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return false;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return false;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return false;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 0;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return false;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return 0;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.marked";
     }
 }

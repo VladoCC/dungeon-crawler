@@ -15,20 +15,20 @@ public interface EntityEvent {
             EntityEvent.ACCURACY_BONUS_EVENT, EntityEvent.ON_DAMAGE_EVENT, EntityEvent.ON_HEAL_EVENT,
             EntityEvent.ON_ENCOUNTER_EVENT, EntityEvent.ON_DEATH_EVENT};
 
-    String START_TURN_EVENT = "main.entity.start_turn";
-    String END_TURN_EVENT = "main.entity.end_turn";
-    String START_MOVE_EVENT = "main.entity.start_move";
-    String END_MOVE_EVENT = "main.entity.end_move";
-    String COUNT_MP_EVENT = "main.entity.count_mp";
-    String CAN_USE_SKILL_EVENT = "main.entity.can_use_skill";
-    String START_SKILL_EVENT = "main.entity.start_skill";
-    String END_SKILL_EVENT = "main.entity.end_skill";
-    String ATTACK_BONUS_EVENT = "main.entity.attack_bonus";
-    String ACCURACY_BONUS_EVENT = "main.entity.accuracy_bonus";
-    String ON_DAMAGE_EVENT = "main.entity.on_damage";
-    String ON_HEAL_EVENT = "main.entity.on_heal";
-    String ON_ENCOUNTER_EVENT = "main.entity.on_encounter";
-    String ON_DEATH_EVENT = "main.entity.on_death";
+    String START_TURN_EVENT = "main.dcrawler.entity.start_turn";
+    String END_TURN_EVENT = "main.dcrawler.entity.end_turn";
+    String START_MOVE_EVENT = "main.dcrawler.entity.start_move";
+    String END_MOVE_EVENT = "main.dcrawler.entity.end_move";
+    String COUNT_MP_EVENT = "main.dcrawler.entity.count_mp";
+    String CAN_USE_SKILL_EVENT = "main.dcrawler.entity.can_use_skill";
+    String START_SKILL_EVENT = "main.dcrawler.entity.start_skill";
+    String END_SKILL_EVENT = "main.dcrawler.entity.end_skill";
+    String ATTACK_BONUS_EVENT = "main.dcrawler.entity.attack_bonus";
+    String ACCURACY_BONUS_EVENT = "main.dcrawler.entity.accuracy_bonus";
+    String ON_DAMAGE_EVENT = "main.dcrawler.entity.on_damage";
+    String ON_HEAL_EVENT = "main.dcrawler.entity.on_heal";
+    String ON_ENCOUNTER_EVENT = "main.dcrawler.entity.on_encounter";
+    String ON_DEATH_EVENT = "main.dcrawler.entity.on_death";
 
     String ENTITY_EXECUTOR_ARG_KEY = "entity_executor";
     String WITH_MOVEMENT_ARG_KEY = "with_movement";

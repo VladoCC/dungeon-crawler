@@ -1,7 +1,7 @@
 package ru.myitschool.dcrawler.skills;
 
 import com.badlogic.gdx.graphics.Texture;
-import ru.myitschool.dcrawler.effects.GodsProtectionEffect;
+import ru.myitschool.dcrawler.effects.ArcaneShieldingEffect;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.math.DiceAction;
 import ru.myitschool.dcrawler.math.MathAction;
@@ -31,7 +31,7 @@ public class ArcaneShielding extends Skill {
             @Override
             public void effect(Target target, int success, int damage, FloatingDamageMark mark) {
                 if (success >= Play.TARGETING_HIT){
-                    target.getEntity().addEffect(new GodsProtectionEffect(getDoer()));
+                    target.getEntity().addEffect(new ArcaneShieldingEffect(getDoer()));
                 }
             }
         });

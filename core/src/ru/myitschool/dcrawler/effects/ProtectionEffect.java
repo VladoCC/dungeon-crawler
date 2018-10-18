@@ -19,14 +19,58 @@ public class ProtectionEffect extends Effect {
 
     public ProtectionEffect(Entity entity, int armor) {
         super(entity);
-        setName(name);
-        description += armor  + descriptionEnd;
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
         entity.setArmor(entity.getArmor() + armor);
         this.armor = armor;
-        type = 2;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description + armor + descriptionEnd;
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return false;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return true;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return false;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 0;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return false;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return 0;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.protection";
     }
 
     @Override

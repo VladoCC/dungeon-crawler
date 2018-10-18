@@ -16,14 +16,57 @@ public class ControlledEffect extends Effect {
 
     public ControlledEffect(Entity entity) {
         super(entity);
-        setName(name);
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
-        setExpiring(true);
-        setExpireTurns(1);
         entity.setControlled(true);
-        type = 4;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return false;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return false;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return false;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 0;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return true;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return 1;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.controlled";
     }
 
     @Override

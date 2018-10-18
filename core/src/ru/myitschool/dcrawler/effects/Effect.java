@@ -8,9 +8,9 @@ import ru.myitschool.dcrawler.math.MathAction;
 /**
  * Created by Voyager on 04.06.2017.
  */
-public class Effect extends EntityEventAdapter implements Cloneable {
+public abstract class Effect extends EntityEventAdapter implements Cloneable {
 
-    protected int type;
+    protected String type;
 
     private Entity entity;
     private Texture icon;
@@ -27,7 +27,7 @@ public class Effect extends EntityEventAdapter implements Cloneable {
     private int expireTurns;
 
     public Effect(Entity entity) {
-        this.entity = entity;
+        setEntity(entity);
     }
 
     public boolean isHide() {
@@ -46,37 +46,13 @@ public class Effect extends EntityEventAdapter implements Cloneable {
         this.delete = delete;
     }
 
-    public Texture getIcon() {
-        return icon;
-    }
+    public abstract Texture getIcon();
 
-    public void setIcon(Texture icon) {
-        this.icon = icon;
-    }
+    public abstract String getName();
 
-    public String getName() {
-        return name;
-    }
+    public abstract String getDescription();
 
-    public String getDescription() {
-        return description;
-    }
-
-    public boolean isSkillUse() {
-        return skillUse;
-    }
-
-    public void setSkillUse(boolean skillUse) {
-        this.skillUse = skillUse;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public abstract boolean isSkillUse();
 
     public Entity getEntity() {
         return entity;
@@ -94,53 +70,17 @@ public class Effect extends EntityEventAdapter implements Cloneable {
         this.id = id;
     }
 
-    public boolean isPositive() {
-        return positive;
-    }
+    public abstract boolean isPositive();
 
-    public void setPositive(boolean positive) {
-        this.positive = positive;
-    }
+    public abstract boolean isStackable();
 
-    public boolean isStackable() {
-        return stackable;
-    }
+    public abstract int getStackSize();
 
-    public void setStackable(boolean stackable) {
-        this.stackable = stackable;
-    }
+    public abstract boolean isExpiring();
 
-    public int getStackSize() {
-        return stackSize;
-    }
+    public abstract int getExpireTurns();
 
-    public void setStackSize(int stackSize) {
-        this.stackSize = stackSize;
-    }
-
-    public boolean isExpiring() {
-        return expiring;
-    }
-
-    public void setExpiring(boolean expiring) {
-        this.expiring = expiring;
-    }
-
-    public int getExpireTurns() {
-        return expireTurns;
-    }
-
-    public void setExpireTurns(int expireTurns) {
-        this.expireTurns = expireTurns;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
+    public abstract String getType();
 
     public void onExpire(){
 
@@ -150,18 +90,8 @@ public class Effect extends EntityEventAdapter implements Cloneable {
     public Object clone() {
         try {
             Effect effect = (Effect) super.clone();
-            effect.setStackSize(getStackSize());
-            effect.setType(getType());
-            effect.setStackable(isStackable());
-            effect.setSkillUse(isSkillUse());
             effect.setDelete(isDelete());
-            effect.setDescription(getDescription());
-            effect.setExpireTurns(getExpireTurns());
-            effect.setExpiring(isExpiring());
             effect.setHide(isHide());
-            effect.setIcon(getIcon());
-            effect.setName(getName());
-            effect.setPositive(isPositive());
             return effect;
         } catch (Exception e){
             e.printStackTrace();

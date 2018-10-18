@@ -4,20 +4,17 @@ import com.badlogic.gdx.graphics.Texture;
 import ru.myitschool.dcrawler.entities.Entity;
 
 /**
- * Created by Voyager on 02.12.2017.
+ * Created by Voyager on 26.11.2017.
  */
-public class ImmobilizedEffect extends Effect {
+public class ArcaneShieldingEffect extends Effect {
 
-    private String name = "Immobilized";
+    private String name = "God's protection";
     private String description = "";
-    private Texture icon = new Texture("immobilization.png");
-    private boolean positive = false;
-    private int turns;
+    private Texture icon = new Texture("gods_protection.png");
+    private boolean positive = true;
 
-    public ImmobilizedEffect(Entity entity, int turns) {
+    public ArcaneShieldingEffect(Entity entity) {
         super(entity);
-        entity.setImmobilized(true);
-        this.turns = turns;
     }
 
     @Override
@@ -32,7 +29,7 @@ public class ImmobilizedEffect extends Effect {
 
     @Override
     public String getDescription() {
-        return "You can not move for " + turns + " turn(-s)";
+        return "God protects you from all damage for this turn";
     }
 
     @Override
@@ -42,7 +39,7 @@ public class ImmobilizedEffect extends Effect {
 
     @Override
     public boolean isPositive() {
-        return false;
+        return true;
     }
 
     @Override
@@ -62,17 +59,16 @@ public class ImmobilizedEffect extends Effect {
 
     @Override
     public int getExpireTurns() {
-        return turns;
+        return 1;
     }
 
     @Override
     public String getType() {
-        return "main.dcrawler.effect.immobilized";
+        return "main.dcrawler.effect.arcane_shielding";
     }
 
     @Override
-    public void onExpire() {
-        super.onExpire();
-        getEntity().setImmobilized(false);
+    public int onDamage(int damage) {
+        return 0;
     }
 }

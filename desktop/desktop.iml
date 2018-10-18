@@ -54,9 +54,5 @@
     <orderEntry type="library" exported="" name="Gradle: lwjgl-openal-3.1.0-natives-macos" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jlayer-1.0.1-gdx" level="project" />
     <orderEntry type="library" exported="" name="Gradle: jorbis-0.0.17" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: desktop.desktop-1.0" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: desktop.desktop-1.0" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: desktop.desktop-1.0" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: desktop.desktop-1.0" level="project" />
   </component>
 </module>

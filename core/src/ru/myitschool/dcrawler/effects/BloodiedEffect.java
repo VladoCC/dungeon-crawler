@@ -15,20 +15,62 @@ public class BloodiedEffect extends Effect {
     private boolean used = false;
     private boolean positive = false;
     private MathAction damage;
+    private int rounds;
 
     public BloodiedEffect(Entity entity, MathAction damage, int rounds) {
         super(entity);
-        setName(name);
-        description += "Deal " + damage.getDescription() + " damage on start of your turn for " + rounds + " turns.";
-        setDescription(description);
-        setIcon(icon);
-        setPositive(positive);
-        setStackable(false);
-        setStackSize(1);
-        setExpiring(true);
-        setExpireTurns(rounds);
+        this.rounds = rounds;
         this.damage = damage;
-        type = 3;
+    }
+
+    @Override
+    public Texture getIcon() {
+        return icon;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Deal " + damage.getDescription() + " damage on start of your turn for " + rounds + " turns.";
+    }
+
+    @Override
+    public boolean isSkillUse() {
+        return false;
+    }
+
+    @Override
+    public boolean isPositive() {
+        return positive;
+    }
+
+    @Override
+    public boolean isStackable() {
+        return false;
+    }
+
+    @Override
+    public int getStackSize() {
+        return 1;
+    }
+
+    @Override
+    public boolean isExpiring() {
+        return true;
+    }
+
+    @Override
+    public int getExpireTurns() {
+        return rounds;
+    }
+
+    @Override
+    public String getType() {
+        return "main.dcrawler.effect.bloodied";
     }
 
     @Override
