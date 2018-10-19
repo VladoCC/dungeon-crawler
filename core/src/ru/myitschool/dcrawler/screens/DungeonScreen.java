@@ -242,6 +242,8 @@ public class DungeonScreen extends AdvancedScreen {
                 } else if (keycode == Input.Keys.M){
                     mainCamera.position.x = 0;
                     mainCamera.position.y = 0;
+                } else if (keycode == Input.Keys.T){
+                    Entity.nextTurn(Entity.getNowPlaying());
                 }
                 System.out.println(Input.Keys.toString(keycode));
                 return false;

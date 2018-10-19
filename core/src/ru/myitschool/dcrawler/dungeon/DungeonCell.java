@@ -71,7 +71,7 @@ public class DungeonCell extends TiledMapTileLayer.Cell implements EntityEvent {
     }
 
     public void removeEffect(CellEffect effect){
-        effects.removeValue(effect, true);
+        effects.removeValue(effect, false);
     }
 
     public void onStepTo(int x1, int y1, int x2, int y2, Entity entity){

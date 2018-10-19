@@ -13,21 +13,15 @@ public abstract class Effect extends EntityEventAdapter implements Cloneable {
     protected String type;
 
     private Entity entity;
-    private Texture icon;
     private boolean hide;
     private boolean delete;
-    private boolean skillUse;
-    private boolean positive;
-    private String name;
-    private String description;
     private int id;
-    private boolean stackable;
-    private int stackSize;
-    private boolean expiring;
-    private int expireTurns;
+    private int expireTurns = 0;
+    private Effect prototype;
 
     public Effect(Entity entity) {
         setEntity(entity);
+        setPrototype(this);
     }
 
     public boolean isHide() {
@@ -82,6 +76,10 @@ public abstract class Effect extends EntityEventAdapter implements Cloneable {
 
     public abstract String getType();
 
+    public void setPrototype(Effect prototype) {
+        this.prototype = prototype;
+    }
+
     public void onExpire(){
 
     }
@@ -92,11 +90,20 @@ public abstract class Effect extends EntityEventAdapter implements Cloneable {
             Effect effect = (Effect) super.clone();
             effect.setDelete(isDelete());
             effect.setHide(isHide());
+            effect.setPrototype(this.prototype);
             return effect;
         } catch (Exception e){
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Effect)) return false;
+        Effect effect = (Effect) o;
+        return effect == this.prototype;
     }
 
     /** Events */
@@ -113,9 +120,9 @@ public abstract class Effect extends EntityEventAdapter implements Cloneable {
     public void endTurn() {
         super.endTurn();
         System.out.println(expireTurns + " abra-kad-abra");
-        if (expiring){
-            if (expireTurns > 0){
-                expireTurns--;
+        if (isExpiring()){
+            if (expireTurns < getExpireTurns()){
+                expireTurns++;
             } else {
                 setDelete(true);
                 onExpire();
