@@ -3,9 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/android/android.iml" filepath="$PROJECT_DIR$/android/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android-editor/android-editor.iml" filepath="$PROJECT_DIR$/android-editor/android-editor.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core-editor/core-editor.iml" filepath="$PROJECT_DIR$/core-editor/core-editor.iml" />
       <module fileurl="file://$PROJECT_DIR$/cubegame-master.iml" filepath="$PROJECT_DIR$/cubegame-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/desktop/desktop.iml" filepath="$PROJECT_DIR$/desktop/desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/desktop-editor/desktop-editor.iml" filepath="$PROJECT_DIR$/desktop-editor/desktop-editor.iml" />
     </modules>
   </component>
 </project>

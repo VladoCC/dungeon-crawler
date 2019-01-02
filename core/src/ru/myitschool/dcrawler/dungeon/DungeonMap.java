@@ -89,7 +89,7 @@ public class DungeonMap extends TiledMap {
                         if (character.isSkillUse()) {
                             int cellX = (int) (pos.x / DungeonTile.TILE_WIDTH);
                             int cellY = (int) (pos.y / DungeonTile.TILE_HEIGHT);
-                            character.addTarget(cellX, cellY);
+                            character.addOrRemoveSkillTarget(cellX, cellY);
                             character.getUsedSkill().drawTargets();
                         } else if (!character.isMovement()) {
                             character.setMovement();

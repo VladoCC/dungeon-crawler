@@ -11,7 +11,9 @@ import ru.myitschool.dcrawler.event.EntityEvent;
 import ru.myitschool.dcrawler.event.EventController;
 import ru.myitschool.dcrawler.math.DiceAction;
 import ru.myitschool.dcrawler.math.MathAction;
+import ru.myitschool.dcrawler.skills.patterns.TargetPattern;
 import ru.myitschool.dcrawler.skills.targeting.*;
+import ru.myitschool.dcrawler.utils.Utils;
 
 import java.util.HashMap;
 
@@ -26,7 +28,6 @@ public class Skill {
     public static final int SKILL_TYPE_DAILY = 3;
     public static final int SKILL_TYPE_COOLDOWN_DICE = 4;
 
-    //public static final int SKILL_TARGET_TYPE_
     public static final int SKILL_TARGET_TYPE_ENTITY = 0;
     public static final int SKILL_TARGET_TYPE_FLOOR_SPLASH = 1; /**area centered in chosen point */
     public static final int SKILL_TARGET_TYPE_FLOOR_WAVE = 2; /** line that starts in chosen point */
@@ -71,6 +72,7 @@ public class Skill {
     private Entity doer;
 
     private TargetRenderer renderer;
+    private TargetPattern pattern;
 
     public Skill(Entity doer) {
         this.doer = doer;
@@ -143,11 +145,11 @@ public class Skill {
     }
 
     public String getTypeString(){
-        switch (type){
+        switch (getType()){
             case SKILL_TYPE_AT_WILL:
                 return "At will";
             case SKILL_TYPE_COOLDOWN:
-                return "Cooldown: " + cooldownMax + " turns";
+                return "Cooldown: " + getCooldownMax() + " turns";
             case SKILL_TYPE_COOLDOWN_DICE:
                 return "Cooldown on " + getDices();
             case SKILL_TYPE_ENCOUNTER:
@@ -160,8 +162,8 @@ public class Skill {
 
     private String getDices(){
         String dices = "";
-        if (type == SKILL_TYPE_COOLDOWN_DICE){
-            for (int i = 0; i < cooldownMax; i++) {
+        if (getType() == SKILL_TYPE_COOLDOWN_DICE){
+            for (int i = 0; i < getCooldownMax(); i++) {
                 dices += diceFaces[i];
             }
         }
@@ -177,7 +179,7 @@ public class Skill {
     }
 
     public String getTargetTypeString(){
-        switch (targetType){
+        switch (getTargetType()){
             case SKILL_TARGET_TYPE_ENTITY:
                 return "Entity";
             case SKILL_TARGET_TYPE_FLOOR_SPLASH:
@@ -317,16 +319,25 @@ public class Skill {
 
     public void addTarget(Target target){
         target = target.getMain();
-        if (targetObstructionCheck(target, false)) {
-            if (targetWallCheck(target) && (!checkAllTargets || targetObstructionCheck(target, true))) {
-                 targets.add(target);
-            }
-            for (Target linked : target.getLinkedTargets()) {
-                if (targetWallCheck(linked) && (!checkAllTargets || targetObstructionCheck(linked, true))) {
-                    targets.add(linked);
+        if (Utils.isTargetInDistance(target.getX(), target.getY(), getDoer().getTileX(), getDoer().getTileY(), getDistanceMin(), getDistanceMax()) && getTargetCount() < getTargetCountMax()) {
+            target = getPattern().createTarget(target);
+            if (target != null && targetObstructionCheck(target, false)) {
+                boolean added = false;
+                if (targetWallCheck(target) && (!isCheckAllTargets() || targetObstructionCheck(target, true))) {
+                    targets.add(target);
+                    added = true;
                 }
+                for (Target linked : target.getLinkedTargets()) {
+                    if (targetWallCheck(linked) && (!isCheckAllTargets() || targetObstructionCheck(linked, true))) {
+                        targets.add(linked);
+                        added = true;
+                    }
+                }
+                if (added){
+                    setTargetCount(getTargetCount() + 1);
+                }
+                drawTargets();
             }
-            drawTargets();
         }
     }
 
@@ -340,7 +351,7 @@ public class Skill {
 
     public void clearTargets(){
         targets.clear();
-        targetCount = 0;
+        setTargetCount(0);
     }
 
     public boolean hasTarget(Target target){
@@ -363,7 +374,7 @@ public class Skill {
             targets.removeValue(linked, false);
         }
         targets.removeValue(main, false);
-        targetCount--;
+        setTargetCount(getTargetCount() - 1);
     }
 
     public void drawTargets(){
@@ -392,6 +403,10 @@ public class Skill {
 
     public void setRenderer(TargetRenderer renderer) {
         this.renderer = renderer;
+    }
+
+    public TargetRenderer getRenderer() {
+        return renderer;
     }
 
     public void setTypeDisplayer(int targetType){
@@ -429,21 +444,23 @@ public class Skill {
         }
     }
 
-    public Array<TilePos> displayTarget(int x, int y){
-        return renderer.displayTarget(x, y);
+    protected void addDisplayer(TargetDisplayer targetDisplayer) {
+        renderer.addDisplayer(targetDisplayer);
     }
 
-    public void addDisplayer(TargetDisplayer displayer){
-        renderer.addDisplayer(displayer);
-    }
-
-    public void clearDisplayers(){
+    private void clearDisplayers() {
         renderer.clearDisplayers();
+    }
+
+
+
+    public Array<TilePos> displayTarget(int x, int y){
+        return getRenderer().displayTarget(x, y);
     }
 
     private boolean targetWallCheck(Target target){
         boolean targ = false;
-        if (wallTargets){
+        if (isWallTargets()){
             targ = true;
         } else {
             Node node = GraphStorage.getNodeBottom(target.getX(), target.getY());
@@ -458,13 +475,21 @@ public class Skill {
         return /*obst && */targ;
     }
 
+    public void setPattern(TargetPattern pattern) {
+        this.pattern = pattern;
+    }
+
+    public TargetPattern getPattern() {
+        return pattern;
+    }
+
     /** can check real X and Y or checkX and checkY
      * return true if path not obstructed*/
     private boolean targetObstructionCheck(Target target, boolean realCoords){
         int x = realCoords? target.getX() : target.getCheckX();
         int y = realCoords? target.getY() : target.getCheckY();
         boolean notObstructed = false;
-        if (!obstruct){
+        if (!isObstruct()){
             notObstructed = true;
         } else {
             notObstructed = !AITweaks.isPathObstructed(doer.getTileX(), doer.getTileY(), x, y);
@@ -473,35 +498,35 @@ public class Skill {
     }
 
     public void startCooldown(){
-        if (type != SKILL_TYPE_AT_WILL) {
+        if (getType() != SKILL_TYPE_AT_WILL) {
             setCooldown(true);
-            if (type == SKILL_TYPE_COOLDOWN) {
-                cooldownCount = cooldownMax;
+            if (getType() == SKILL_TYPE_COOLDOWN) {
+                setCooldownCount(getCooldownMax());
             }
         }
     }
 
     public void cooldown(){
-        if (cooldown && type == SKILL_TYPE_COOLDOWN) {
-            cooldownCount--;
-            if (cooldownCount == 0) {
+        if (isCooldown() && getType() == SKILL_TYPE_COOLDOWN) {
+            setCooldownCount(getCooldownCount() - 1);
+            if (getCooldownCount() == 0) {
                 setCooldown(false);
             }
-        } else if (cooldown && type == SKILL_TYPE_COOLDOWN_DICE){
-            if (dice.act() <= cooldownMax){
+        } else if (isCooldown() && getType() == SKILL_TYPE_COOLDOWN_DICE){
+            if (dice.act() <= getCooldownMax()){
                 setCooldown(false);
             }
         }
     }
 
     public void endEncounter(){
-        if (type == SKILL_TYPE_ENCOUNTER){
+        if (getType() == SKILL_TYPE_ENCOUNTER){
             setCooldown(false);
         }
     }
 
     public void endDay(){
-        if (type == SKILL_TYPE_DAILY){
+        if (getType() == SKILL_TYPE_DAILY){
             setCooldown(false);
         }
     }

@@ -35,7 +35,7 @@ public class SkillTask extends Task {
 
     @Override
     void startTask() {
-        entity.setUsedSkill(skill );
+        entity.setUsedSkill(skill);
         if (targets != null){
             entity.addTargets(targets);
         }

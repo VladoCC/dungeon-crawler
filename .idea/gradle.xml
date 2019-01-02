@@ -9,8 +9,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/android" />
+            <option value="$PROJECT_DIR$/android-editor" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core-editor" />
             <option value="$PROJECT_DIR$/desktop" />
+            <option value="$PROJECT_DIR$/desktop-editor" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -17,6 +17,10 @@ public class ExitPattern {
         this.cells = cells;
     }
 
+    public ExitPattern(int[] statement, int roomWidth, int roomHeight) {
+        this(statement, roomWidth, roomHeight, new Integer[roomWidth][roomHeight]);
+    }
+
     public int[] getStatement() {
         return statement;
     }

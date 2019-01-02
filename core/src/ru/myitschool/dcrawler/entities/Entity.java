@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.AITweaks;
 import ru.myitschool.dcrawler.ai.pathfinding.Node;
 import ru.myitschool.dcrawler.ai.pathfinding.NodePath;
 import ru.myitschool.dcrawler.dungeon.DungeonCell;
@@ -23,8 +22,6 @@ import ru.myitschool.dcrawler.screens.DungeonScreen;
 import ru.myitschool.dcrawler.skills.Skill;
 import ru.myitschool.dcrawler.skills.Target;
 import ru.myitschool.dcrawler.tiles.DungeonTile;
-import ru.myitschool.dcrawler.utils.AdvancedArray;
-import ru.myitschool.dcrawler.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -508,216 +505,27 @@ public class Entity extends EntityEventAdapter {
 
     public void addTargets(Array<Target> targets){
         for (Target target : targets) {
-            addTarget(target);
+            addOrRemoveSkillTarget(target);
         }
     }
 
-    public void addTarget(Target target){
-        addTarget(target.getX(), target.getY());
-    }
-
-    public void addTarget(int cellX, int cellY){ //TODO move to skill
+    public void addOrRemoveSkillTarget(Target target){
         if (isSkillUse()){
             setPath(null);
             //pathLayer.clearLayer();
 
             Skill skill = getUsedSkill();
-            int charX = Character.getNowPlaying().getTileX();
-            int charY = Character.getNowPlaying().getTileY();
 
-            int range = skill.getRange();
-            int count = skill.getTargetCount();
-            int countMax = skill.getTargetCountMax();
-            int distanceMin = skill.getDistanceMin();
-            int distanceMax = skill.getDistanceMax();
-
-            int targetType = skill.getTargetType();
-            System.out.println(count + " " + countMax);
-            Target main = new Target(cellX, cellY);
-            if (skill.hasTarget(main)){
-                skill.removeTarget(main);
-            } else if (Utils.isTargetInDistance(cellX, cellY, charX, charY, distanceMin, distanceMax) && count < countMax) {
-                DungeonCell cell = DungeonMap.getCell(cellX, cellY);
-                if (targetType == Skill.SKILL_TARGET_TYPE_ENTITY) {
-                    if (cell.hasEntity()){
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    }
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_ENEMY) {
-                    if (cell.hasEntity() && cell.getEntity().isEnemy()){
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    }
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_CHARACTER) {
-                    if (cell.hasEntity() && cell.getEntity().isPlayer()){
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    }
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_SPLASH) {
-                    for (int i = 0; i < 2 * (range - 1) + 1; i++) {
-                        for (int j = 0; j < 2 * (range - 1) + 1; j++) {
-                            if (!(cellX - range + 1 + i == cellX && cellY - range + 1 + j == cellY)){
-                                Target linked = new Target(cellX - range + 1 + i,cellY - range + 1 + j);
-                                linked.setMain(main);
-                                linked.setLinked(true);
-                                main.addLinkedTarget(linked);
-                            }
-                        }
-                    }
-                    skill.addTarget(main);
-                    skill.setTargetCount(++count);
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_SPLASH_NOCENTER) {
-                    main = new Target(cellX - range + 1, cellY - range + 1);
-                    main.setCheckCoords(cellX, cellY);
-                    for (int i = 0; i < 2 * (range - 1) + 1; i++) {
-                        for (int j = 0; j < 2 * (range - 1) + 1; j++) {
-                            if (!(cellX - range + 1 + i == cellX && cellY - range + 1 + j == cellY) && !(i == 0 && j == 0)){
-                                Target linked = new Target(cellX - range + 1 + i,cellY - range + 1 + j);
-                                linked.setMain(main);
-                                linked.setLinked(true);
-                                main.addLinkedTarget(linked);
-                            }
-                        }
-                    }
-                    skill.addTarget(main);
-                    skill.setTargetCount(++count);
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_SWING) {
-                    if (cellY == charY && cellX > charX){
-                        for (int i = 0; i < range; i++) {
-                            Target linked1 = new Target(cellX, cellY + 1 + i);
-                            linked1.setMain(main);
-                            linked1.setLinked(true);
-                            Target linked2 = new Target(cellX - 1, cellY + 1 + i);
-                            linked2.setMain(main);
-                            linked2.setLinked(true);
-                            Target linked3 = new Target(cellX, cellY - 1 - i);
-                            linked3.setMain(main);
-                            linked3.setLinked(true);
-                            Target linked4 = new Target(cellX - 1, cellY - 1 - i);
-                            linked4.setMain(main);
-                            linked4.setLinked(true);
-                            main.addLinkedTarget(linked1);
-                            main.addLinkedTarget(linked2);
-                            main.addLinkedTarget(linked3);
-                            main.addLinkedTarget(linked4);
-                        }
-                        for (int i = 1; i < range; i++) {
-                            for (int j = 0; j < 2 * range + 1; j++) {
-                                Target linked = new Target(cellX + i, cellY - range + j);
-                                linked.setMain(main);
-                                linked.setLinked(true);
-                                main.addLinkedTarget(linked);
-                            }
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    } else if (cellY == charY && cellX < charX){
-                        for (int i = 0; i < range; i++) {
-                            Target linked1 = new Target(cellX, cellY + 1 + i);
-                            linked1.setMain(main);
-                            linked1.setLinked(true);
-                            Target linked2 = new Target(cellX + 1, cellY + 1 + i);
-                            linked2.setMain(main);
-                            linked2.setLinked(true);
-                            Target linked3 = new Target(cellX, cellY - 1 - i);
-                            linked3.setMain(main);
-                            linked3.setLinked(true);
-                            Target linked4 = new Target(cellX + 1, cellY - 1 - i);
-                            linked4.setMain(main);
-                            linked4.setLinked(true);
-                            main.addLinkedTarget(linked1);
-                            main.addLinkedTarget(linked2);
-                            main.addLinkedTarget(linked3);
-                            main.addLinkedTarget(linked4);
-                        }
-                        for (int i = 1; i < range; i++) {
-                            for (int j = 0; j < 2 * range + 1; j++) {
-                                Target linked = new Target(cellX - i, cellY - range + j);
-                                linked.setMain(main);
-                                linked.setLinked(true);
-                                main.addLinkedTarget(linked);
-                            }
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    } else if (cellX == charX && cellY > charY){
-                        for (int i = 0; i < range; i++) {
-                            Target linked1 = new Target(cellX + 1 + i, cellY);
-                            linked1.setMain(main);
-                            linked1.setLinked(true);
-                            Target linked2 = new Target(cellX + 1 + i, cellY - 1);
-                            linked2.setMain(main);
-                            linked2.setLinked(true);
-                            Target linked3 = new Target(cellX - 1 - i, cellY);
-                            linked3.setMain(main);
-                            linked3.setLinked(true);
-                            Target linked4 = new Target(cellX - 1 - i, cellY - 1);
-                            linked4.setMain(main);
-                            linked4.setLinked(true);
-                            main.addLinkedTarget(linked1);
-                            main.addLinkedTarget(linked2);
-                            main.addLinkedTarget(linked3);
-                            main.addLinkedTarget(linked4);
-                        }
-                        for (int i = 1; i < range; i++) {
-                            for (int j = 0; j < 2 * range + 1; j++) {
-                                Target linked = new Target(cellX - range + j, cellY + i);
-                                linked.setMain(main);
-                                linked.setLinked(true);
-                                main.addLinkedTarget(linked);
-                            }
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    } else if (cellX == charX && cellY < charY){
-                        for (int i = 0; i < range; i++) {
-                            Target linked1 = new Target(cellX + 1 + i, cellY);
-                            linked1.setMain(main);
-                            linked1.setLinked(true);
-                            Target linked2 = new Target(cellX + 1 + i, cellY + 1);
-                            linked2.setMain(main);
-                            linked2.setLinked(true);
-                            Target linked3 = new Target(cellX - 1 - i, cellY);
-                            linked3.setMain(main);
-                            linked3.setLinked(true);
-                            Target linked4 = new Target(cellX - 1 - i, cellY + 1);
-                            linked4.setMain(main);
-                            linked4.setLinked(true);
-                            main.addLinkedTarget(linked1);
-                            main.addLinkedTarget(linked2);
-                            main.addLinkedTarget(linked3);
-                            main.addLinkedTarget(linked4);
-                        }
-                        for (int i = 1; i < range; i++) {
-                            for (int j = 0; j < 2 * range + 1; j++) {
-                                Target linked = new Target(cellX - range + j, cellY - i);
-                                linked.setMain(main);
-                                linked.setLinked(true);
-                                main.addLinkedTarget(linked);
-                            }
-                        }
-                        skill.addTarget(main);
-                        skill.setTargetCount(++count);
-                    }
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_WAVE) {
-                    AdvancedArray<Vector2> array = AITweaks.getCellRaytrace(getTileX(), getTileY(), cellX, cellY, range - 1);
-                    array.clip(array.size - range + 1, array.size - 1);
-                    for (Vector2 pos : array){
-                        Target linked = new Target((int) pos.x, (int) pos.y);
-                        linked.setMain(main);
-                        linked.setLinked(true);
-                        main.addLinkedTarget(linked);
-                    }
-                    skill.addTarget(main);
-                    skill.setTargetCount(++count);
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_WAVE_CONTROLLABLE) {
-                    //TODO
-                } else if (targetType == Skill.SKILL_TARGET_TYPE_FLOOR_SINGLE){
-                    skill.addTarget(new Target(cellX, cellY));
-                }
-                //skill.setTargetCount(++count);
+            if (skill.hasTarget(target)){
+                skill.removeTarget(target);
+            } else {
+                skill.addTarget(target);
             }
         }
+    }
+
+    public void addOrRemoveSkillTarget(int cellX, int cellY){
+        addOrRemoveSkillTarget(new Target(cellX, cellY));
     }
 
     public boolean isRoomOpened() {
