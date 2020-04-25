@@ -2,12 +2,19 @@ package ru.myitschool.dcrawler.skills;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 import ru.myitschool.dcrawler.effects.CloudOfKnivesEffect;
 import ru.myitschool.dcrawler.effects.FloorClearingEffect;
 import ru.myitschool.dcrawler.effects.FloorEffect;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.math.DiceAction;
 import ru.myitschool.dcrawler.math.MathAction;
+import ru.myitschool.dcrawler.skills.action.Action;
+import ru.myitschool.dcrawler.skills.action.SimpleAttackAction;
+import ru.myitschool.dcrawler.skills.patterns.FloorSplashTargetPattern;
+import ru.myitschool.dcrawler.skills.patterns.TargetPattern;
+import ru.myitschool.dcrawler.skills.targeting.SplashDisplayer;
+import ru.myitschool.dcrawler.skills.targeting.TargetDisplayer;
 
 /**
  * Created by Voyager on 30.11.2017.
@@ -16,40 +23,102 @@ public class CloudOfKnives extends Skill {
 
     private static final Color color = new Color(0xa020f0bf);
 
-    MathAction rollAction = new DiceAction(20);
     MathAction attackAction = new DiceAction(6);
 
     public CloudOfKnives(Entity doer) {
         super(doer);
-        setIcon(new Texture("cloud_knives.png"));
-        setName("Cloud ofKnives");
-        setDescription("You creates cloud of psi energy, that deal damage to all creatures in zone instantly and everytimecreature starts turn in zone on enter the zone to the end of your next turn");
-        setTargetCountMax(1);
-        setDistanceMax(4);
-        setDistanceMin(3);
-        setRange(3);
-        setTargetType(SKILL_TARGET_TYPE_FLOOR_SPLASH);
-        setTypeDisplayer(SKILL_TARGET_TYPE_FLOOR_SPLASH);
-        setType(SKILL_TYPE_ENCOUNTER);
-        setWallTargets(true);
-        PlayContainer container = addPlayContainer();
-        container.getEntityPlay().addAction(new Action(this) {
-            @Override
-            public void effect(Target target, int success, int damage, FloatingDamageMark mark) {
-                damage = 0;
-                if (success  == Play.TARGETING_HIT) {
-                     damage = -attackAction.act();
-                } else if (success == Play.TARGETING_CRIT_HIT){
-                    damage = -attackAction.max();
-                }
-                Entity entity = target.getEntity();
-                entity.addHp(damage);
-                if (damage != 0) {
-                    mark.addText(damage + "");
-                }
-            }
-        });
-        addPlayContainer();
+        addPlayContainer().getEntityPlay().addAction(new SimpleAttackAction(this, attackAction));
+    }
+
+    @Override
+    public void maintainDisplayers(Array<TargetDisplayer> displayers) {
+        displayers.add(new SplashDisplayer(true));
+    }
+
+    @Override
+    public TargetPattern getPattern() {
+        return new FloorSplashTargetPattern(this);
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture("cloud_knives.png");
+    }
+
+    @Override
+    public String getName() {
+        return "Cloud of Knives";
+    }
+
+    @Override
+    public String getDescription() {
+        return "You creates cloud of psi energy, that deal damage to all creatures in zone instantly " +
+                "and every time creature starts turn in zone on enter the zone to the end of your next turn";
+    }
+
+    @Override
+    public int getSkillAccuracyBonus() {
+        return 0;
+    }
+
+    @Override
+    public int getRange() {
+        return 3;
+    }
+
+    @Override
+    public int getDistanceMin() {
+        return 3;
+    }
+
+    @Override
+    public int getDistanceMax() {
+        return 4;
+    }
+
+    @Override
+    public int getTargetCountMax() {
+        return 1;
+    }
+
+    @Override
+    public int getCooldownMax() {
+        return 0;
+    }
+
+    @Override
+    public int getType() {
+        return SKILL_TYPE_ENCOUNTER;
+    }
+
+    @Override
+    public int getTargetType() {
+        return SKILL_TARGET_TYPE_FLOOR_SPLASH;
+    }
+
+    @Override
+    public boolean isCheckAllTargets() {
+        return false;
+    }
+
+    @Override
+    public boolean isMarkEverything() {
+        return false;
+    }
+
+    @Override
+    public boolean isMark() {
+        return true;
+    }
+
+    @Override
+    public boolean isObstruct() {
+        return false;
+    }
+
+    @Override
+    public boolean isWallTargets() {
+        return true;
     }
 
     @Override

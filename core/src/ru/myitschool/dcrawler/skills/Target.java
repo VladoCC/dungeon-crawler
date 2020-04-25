@@ -98,7 +98,7 @@ public class Target {
         this.main = main;
     }
 
-    public Entity getEntity(){ //TODO change to DungeonCell checks
+    public Entity getEntity(){
         /*for (Entity entity : Entity.getPlayingEntities()){
             if (entity.getTileX() == getX() && entity.getTileY() == getY()){
                 return entity;

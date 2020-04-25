@@ -1,30 +1,29 @@
 package ru.myitschool.dcrawler.skills;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.math.DiceAction;
 import ru.myitschool.dcrawler.math.MathAction;
 import ru.myitschool.dcrawler.math.NegativeAction;
+import ru.myitschool.dcrawler.skills.action.Action;
+import ru.myitschool.dcrawler.skills.action.SimpleAttackAction;
 import ru.myitschool.dcrawler.skills.check.PlayCheck;
+import ru.myitschool.dcrawler.skills.patterns.EntityTargetPattern;
+import ru.myitschool.dcrawler.skills.patterns.TargetPattern;
+import ru.myitschool.dcrawler.skills.targeting.EntityDisplayer;
+import ru.myitschool.dcrawler.skills.targeting.TargetDisplayer;
 
 /**
  * Created by Voyager on 26.11.2017.
  */
 public class HealOrKill extends Skill {
 
-    MathAction healAction = new DiceAction(6);
+    MathAction attackAction = new DiceAction(6);
+    MathAction healAction = new NegativeAction(attackAction);
 
     public HealOrKill(Entity doer) {
         super(doer);
-        setIcon(new Texture("heal.png"));
-        setName("Heal or Kill");
-        setDescription("You can heal your ally or damage enemy for " + healAction.getDescription());
-        setTargetCountMax(1);
-        setDistanceMax(8);
-        setDistanceMin(1);
-        setRange(1);
-        setTargetType(SKILL_TARGET_TYPE_ENTITY);
-        setTypeDisplayer(SKILL_TARGET_TYPE_ENTITY);
         PlayContainer container = addPlayContainer();
         container.getPlayerPlay().setPlayCheck(new PlayCheck(this) {
             @Override
@@ -32,15 +31,97 @@ public class HealOrKill extends Skill {
                 return Play.TARGETING_HIT;
             }
         });
-        container.getPlayerPlay().addAction(new Action(this) {
-            @Override
-            public void effect(Target target, int success, int damage, FloatingDamageMark mark) {
-            }
-        }.setAttack(new NegativeAction(healAction)));
-        container.getEnemyPlay().addAction(new Action(this) {
-            @Override
-            public void effect(Target target, int success, int damage, FloatingDamageMark mark) { }
-        }.setAttack(healAction));
-        addPlayContainer();
+        container.getEnemyPlay().addAction(new SimpleAttackAction(this, attackAction));
+        container.getPlayerPlay().addAction(new SimpleAttackAction(this, healAction));
+    }
+
+    @Override
+    public void maintainDisplayers(Array<TargetDisplayer> displayers) {
+        displayers.add(new EntityDisplayer());
+    }
+
+    @Override
+    public TargetPattern getPattern() {
+        return new EntityTargetPattern(this);
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture("heal.png");
+    }
+
+    @Override
+    public String getName() {
+        return "Heal or Kill";
+    }
+
+    @Override
+    public String getDescription() {
+        return "You can heal your ally or damage enemy for " + healAction.getDescription();
+    }
+
+    @Override
+    public int getSkillAccuracyBonus() {
+        return 0;
+    }
+
+    @Override
+    public int getRange() {
+        return 1;
+    }
+
+    @Override
+    public int getDistanceMin() {
+        return 1;
+    }
+
+    @Override
+    public int getDistanceMax() {
+        return 8;
+    }
+
+    @Override
+    public int getTargetCountMax() {
+        return 1;
+    }
+
+    @Override
+    public int getCooldownMax() {
+        return 0;
+    }
+
+    @Override
+    public int getType() {
+        return SKILL_TYPE_AT_WILL;
+    }
+
+    @Override
+    public int getTargetType() {
+        return SKILL_TARGET_TYPE_ENTITY;
+    }
+
+    @Override
+    public boolean isCheckAllTargets() {
+        return false;
+    }
+
+    @Override
+    public boolean isMarkEverything() {
+        return false;
+    }
+
+    @Override
+    public boolean isMark() {
+        return true;
+    }
+
+    @Override
+    public boolean isObstruct() {
+        return false;
+    }
+
+    @Override
+    public boolean isWallTargets() {
+        return false;
     }
 }

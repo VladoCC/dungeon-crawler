@@ -1,6 +1,7 @@
 package ru.myitschool.dcrawler.skills;
 
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.dcrawler.skills.action.Action;
 import ru.myitschool.dcrawler.skills.check.PlayCheck;
 
 /**
@@ -17,7 +18,7 @@ public abstract class Play {
 
     private Skill skill;
 
-    private Array<Action> actions = new Array<Action>();
+    private Array<ru.myitschool.dcrawler.skills.action.Action> actions = new Array<ru.myitschool.dcrawler.skills.action.Action>();
     private Array<Play> plays = new Array<>();
 
     public Play(Skill skill) {
@@ -36,7 +37,7 @@ public abstract class Play {
         return playCheck.check(target);
     }
 
-    public Play addAction(Action action){
+    public Play addAction(ru.myitschool.dcrawler.skills.action.Action action){
         actions.add(action);
         return this;
     }

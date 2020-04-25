@@ -25,6 +25,8 @@ import ru.myitschool.dcrawler.tiles.DungeonTile;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Voyager on 24.04.2017.
@@ -59,6 +61,7 @@ public class Entity extends EntityEventAdapter {
     private boolean throwYEnd;
 
     private static boolean updateSkills;
+    private static boolean updateEffects;
 
     private Texture portrait;
     private Texture model;
@@ -179,7 +182,7 @@ public class Entity extends EntityEventAdapter {
         if (path != null) {
             movement = true;
             updateSkills();
-            mp -= path.getCount() - 1;
+            addMp(-(path.getCount() - 1));
             DungeonMap.updateEntityPos(this);
             HashMap mapStart = new HashMap();
             mapStart.put(EntityEvent.ENTITY_EXECUTOR_ARG_KEY, this);
@@ -188,10 +191,12 @@ public class Entity extends EntityEventAdapter {
         }
     }
 
+    public static boolean isUpdateEffects(){
+        return updateEffects;
+    }
+
     public static boolean isUpdateSkills(){
-        boolean ret = updateSkills;
-        updateSkills = false;
-        return ret;
+        return updateSkills;
     }
 
     public void setSkills(Array<Skill> skills) {
@@ -309,6 +314,10 @@ public class Entity extends EntityEventAdapter {
 
     public static ArrayList<Entity> getPlayingEntities() {
         return playingEntities;
+    }
+
+    public static List<Entity> getAliveEntities() {
+        return getPlayingEntities().stream().filter(entity -> entity.isAlive()).collect(Collectors.toList());
     }
 
     public static void removePlayingEntity(Entity entity){
@@ -521,6 +530,7 @@ public class Entity extends EntityEventAdapter {
             } else {
                 skill.addTarget(target);
             }
+            skill.drawTargets();
         }
     }
 
@@ -783,6 +793,14 @@ public class Entity extends EntityEventAdapter {
         this.detailedEffect = detailedEffect;
     }
 
+    public static void updateEffects() {
+        Entity.updateEffects = true;
+    }
+
+    public static void effectsUpdated(){
+        Entity.updateSkills = false;
+    }
+
     public int getDetailedSkill() {
         return detailedSkill;
     }
@@ -805,6 +823,11 @@ public class Entity extends EntityEventAdapter {
 
     public static void updateSkills() {
         Entity.updateSkills = true;
+    }
+
+
+    public static void skillsUpdated(){
+        Entity.updateSkills = false;
     }
 
     public boolean isSkillUse() {
@@ -864,11 +887,15 @@ public class Entity extends EntityEventAdapter {
             skills.get(i).cooldown();
         }
         moved = false;
+
+        updateEffects();
     }
 
     @Override
     public void startTurn(){
         moved = false;
+        setMp(getMpMax());
+        //setMp(0);
         if (isPlayer() ^ isControlled()) {
             addFirstEffectNowPlaying(new AttackEffect(this));
         }
@@ -880,6 +907,8 @@ public class Entity extends EntityEventAdapter {
         }
 
         DungeonMap.getCell(getTileX(), getTileY()).startTurn();
+
+        updateEffects();
     }
 
     @Override
@@ -892,6 +921,7 @@ public class Entity extends EntityEventAdapter {
         DungeonMap.getCell(getTileX(), getTileY()).startMove();
 
         moved = true;
+        updateEffects();
     }
 
     @Override
@@ -904,6 +934,8 @@ public class Entity extends EntityEventAdapter {
         System.out.println("MP: " + getMp(false) + " : " + getMp(true));
 
         DungeonMap.getCell(getTileX(), getTileY()).endMove();
+
+        updateEffects();
     }
 
     @Override
@@ -915,6 +947,8 @@ public class Entity extends EntityEventAdapter {
         checkRemoveEffects();
 
         mpEffect += DungeonMap.getCell(getTileX(), getTileY()).countMp(withMovement);
+
+        updateEffects();
         return mpEffect;
     }
 
@@ -937,6 +971,8 @@ public class Entity extends EntityEventAdapter {
             }
             System.out.println("Can use: " + use);
         }
+
+        updateEffects();
         return use;
     }
 
@@ -949,6 +985,7 @@ public class Entity extends EntityEventAdapter {
 
         DungeonMap.drawTargetingZone(usedSkill);
         DungeonMap.getCell(getTileX(), getTileY()).startSkill();
+        updateEffects();
     }
 
     @Override
@@ -960,6 +997,7 @@ public class Entity extends EntityEventAdapter {
 
         DungeonMap.getCell(getTileX(), getTileY()).endSkill();
         DungeonMap.clearTargetingZoneLayer();
+        updateEffects();
     }
 
     @Override
@@ -970,6 +1008,8 @@ public class Entity extends EntityEventAdapter {
         checkRemoveEffects();
 
         action = DungeonMap.getCell(getTileX(), getTileY()).attackBonus(action);
+
+        updateEffects();
         return action;
     }
 
@@ -981,6 +1021,8 @@ public class Entity extends EntityEventAdapter {
         checkRemoveEffects();
 
         accuracy = DungeonMap.getCell(getTileX(), getTileY()).accuracyBonus(accuracy, target);
+
+        updateEffects();
         return accuracy;
     }
 
@@ -996,6 +1038,8 @@ public class Entity extends EntityEventAdapter {
         if (damage > 0){
             return damage;
         }
+
+        updateEffects();
         return 0;
     }
 
@@ -1011,6 +1055,8 @@ public class Entity extends EntityEventAdapter {
         if (heal > 0){
             return heal;
         }
+
+        updateEffects();
         return 0;
     }
 
@@ -1022,6 +1068,7 @@ public class Entity extends EntityEventAdapter {
         checkRemoveEffects();
 
         DungeonMap.getCell(getTileX(), getTileY()).onEncounter(encounter);
+        updateEffects();
     }
 
     @Override
@@ -1034,5 +1081,6 @@ public class Entity extends EntityEventAdapter {
         DungeonMap.getCell(getTileX(), getTileY()).onDeath();
 
         alive = false;
+        updateEffects();
     }
 }

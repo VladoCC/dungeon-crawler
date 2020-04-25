@@ -405,8 +405,6 @@ public class DungeonScreen extends AdvancedScreen {
             renderer = new OrthogonalTiledMapRenderer(dungeonMap);
         }
         if (moveLeft || moveRight || moveUp || moveDown) { //TODO add method for camera moving
-            final float w = Gdx.graphics.getWidth();
-            final float h = Gdx.graphics.getHeight();
             if (moveLeft) {
                 mainCamera.translate(-500 * delta, 0); //TODO сделать скорость зависящей от расстояния до стенки
             } else if (moveRight) {
@@ -450,7 +448,7 @@ public class DungeonScreen extends AdvancedScreen {
         }
         Room.getAddingArray().clear();
 
-        for (Entity entity : Entity.getPlayingEntities()) {
+        for (Entity entity : Entity.getAliveEntities()) {
             act(entity, delta);
             entity.getSprite().draw(charBatch);
         }
@@ -524,6 +522,7 @@ public class DungeonScreen extends AdvancedScreen {
         final Entity finalEntity = Entity.getNowPlaying();
         if (Entity.isUpdateSkills()){
             System.out.println("UPDATE!");
+            Entity.skillsUpdated();
             skillGroup.clear();
             final Entity entity = Entity.getNowPlaying();
             HashMap mapStart = new HashMap();
@@ -638,26 +637,29 @@ public class DungeonScreen extends AdvancedScreen {
             mainStage.addActor(tooltipGroup);
         }
 
-        effectGroup.clear();
-        for (int i = 0; i < nowPlayingEntity.getEffects().size(); i++) {
-            final Effect effect = nowPlayingEntity.getEffects().get(i);
-            if (!effect.isHide()) {
-                Texture texture = effect.getIcon();
-                Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
-                drawable.setMinHeight(h / 24);
-                drawable.setMinWidth(h / 24);
-                Image image = new Image(drawable);
-                Table table = new Table();
-                table.add(image).padLeft(h / 480).padRight(h / 480);
-                final int finalI = i;
-                table.addListener(new InputListener(){
-                    @Override
-                    public boolean mouseMoved(InputEvent event, float x, float y) {
-                        finalEntity.setDetailedEffect(finalI);
-                        return true;
-                    }
-                });
-                effectGroup.addActor(table);
+        if (Entity.isUpdateEffects()) {
+            Entity.effectsUpdated();
+            effectGroup.clear();
+            for (int i = 0; i < nowPlayingEntity.getEffects().size(); i++) {
+                final Effect effect = nowPlayingEntity.getEffects().get(i);
+                if (!effect.isHide()) {
+                    Texture texture = effect.getIcon();
+                    Drawable drawable = new TextureRegionDrawable(new TextureRegion(texture));
+                    drawable.setMinHeight(h / 24);
+                    drawable.setMinWidth(h / 24);
+                    Image image = new Image(drawable);
+                    Table table = new Table();
+                    table.add(image).padLeft(h / 480).padRight(h / 480);
+                    final int finalI = i;
+                    table.addListener(new InputListener() {
+                        @Override
+                        public boolean mouseMoved(InputEvent event, float x, float y) {
+                            finalEntity.setDetailedEffect(finalI);
+                            return true;
+                        }
+                    });
+                    effectGroup.addActor(table);
+                }
             }
         }
 

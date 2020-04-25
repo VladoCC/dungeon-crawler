@@ -51,8 +51,8 @@ public class TargetRenderer {
         displayers.add(displayer);
     }
 
-    public void clearDisplayers(){
-        displayers.clear();
+    public Array<TargetDisplayer> getDisplayers() {
+        return displayers;
     }
 
     public static ColorTile getDefaultTargetTile() {

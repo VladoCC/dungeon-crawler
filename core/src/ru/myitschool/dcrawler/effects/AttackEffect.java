@@ -85,10 +85,14 @@ public class AttackEffect extends Effect {
 
     @Override
     public int countMp(boolean withMovement) {
-        if (getEntity().isMoved()/* && getEntity().getPath() != null */&& !isDelete() && !used) {
+        if (getEntity().isMoved()&& !isDelete() && !used) { //TODO don't work if starting mp is 0
             if (!getEntity().isMovement()) {
                 System.out.println("Adding MP");
-                setHide(true);
+                if (getEntity().getPath() != null) {
+                    setHide(true);
+                } else {
+                    setHide(false);
+                }
                 return getEntity().getMpMax();
             }
         } else if (getEntity().isMoved() && !withMovement && !isDelete() && !used){

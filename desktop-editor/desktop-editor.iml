@@ -4,6 +4,8 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="GRADLE_PROJECT_PATH" value=":desktop-editor" />
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" />
+        <option name="LAST_KNOWN_AGP_VERSION" />
       </configuration>
     </facet>
     <facet type="java-gradle" name="Java-Gradle">
@@ -14,13 +16,15 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6">
-    <output url="file://$MODULE_DIR$/build/classes/main" />
-    <output-test url="file://$MODULE_DIR$/build/classes/test" />
+    <output url="file://$MODULE_DIR$/build/classes/java/main" />
+    <output-test url="file://$MODULE_DIR$/build/classes/java/test" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
@@ -33,14 +37,14 @@
     <orderEntry type="library" exported="" name="Gradle: gdx-platform-1.9.6-natives-desktop" level="project" />
     <orderEntry type="library" exported="" name="Gradle: gdx-freetype-platform-1.9.6-natives-desktop" level="project" />
     <orderEntry type="library" exported="" name="Gradle: vis-ui-1.4.0" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: lwjgl_util-2.9.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: lwjgl-2.9.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: gdx-backend-android-1.9.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: gdx-1.9.6" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: lwjgl_util-2.9.2" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jlayer-1.0.1-gdx" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: jorbis-0.0.17" level="project" />
     <orderEntry type="library" exported="" name="Gradle: gdx-ai-1.8.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: gdx-freetype-1.9.6" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: gdx-1.9.6" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jlayer-1.0.1-gdx" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: jorbis-0.0.17" level="project" />
     <orderEntry type="library" exported="" name="Gradle: gson-2.8.2" level="project" />
     <orderEntry type="library" exported="" name="Gradle: lwjgl-platform-2.9.2-natives-windows" level="project" />
     <orderEntry type="library" exported="" name="Gradle: lwjgl-platform-2.9.2-natives-linux" level="project" />

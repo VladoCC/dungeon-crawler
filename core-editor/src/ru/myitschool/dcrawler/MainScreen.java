@@ -1,6 +1,9 @@
 package ru.myitschool.dcrawler;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Align;
+import ru.myitschool.dcrawler.dungeon.DungeonCell;
 import ru.myitschool.dcrawler.dungeon.ExitPattern;
 import ru.myitschool.dcrawler.dungeon.Room;
 import ru.myitschool.dcrawler.dungeon.Exit;
@@ -24,76 +27,86 @@ import com.google.gson.Gson;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.SingleFileChooserListener;
 
-/**
- * Created by КАРАТ on 21.03.2017.
- */
+import java.util.ArrayList;
 
 public class MainScreen implements Screen, GestureDetector.GestureListener {
 
-    TiledMap map;
-    OrthogonalTiledMapRenderer renderer;
-    OrthographicCamera camera;
-    static DungeonTile tile;
+    private TiledMap map;
+    private OrthogonalTiledMapRenderer renderer;
+    private OrthographicCamera camera;
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+    private static DungeonTile tile;
 
     protected BitmapFont mainFont;
     protected BitmapFont actionFont;
     protected BitmapFont panelFont;
-    protected Stage stage;
+    protected Stage stage = new Stage();
 
-    Texture checkboxFalseTexture;
-    Texture checkboxTrueTexture;
+    private Skin skin;
 
-    Room room;
+    private Texture checkboxFalseTexture;
+    private Texture checkboxTrueTexture;
 
-    Label logLabel;
-    Label actionLabel;
-    TextButton button;
+    private Room room;
+    private Room original;
 
-    int width;
-    int height;
-    int layerIndex = 0;
+    private Image frameImage;
+    private Label logLabel;
+    private Label actionLabel;
+    private TextButton button;
+    private VerticalGroup layersGroup;
 
-    public MainScreen(int width, int height) {
+    private ArrayList<Boolean> shownLayers;
+
+    private int width;
+    private int height;
+    private int layerIndex = 0;
+
+    public MainScreen(Room original, int width, int height) {
         this.width = width;
         this.height = height;
+        this.original = original;
     }
 
     @Override
-    public void show()
-    {
+    public void show() {
         DungeonTile.initTiles();
+        shapeRenderer.setAutoShapeType(true);
         room = new Room(width, height, false);
-        final TiledMapTileLayer layer = new TiledMapTileLayer(width, height, 32, 32);
+        final TiledMapTileLayer layer = new TiledMapTileLayer(width, height, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         int w = Gdx.graphics.getWidth();
         final int h = Gdx.graphics.getHeight();
         checkboxFalseTexture = new Texture(Gdx.files.internal("ch_no.png"));
         checkboxTrueTexture = new Texture(Gdx.files.internal("ch_yes.png"));
+
+        frameImage = new Image();
 
         final HorizontalGroup mainGuiGroup = new HorizontalGroup();
         mainGuiGroup.setHeight(h/6);
         mainGuiGroup.setWidth(w);
         mainGuiGroup.setPosition(0, 0);
 
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("10771.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("unifont-12.1.02.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 16;
-        parameter.characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэяю1234567890-_/.,:!@#$%^&*()+[]=?<>{}";
+        parameter.characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэяю1234567890-_/.,:!@#$%^&*()+[]=?<>{}↷↶";
         mainFont = generator.generateFont(parameter);
         parameter.size = 20;
         actionFont = generator.generateFont(parameter);
         parameter.size = 27;
         panelFont = generator.generateFont(parameter);
         TextureAtlas atlas = new TextureAtlas("uiskin.atlas");
-        final Skin skin = new Skin(Gdx.files.internal("uiskin.json"),atlas);
+        skin = new Skin(Gdx.files.internal("uiskin.json"),atlas);
+        skin.add("default-font", new BitmapFont(), BitmapFont.class);
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         //Drawable up = skin.getDrawable("button_off");
         //Drawable down = skin.getDrawable("button_on");
         //style.up = up;
         //style.down = down;
-        style.font = LevelManager.mainFont;
+        style.font = panelFont;
         VerticalGroup leftGroup = new VerticalGroup();
-
-        FileChooser.setDefaultPrefsName("com.your.package.here.filechooser");
+        FileChooser.setDefaultPrefsName("ru.myitschool.dcrawler.filechooser");
         final FileChooser chooser = new FileChooser(FileChooser.Mode.SAVE);
         chooser.setListener(new SingleFileChooserListener() {
             @Override
@@ -119,6 +132,7 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
         });
 
         button = new TextButton("Save", skin);
+        //button.setStyle(style);
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -126,13 +140,10 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
             }
         });
         button.setHeight(h / 21);
-        Table tableStart = new Table();
-        tableStart.add(button).height(button.getHeight());
-        leftGroup.addActor(tableStart);
-        Table tableReset = new Table();
-        leftGroup.addActor(tableReset);
-        leftGroup.center();
         //button.pack();
+        Table saveTable = new Table();
+        saveTable.add(button).height(button.getHeight());
+        leftGroup.addActor(saveTable);
 
         tile = DungeonTile.getTile(0);
         HorizontalGroup middleGroup = new HorizontalGroup();
@@ -157,129 +168,123 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
         TextField.TextFieldStyle textStyle = new TextField.TextFieldStyle();
         textStyle.font = LevelManager.mainFont;
         textStyle.fontColor = Color.WHITE;
-        final TextArea area = new TextArea("1.0", textStyle);
-        TextureRegionDrawable regionDrawable = new TextureRegionDrawable(new TextureRegion(checkboxFalseTexture));
-        regionDrawable.setMinHeight(h/32);
-        regionDrawable.setMinWidth(h / 32);
-        TextureRegionDrawable regionDrawable1 = new TextureRegionDrawable(new TextureRegion(checkboxTrueTexture));
-        regionDrawable1.setMinHeight(h/32);
-        regionDrawable1.setMinWidth(h/32);
-        CheckBox.CheckBoxStyle checkBoxStyle = new CheckBox.CheckBoxStyle(regionDrawable, regionDrawable1, LevelManager.mainFont, Color.WHITE);
-        final CheckBox checkBox = new CheckBox("Encrypter", checkBoxStyle);
-        checkBox.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-        }
-        });
-        Table table = new Table();
-        table.add(area).height(h / 36).center();
-        //table.center();
-        table.pack();
-        Table checkboxTable = new Table();
-        checkboxTable.add(checkBox).padTop(h/42);
-        checkboxTable.pack();
-        //middleGroup.addActor(table);
-        //middleGroup.addActor(checkboxTable);
 
         VerticalGroup rightGroup = new VerticalGroup();
-        final TextField field = new TextField(layerIndex + "", skin);
-        TextButton upButton = new TextButton("/\\", skin);
-        upButton.addListener(new ChangeListener() {
+
+        final TextButton rotateClockwiseButton = new TextButton("↷", skin);
+        rotateClockwiseButton.setStyle(style);
+        rotateClockwiseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                layerIndex++;
-                if (layerIndex == map.getLayers().getCount()){
-                    layerIndex--;
+                for (int k = 0; k < map.getLayers().getCount(); k++) {
+                    TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(k);
+                    TiledMapTileLayer.Cell[][] cells = new TiledMapTileLayer.Cell[room.getHeight()][room.getWidth()];
+                    for (int i = 0; i < room.getWidth(); i++) {
+                        for (int j = 0; j < room.getHeight(); j++) {
+                            cells[cells.length - j - 1][i] = layer.getCell(i, j);
+                        }
+                    }
+                    for (int i = 0; i < cells.length; i++) {
+                        for (int j = 0; j < cells[0].length; j++) {
+                            layer.setCell(i, j, cells[i][j]);
+                        }
+                    }
                 }
-                field.setText(layerIndex + "");
+                for (ExitPattern pattern : room.getPatterns()){
+                    for (int i = 0; i < pattern.getStatement().length; i++) {
+                        pattern.getStatement()[i]++;
+                        pattern.getStatement()[i] %= Exit.EXIT_SIDES.length;
+                    }
+                }
                 showLayers();
             }
         });
-        TextButton newButton = new TextButton("New", skin);
+        TextButton newButton = new TextButton("New", skin); //TODO move this button somewhere more convenient
         newButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                final String[] sides = {"", "North", "East", "South", "West"};
-                final SelectBox<String> area1 = new SelectBox(skin);
-                area1.setItems(sides);
-                final SelectBox<String> area2 = new SelectBox(skin);
-                area2.setItems(sides);
-                final SelectBox<String> area3 = new SelectBox<String>(skin);
-                area3.setItems(sides);
-                final SelectBox<String> area4 = new SelectBox<String>(skin);
-                area4.setItems(sides);
-                final LayerDialog dialog = new LayerDialog("Statements", skin) {
+                final TextArea nameArea = new TextArea("Exit Pattern", skin);
+                final ArrayList<CheckBox> checkBoxArray = new ArrayList<>();
+                for (String name : Exit.EXIT_SIDES){
+                    checkBoxArray.add(new CheckBox(name, skin));
+                }
+                final EditorDialog dialog = new EditorDialog("Statements", skin) {
                     @Override
                     protected void result(Object object) {
                         boolean check = ((int) object) > 0;
                         if (check) {
-                            Array<Integer> statements = new Array<>(4);
-                            if (area1.getSelectedIndex() != 0) {
-                                statements.add(area1.getSelectedIndex() - 1);
-                            }
-                            if (area2.getSelectedIndex() != 0) {
-                                statements.add(area2.getSelectedIndex() - 1);
-                            }
-                            if (area3.getSelectedIndex() != 0) {
-                                statements.add(area3.getSelectedIndex() - 1);
-                            }
-                            if (area4.getSelectedIndex() != 0) {
-                                statements.add(area4.getSelectedIndex() - 1);
+                            Array<Integer> statements = new Array<>(checkBoxArray.size());
+                            for (int i = 0; i < checkBoxArray.size(); i++) {
+                                if (checkBoxArray.get(i).isChecked()){
+                                    statements.add(i);
+                                }
                             }
                             int[] states = new int[statements.size];
                             for (int i = 0; i < states.length; i++) {
                                 states[i] = statements.get(i);
                             }
-                            ExitPattern pattern = new ExitPattern(states, width, height);
+                            ExitPattern pattern = new ExitPattern(states, width, height, nameArea.getText());
                             room.addExitPattern(pattern);
                             layerIndex = map.getLayers().getCount();
-                            field.setText(layerIndex + "");
+                            //field.setText(layerIndex + "");
                             map.getLayers().add(new TiledMapTileLayer(width, height, 32, 32));
+                            shownLayers.add(true);
+                            updateLayers();
                             showLayers();
                         }
                     }
                 };
-                dialog.add(area1);
-                dialog.add(area2);
-                dialog.add(area3);
-                dialog.add(area4);
+                VerticalGroup group = new VerticalGroup();
+                group.setOrigin(Align.left);
+                group.addActor(nameArea);
+                for (CheckBox checkBox : checkBoxArray){
+                    group.addActor(checkBox);
+                }
+                group.pack();
+                dialog.getContentTable().add(group);
+                //dialog.pack();
                 TextButton createButton = new TextButton("Create", skin);
                 dialog.button(createButton, 1);
                 TextButton cancelButton = new TextButton("Cancel", skin);
                 dialog.button(cancelButton, -1);
+                dialog.align(Align.top);
                 dialog.show(stage);
             }
         });
-        TextButton removeButton = new TextButton("x", skin);
-        removeButton.addListener(new ChangeListener() {
+        TextButton rotateAnticlockwiseButton = new TextButton("↶", skin);
+        rotateAnticlockwiseButton.setStyle(style);
+        rotateAnticlockwiseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                map.getLayers().remove(layerIndex);
-                layerIndex--;
-                if (layerIndex < 0){
-                    layerIndex = 0;
+                for (int k = 0; k < map.getLayers().getCount(); k++) {
+                    TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(k);
+                    TiledMapTileLayer.Cell[][] cells = new TiledMapTileLayer.Cell[room.getHeight()][room.getWidth()];
+                    for (int i = 0; i < room.getWidth(); i++) {
+                        for (int j = 0; j < room.getHeight(); j++) {
+                            cells[j][cells[0].length - i - 1] = layer.getCell(i, j);
+                        }
+                    }
+                    for (int i = 0; i < cells.length; i++) {
+                        for (int j = 0; j < cells[0].length; j++) {
+                            layer.setCell(i, j, cells[i][j]);
+                        }
+                    }
                 }
-                field.setText(layerIndex + "");
+                for (ExitPattern pattern : room.getPatterns()){
+                    for (int i = 0; i < pattern.getStatement().length; i++) {
+                        pattern.getStatement()[i]--;
+                        pattern.getStatement()[i] += Exit.EXIT_SIDES.length;
+                        pattern.getStatement()[i] %= Exit.EXIT_SIDES.length;
+                        System.out.print(pattern.getStatement()[i] + " ");
+                    }
+                    System.out.println();
+                }
                 showLayers();
             }
         });
-        TextButton downButton = new TextButton("\\/", skin);
-        downButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                layerIndex--;
-                if (layerIndex < 0){
-                    layerIndex = 0;
-                }
-                field.setText(layerIndex + "");
-                showLayers();
-            }
-        });
-        rightGroup.addActor(field);
-        rightGroup.addActor(upButton);
+        rightGroup.addActor(rotateClockwiseButton);
         rightGroup.addActor(newButton);
-        rightGroup.addActor(removeButton);
-        rightGroup.addActor(downButton);
+        rightGroup.addActor(rotateAnticlockwiseButton);
 
         mainGuiGroup.addActor(leftGroup);
         mainGuiGroup.addActor(middleGroup);
@@ -287,31 +292,23 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
 
         System.out.println(mainGuiGroup.getWidth() + " " + mainGuiGroup.getHeight());
 
-        //actionLabel.debug();
+        shownLayers = new ArrayList<>();
+        shownLayers.add(true);
 
-        Table testTable = new Table();
-        testTable.debug();
-        final TextArea pathArea = new TextArea("pattern.room", textStyle);
-        final TextArea widthArea = new TextArea("8", textStyle);
-        final TextArea heightArea = new TextArea("8", textStyle);
-        Button button = new TextButton("Create", style);
-        testTable.add(pathArea).row();
-        testTable.add(widthArea).row();
-        testTable.add(heightArea).row();
-        testTable.add(button).row();
-        testTable.setFillParent(true);
-
-        stage = new Stage();
-        stage.addActor(mainGuiGroup);
+        if (original != null){
+            for (int i = 0; i < original.getPatterns().size; i++) {
+                shownLayers.add(false);
+            }
+        }
         //stage.addActor(testTable);
 
-        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+        /*TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
         cell.setTile(tile);
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 layer.setCell(i, j, cell);
             }
-        }
+        }*/
 
         GestureDetector gd = new GestureDetector(this);
         InputMultiplexer inputMultiplexer = new InputMultiplexer(stage);
@@ -333,23 +330,36 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
                 } else {
                     this.button = Input.Buttons.LEFT;
                 }
-                return true;
+                return false;
             }
 
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
-                act(screenX, screenY);
-                return true;
+                return act(screenX, screenY);
             }
 
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                act(screenX, screenY);
+                boolean result = act(screenX, screenY);
                 this.button = -1;
-                return true;
+                return result;
             }
 
-            private void act(int screenX, int screenY){
+            private float zoomMult = 0.03f;
+            private float xTransMult = 597.5f * zoomMult;
+            private float yTransMult = 337.5f * zoomMult;
+
+            @Override
+            public boolean scrolled(int amount) {
+                if (camera.zoom + (amount * zoomMult) > 0) {
+                    camera.zoom += (amount * zoomMult);
+                    camera.translate(amount * xTransMult, amount * yTransMult);
+                    camera.update();
+                }
+                return super.scrolled(amount);
+            }
+
+            private boolean act(int screenX, int screenY){
                 Vector3 pos = camera.unproject(new Vector3(screenX, screenY, 0));
                 int cellX = (int) (pos.x / DungeonTile.TILE_WIDTH);
                 int cellY = (int) (pos.y / DungeonTile.TILE_HEIGHT);
@@ -360,34 +370,194 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
                     cell = null;
                 }
                 ((TiledMapTileLayer) map.getLayers().get(layerIndex)).setCell(cellX, cellY, cell);
+                return ((cellX > -1) && (cellX < room.getWidth()) && (cellY > -1) && (cellY < room.getHeight()));
             }
         });
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         camera = new OrthographicCamera(w, h);
         camera.setToOrtho(true);
-        camera.translate(- w / 2, - h / 2);
+        camera.translate(-2, -2);
+        camera.update();
         map = new TiledMap();
-
         map.getLayers().add(layer);
+
+        if (original != null) {
+            for (int i = 0; i < original.getWidth(); i++) {
+                for (int j = 0; j < original.getHeight(); j++) {
+                    Integer index = original.getCell(i, j);
+                    if (index != null) {
+                        layer.setCell(i, j, new DungeonCell(DungeonTile.getTile(index)));
+                    }
+                }
+            }
+            for (ExitPattern pattern : original.getPatterns()) {
+                room.addExitPattern(pattern);
+                TiledMapTileLayer tileLayer = new TiledMapTileLayer(width, height, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
+                for (int i = 0; i < original.getWidth(); i++) {
+                    for (int j = 0; j < original.getWidth(); j++) {
+                        Integer index = pattern.getCells()[i][j];
+                        if (index != null) {
+                            tileLayer.setCell(i, j, new DungeonCell(DungeonTile.getTile(index)));
+                        }
+                    }
+                }
+                map.getLayers().add(tileLayer);
+            }
+        }
+
+        layersGroup = new VerticalGroup();
+        layersGroup.setPosition(w / 7 * 6, 40);
+        layersGroup.setWidth(w / 7);
+        layersGroup.setHeight(h - 60);
+        layersGroup.align(Align.left);
+        updateLayers();
+        showLayers();
+
+        stage.addActor(mainGuiGroup);
+        stage.addActor(layersGroup);
+
         renderer = new OrthogonalTiledMapRenderer(map);
+    }
+
+    private void updateLayers() {
+        layersGroup.clear();
+        for (int i = 0; i < shownLayers.size(); i++) {
+            final int finalI = i;
+            Stack stack = new Stack();
+            //stack.debugAll();
+
+            HorizontalGroup group = new HorizontalGroup();
+            group.setFillParent(false);
+            group.align(Align.left);
+            String name = "";
+            if (i == 0) {
+                name = "Base";
+            } else {
+                name = room.getPattern(i - 1).getName();
+            }
+            final CheckBox checkBox = new CheckBox("", skin);
+            checkBox.setChecked(shownLayers.get(i));
+            checkBox.padLeft(5);
+            checkBox.padRight(10);
+            checkBox.align(Align.left);
+            checkBox.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    shownLayers.set(finalI, checkBox.isChecked());
+                    showLayers();
+                }
+            });
+            group.addActor(checkBox);
+            Label textField = new Label(i + ". " + name, skin);
+            textField.addListener(new InputListener(){
+
+                private int button = -1;
+
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    if (button == Input.Buttons.RIGHT){
+                        this.button = Input.Buttons.RIGHT;
+                    } else {
+                        this.button = Input.Buttons.LEFT;
+                    }
+                    return true;
+                }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    super.touchUp(event, x, y, pointer, button);
+                    if (button == Input.Buttons.LEFT && finalI != layerIndex) {
+                        changeFocusedLayer(finalI);
+                    } else if (button == Input.Buttons.RIGHT && finalI != 0){
+                        final TextArea nameLabel = new TextArea(room.getPattern(finalI - 1).getName(), skin);
+                        EditorDialog dialog = new EditorDialog("Rename", skin) {
+                            @Override
+                            protected void result(Object object) {
+                                boolean check = ((int) object) > 0;
+                                if (check){
+                                    room.getPattern(finalI - 1).setName(nameLabel.getText());
+                                    updateLayers();
+                                }
+                            }
+                        };
+                        dialog.getContentTable().add(nameLabel);
+                        //dialog.pack();
+                        TextButton createButton = new TextButton("OK", skin);
+                        dialog.button(createButton, 1);
+                        TextButton cancelButton = new TextButton("Cancel", skin);
+                        dialog.button(cancelButton, -1);
+                        dialog.align(Align.top);
+                        dialog.show(stage);
+                    }
+                }
+            });
+            group.addActor(textField);
+            TextButton button = new TextButton("x", skin);
+            button.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    shownLayers.remove(finalI);
+                    room.getPatterns().removeIndex(finalI - 1);
+                    updateLayers();
+                    map.getLayers().remove(finalI);
+                    if (finalI == layerIndex){
+                        changeFocusedLayer(layerIndex - 1);
+                    }
+                }
+            });
+            if (i != 0) {
+                group.addActor(button);
+            }
+            Widget widget = new Widget(){
+                @Override
+                public float getPrefWidth() {
+                    return Math.max(super.getPrefWidth(), 5);
+                }
+            };
+            widget.setWidth(10);
+            widget.setHeight(1);
+            group.addActor(widget);
+
+            if (layerIndex == i){
+                System.out.println(((int) checkBox.getWidth()) + " " + ((int) checkBox.getHeight()));
+                Pixmap pixmap = new Pixmap(((int) checkBox.getWidth()) + 20, ((int) checkBox.getHeight()), Pixmap.Format.RGBA8888);
+                pixmap.setColor(Color.WHITE);
+                pixmap.drawRectangle(0, 0, ((int) checkBox.getWidth()) + 20, ((int) checkBox.getHeight()));
+                frameImage.setDrawable(new TextureRegionDrawable(new TextureRegion(new Texture(pixmap))));
+                stack.addActor(frameImage);
+            }
+
+            stack.addActor(group);
+            //stack.setFillParent(true);
+            layersGroup.addActorAt(0, stack);
+        }
+        layersGroup.pack();
+    }
+
+    private void changeFocusedLayer(int index){
+        layerIndex = index;
+        if (!shownLayers.get(index)){
+            shownLayers.set(index, true);
+        }
+        updateLayers();
     }
 
     float defaultStatesCount = 1;
 
     public void showLayers(){
-        for (int i = 1; i < map.getLayers().getCount(); i++) {
-            if (i != layerIndex){
-                map.getLayers().get(i).setVisible(false);
-            } else {
+        for (int i = 0; i < map.getLayers().getCount(); i++) {
+            if (shownLayers.get(i)){
                 map.getLayers().get(i).setVisible(true);
+            } else {
+                map.getLayers().get(i).setVisible(false);
             }
         }
     }
 
-    abstract class LayerDialog extends Dialog {
+    abstract class EditorDialog extends Dialog {
 
-        public LayerDialog(String title, Skin skin) {
+        public EditorDialog(String title, Skin skin) {
             super(title, skin);
         }
 
@@ -404,9 +574,6 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
         button.setText("Start");
     }
 
-    //---------------------------------------------------------------
-//=====                                   =======================
-//------------------------------------------------------------------------
     @Override
     public void render(float delta)//кажый кадр
     {
@@ -418,6 +585,10 @@ public class MainScreen implements Screen, GestureDetector.GestureListener {
 
         stage.draw();
         stage.act();
+
+        shapeRenderer.begin();
+        shapeRenderer.rect(1, Gdx.graphics.getHeight() - (DungeonTile.TILE_HEIGHT * height) / camera.zoom, (DungeonTile.TILE_WIDTH * width) / camera.zoom, (DungeonTile.TILE_HEIGHT * height) / camera.zoom);
+        shapeRenderer.end();
     }
 
     float normallStateCount = 1;

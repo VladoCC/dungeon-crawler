@@ -8,6 +8,10 @@ import ru.myitschool.dcrawler.ai.AITweaks;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.math.DiceAction;
 import ru.myitschool.dcrawler.math.MathAction;
+import ru.myitschool.dcrawler.skills.action.Action;
+import ru.myitschool.dcrawler.skills.action.SimpleCombinedAction;
+import ru.myitschool.dcrawler.skills.patterns.EntityTargetPattern;
+import ru.myitschool.dcrawler.skills.patterns.TargetPattern;
 import ru.myitschool.dcrawler.skills.targeting.TargetDisplayer;
 import ru.myitschool.dcrawler.skills.targeting.TilePos;
 import ru.myitschool.dcrawler.tiles.ColorTile;
@@ -25,19 +29,21 @@ public class ForceWave extends Skill {
 
     public ForceWave(final Entity doer) {
         super(doer);
-        setIcon(new Texture("force_wave.png"));
-        setName("Force wave");
-        setDescription("You repels your target for " + distance + "cells");
-        setTargetCountMax(1);
-        setDistanceMax(3);
-        setDistanceMin(1);
-        setRange(1);
-        setTargetType(SKILL_TARGET_TYPE_ENTITY);
-        setTypeDisplayer(SKILL_TARGET_TYPE_ENTITY);
-        addDisplayer(new TargetDisplayer() {
+        addPlayContainer().getEntityPlay().addAction(new SimpleCombinedAction(this, attackAction) {
+            @Override
+            public void successEffect(Target target, int damage, FloatingDamageMark mark) {
+                Utils.pushEntity(getDoer(), target.getEntity(), distance);
+                mark.addText("Success");
+            }
+        });
+    }
+
+    @Override
+    public void maintainDisplayers(Array<TargetDisplayer> displayers) {
+        displayers.add(new TargetDisplayer() {
             @Override
             public boolean targetCreation(int x, int y, Array<TilePos> array, Skill skill) {
-                AdvancedArray<Vector2> raytrace = AITweaks.getCellRaytrace(doer.getTileX(), doer.getTileY(), x, y, 2);
+                AdvancedArray<Vector2> raytrace = AITweaks.getCellRaytrace(getDoer().getTileX(), getDoer().getTileY(), x, y, 2);
                 raytrace.clip(raytrace.size - 2, raytrace.size - 1);
                 Array<Integer> poses = AITweaks.getObstructorIndexes(raytrace, true);
                 if (poses.size > 0){
@@ -49,18 +55,90 @@ public class ForceWave extends Skill {
                 return true;
             }
         });
-        setObstruct(true);
-        setWallTargets(false);
-        PlayContainer container = addPlayContainer();
-        container.getEntityPlay().addAction(new Action(this) {
-            @Override
-            public void effect(Target target, int success, int damage, FloatingDamageMark mark) {
-                if (success == Play.TARGETING_HIT || success == Play.TARGETING_CRIT_HIT) {
-                    Utils.pushEntity(getDoer(), target.getEntity(), 2);
-                    mark.addText("Success");
-                }
-            }
-        }.setAttack(attackAction));
-        addPlayContainer();
+    }
+
+    @Override
+    public TargetPattern getPattern() {
+        return new EntityTargetPattern(this);
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture("force_wave.png");
+    }
+
+    @Override
+    public String getName() {
+        return "Force wave";
+    }
+
+    @Override
+    public String getDescription() {
+        return "You repels your target for " + distance + "cells";
+    }
+
+    @Override
+    public int getSkillAccuracyBonus() {
+        return 0;
+    }
+
+    @Override
+    public int getRange() {
+        return 1;
+    }
+
+    @Override
+    public int getDistanceMin() {
+        return 1;
+    }
+
+    @Override
+    public int getDistanceMax() {
+        return 3;
+    }
+
+    @Override
+    public int getTargetCountMax() {
+        return 1;
+    }
+
+    @Override
+    public int getCooldownMax() {
+        return 0;
+    }
+
+    @Override
+    public int getType() {
+        return SKILL_TYPE_AT_WILL;
+    }
+
+    @Override
+    public int getTargetType() {
+        return SKILL_TARGET_TYPE_ENTITY;
+    }
+
+    @Override
+    public boolean isCheckAllTargets() {
+        return false;
+    }
+
+    @Override
+    public boolean isMarkEverything() {
+        return false;
+    }
+
+    @Override
+    public boolean isMark() {
+        return true;
+    }
+
+    @Override
+    public boolean isObstruct() {
+        return true;
+    }
+
+    @Override
+    public boolean isWallTargets() {
+        return false;
     }
 }

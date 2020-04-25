@@ -20,7 +20,7 @@ import java.util.HashMap;
 /**
  * Created by Voyager on 29.06.2017.
  */
-public class Skill {
+public abstract class Skill {
 
     public static final int SKILL_TYPE_AT_WILL = 0;
     public static final int SKILL_TYPE_COOLDOWN = 1;
@@ -39,7 +39,7 @@ public class Skill {
     public static final int SKILL_TARGET_TYPE_FLOOR_SINGLE = 8;
     public static final int SKILL_TARGET_TYPE_SELF = 9;
 
-    private static final DiceAction dice = new DiceAction(6);
+    private static final DiceAction standardDice = new DiceAction(6);
 
     private Array<Play> plays = new Array<Play>();
     private Array<Target> targets = new Array<Target>();
@@ -47,40 +47,61 @@ public class Skill {
     private static final char[] diceFaces = {'⚅', '⚄', '⚃', '⚂', '⚁', '⚀'};
 
     private boolean cooldown = false;
-    private boolean wallTargets = false;
-    private boolean obstruct = false;
-    private boolean mark = true;
-    private boolean markEverything = false;
-    private boolean checkAllTargets = false;
 
-    private int type;
-    private int targetType;
+    /** just an iterators */
     private int targetCount = 0;
-    private int targetCountMax = 0;
     private int cooldownCount = 0;
-    private int cooldownMax = 0;
-    private int distanceMin = 0;
-    private int distanceMax = 0;
-    private int range = 1;
-    private int skillAccuracyBonus = 0;
-
-    private String name;
-    private String description;
-
-    private Texture icon;
+    //private int range = 1;
 
     private Entity doer;
 
     private TargetRenderer renderer;
-    private TargetPattern pattern;
 
     public Skill(Entity doer) {
         this.doer = doer;
         renderer = new TargetRenderer(this);
         renderer.addDisplayer(new RaytraceDisplayer());
+        maintainDisplayers(renderer.getDisplayers());
     }
 
-    public void use(){
+    public abstract void maintainDisplayers(Array<TargetDisplayer> displayers);
+
+    public abstract TargetPattern getPattern();
+
+    public abstract Texture getIcon();
+
+    public abstract String getName();
+
+    public abstract String getDescription();
+
+    public abstract int getSkillAccuracyBonus();
+
+    public abstract int getRange();
+
+    public abstract int getDistanceMin();
+
+    public abstract int getDistanceMax();
+
+    public abstract int getTargetCountMax();
+
+    public abstract int getCooldownMax();
+
+    public abstract int getType();
+
+    public abstract int getTargetType();
+
+    public abstract boolean isCheckAllTargets();
+
+    public abstract boolean isMarkEverything();
+
+    public abstract boolean isMark();
+
+    public abstract boolean isObstruct();
+
+    public abstract boolean isWallTargets();
+
+    //TODO add some sort of action independent from targets
+    public void use(){ // TODO add play for self
         for (Target target : targets) {
             FloatingDamageMark mark = new FloatingDamageMark(target.getX(), target.getY(), "Miss");
             for (Play play : plays) {
@@ -99,23 +120,22 @@ public class Skill {
         return doer;
     }
 
-    public int getSkillAccuracyBonus() {
-        return skillAccuracyBonus;
-    }
-
-    public void setSkillAccuracyBonus(int skillAccuracyBonus) {
-        this.skillAccuracyBonus = skillAccuracyBonus;
-    }
-
     public int getAccuracyBonus(Entity target){
         return doer.getAccuracyStat(target) + getSkillAccuracyBonus();
     }
 
-    protected MathAction countAttackAction(MathAction action){
+    public MathAction countAttackAction(MathAction action){
         HashMap map = new HashMap();
         map.put(EntityEvent.ATTACK_BONUS_ARG_KEY, action);
         map.put(EntityEvent.ENTITY_EXECUTOR_ARG_KEY, doer);
         return (MathAction) EventController.callEvent(EntityEvent.ATTACK_BONUS_EVENT, map).get(EntityEvent.ATTACK_BONUS_ARG_KEY);
+    }
+
+    public MathAction countHealAction(MathAction action){
+        HashMap map = new HashMap();
+        map.put(EntityEvent.HEAL_BONUS_ARG_KEY, action);
+        map.put(EntityEvent.ENTITY_EXECUTOR_ARG_KEY, doer);
+        return (MathAction) EventController.callEvent(EntityEvent.HEAL_BONUS_EVENT, map).get(EntityEvent.HEAL_BONUS_ARG_KEY);
     }
 
     public PlayContainer addPlayContainer(){
@@ -138,10 +158,6 @@ public class Skill {
 
     public void setCooldown(boolean cooldown) {
         this.cooldown = cooldown;
-    }
-
-    public int getType() {
-        return type;
     }
 
     public String getTypeString(){
@@ -170,14 +186,6 @@ public class Skill {
         return dices;
     }
 
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public int getTargetType() {
-        return targetType;
-    }
-
     public String getTargetTypeString(){
         switch (getTargetType()){
             case SKILL_TARGET_TYPE_ENTITY:
@@ -204,10 +212,6 @@ public class Skill {
         return "";
     }
 
-    public void setTargetType(int targetType) {
-        this.targetType = targetType;
-    }
-
     public int getCooldownCount() {
         return cooldownCount;
     }
@@ -216,105 +220,12 @@ public class Skill {
         this.cooldownCount = cooldownCount;
     }
 
-    public int getCooldownMax() {
-        return cooldownMax;
-    }
-
-    public void setCooldownMax(int cooldownMax) {
-        this.cooldownMax = cooldownMax;
-    }
-
     public int getTargetCount() {
         return targetCount;
     }
 
     public void setTargetCount(int targetCount) {
         this.targetCount = targetCount;
-    }
-
-    public int getTargetCountMax() {
-        return targetCountMax;
-    }
-
-    public void setTargetCountMax(int targetCountMax) {
-        this.targetCountMax = targetCountMax;
-    }
-
-    public boolean isCheckAllTargets() {
-        return checkAllTargets;
-    }
-
-    public void setCheckAllTargets(boolean checkAllTargets) {
-        this.checkAllTargets = checkAllTargets;
-    }
-
-    public int getRange() {
-        return range;
-    }
-
-    public void setRange(int range) {
-        this.range = range;
-    }
-
-    public int getDistanceMin() {
-        return distanceMin;
-    }
-
-    public void setDistanceMin(int distanceMin) {
-        this.distanceMin = distanceMin;
-    }
-
-    public int getDistanceMax() {
-        return distanceMax;
-    }
-
-    public void setDistanceMax(int distanceMax) {
-        this.distanceMax = distanceMax;
-    }
-
-    public void setDistance(int distanceMin, int distanceMax){
-        this.distanceMin = distanceMin;
-        this.distanceMax = distanceMax;
-    }
-
-    public Texture getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Texture icon) {
-        this.icon = icon;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isMark() {
-        return mark;
-    }
-
-    public void setMark(boolean mark) {
-        this.mark = mark;
-    }
-
-    public boolean isMarkEverything() {
-        return markEverything;
-    }
-
-    public void setMarkEverything(boolean markEverything) {
-        this.markEverything = markEverything;
     }
 
     public void addTarget(Target target){
@@ -385,31 +296,11 @@ public class Skill {
         DungeonMap.clearTargetLayer();
     }
 
-    public boolean isWallTargets() {
-        return wallTargets;
-    }
-
-    public void setWallTargets(boolean wallTargets) {
-        this.wallTargets = wallTargets;
-    }
-
-    public boolean isObstruct() {
-        return obstruct;
-    }
-
-    public void setObstruct(boolean obstruct) {
-        this.obstruct = obstruct;
-    }
-
-    public void setRenderer(TargetRenderer renderer) {
-        this.renderer = renderer;
-    }
-
     public TargetRenderer getRenderer() {
         return renderer;
     }
 
-    public void setTypeDisplayer(int targetType){
+    /*public void setTypeDisplayer(int targetType){
         clearDisplayers();
         addDisplayer(new RaytraceDisplayer());
         switch (targetType){
@@ -444,15 +335,13 @@ public class Skill {
         }
     }
 
-    protected void addDisplayer(TargetDisplayer targetDisplayer) {
-        renderer.addDisplayer(targetDisplayer);
-    }
-
-    private void clearDisplayers() {
+    protected void clearDisplayers() {
         renderer.clearDisplayers();
     }
 
-
+    protected void addDisplayer(TargetDisplayer targetDisplayer) {
+        renderer.addDisplayer(targetDisplayer);
+    }*/
 
     public Array<TilePos> displayTarget(int x, int y){
         return getRenderer().displayTarget(x, y);
@@ -473,14 +362,6 @@ public class Skill {
             obst = !AITweaks.isPathObstructed(doer.getTileX(), doer.getTileY(), target.getX(), target.getY());
         }*/
         return /*obst && */targ;
-    }
-
-    public void setPattern(TargetPattern pattern) {
-        this.pattern = pattern;
-    }
-
-    public TargetPattern getPattern() {
-        return pattern;
     }
 
     /** can check real X and Y or checkX and checkY
@@ -513,7 +394,7 @@ public class Skill {
                 setCooldown(false);
             }
         } else if (isCooldown() && getType() == SKILL_TYPE_COOLDOWN_DICE){
-            if (dice.act() <= getCooldownMax()){
+            if (standardDice.act() <= getCooldownMax()){
                 setCooldown(false);
             }
         }

@@ -12,7 +12,6 @@ public class PlayContainer extends Play {
     private Play entityPlay;
     private Play playerPlay;
     private Play enemyPlay;
-
     public PlayContainer(Skill skill) {
         super(skill);
         entityPlay = new Play(skill) { // any entity
@@ -29,12 +28,7 @@ public class PlayContainer extends Play {
                 return target.getEntity() != null && target.getEntity().isPlayer();
             }
         };
-        playerPlay.setPlayCheck(new PlayCheck(skill) {
-            @Override
-            public int check(Target target) {
-                return TARGETING_HIT;
-            }
-        });
+        playerPlay.setPlayCheck(new EntityPlayCheck(skill));
         entityPlay.addPlay(playerPlay);
         enemyPlay = new Play(skill) {
             @Override

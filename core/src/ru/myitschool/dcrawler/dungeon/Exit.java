@@ -12,6 +12,8 @@ public class Exit {
     public static final int DIRECTION_SOUTH = 2;
     public static final int DIRECTION_WEST = 3;
 
+    public static final String[] EXIT_SIDES = {"North", "East", "South", "West"};
+
     private Point[] exitCells;
 
     private static int exitsMax;

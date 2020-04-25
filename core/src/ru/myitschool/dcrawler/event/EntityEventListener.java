@@ -45,9 +45,14 @@ public class EntityEventListener extends EventListener {
                 entity.endSkill();
                 break;
             case EntityEvent.ATTACK_BONUS_EVENT:
-                MathAction action = (MathAction) args.get(EntityEvent.ATTACK_BONUS_ARG_KEY);
-                action = entity.attackBonus(action);
-                result.put(EntityEvent.ATTACK_BONUS_ARG_KEY, action);
+                MathAction attackAction = (MathAction) args.get(EntityEvent.ATTACK_BONUS_ARG_KEY);
+                attackAction = entity.attackBonus(attackAction);
+                result.put(EntityEvent.ATTACK_BONUS_ARG_KEY, attackAction);
+                break;
+            case EntityEvent.HEAL_BONUS_ARG_KEY:
+                MathAction healAction = (MathAction) args.get(EntityEvent.HEAL_BONUS_ARG_KEY);
+                healAction = entity.healBonus(healAction);
+                result.put(EntityEvent.HEAL_BONUS_ARG_KEY, healAction);
                 break;
             case EntityEvent.ACCURACY_BONUS_EVENT:
                 int accuracy = (int) args.get(EntityEvent.ACCURACY_BONUS_ARG_KEY);

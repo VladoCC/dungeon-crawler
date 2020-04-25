@@ -55,7 +55,6 @@ public class Character extends Entity {
     @Override
     public void startTurn() {
         moved = false;
-        setMp(getMpMax());
         super.startTurn();
     }
 

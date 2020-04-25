@@ -1,6 +1,7 @@
 package ru.myitschool.dcrawler;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
+import com.kotcrab.vis.ui.widget.file.SingleFileChooserListener;
+import ru.myitschool.dcrawler.dungeon.Room;
 
 /**
  * Created by КАРАТ on 21.03.2017.
@@ -92,7 +95,7 @@ public class StartScreen implements Screen
         Table tableReset = new Table();
         leftGroup.addActor(tableReset);
         leftGroup.center();
-        //button.pack();
+        //loadButton.pack();
 
         VerticalGroup middleGroup = new VerticalGroup();
         /*TextureRegionDrawable regionDrawable = new TextureRegionDrawable(new TextureRegion(checkboxFalseTexture));
@@ -124,7 +127,8 @@ public class StartScreen implements Screen
         //table.debug();
         //table.center();
         table.pack();
-        Table checkboxTable = new Table();
+        Table checkboxTable = new Table(); //for future purposes
+        //checkboxTable.debugAll();
         //checkboxTable.add(checkBox).padTop(h/42);
         checkboxTable.pack();
         middleGroup.addActor(table);
@@ -139,27 +143,47 @@ public class StartScreen implements Screen
 
         VerticalGroup group = new VerticalGroup();
         group.center();
-        Button button = new TextButton("Create", style);
+        Button newButton = new TextButton("New", style);
 
-        batch = new SpriteBatch();
-
-        button.addListener(new ChangeListener() {
+        FileChooser.setDefaultPrefsName("ru.myitschool.dcrawler.filechooser");
+        final FileChooser chooser = new FileChooser(FileChooser.Mode.OPEN);
+        chooser.setListener(new SingleFileChooserListener() {
             @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                //dialog.show(stage);
-                int width = Integer.parseInt(widthArea.getText());
-                int height = Integer.parseInt(heightArea.getText());
-                ((Game) Gdx.app.getApplicationListener()).setScreen(new ru.myitschool.dcrawler.MainScreen(width, height));
+            protected void selected(FileHandle file) {
+                Room room = new Room(file.path());
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new ru.myitschool.dcrawler.MainScreen(room, room.getWidth(), room.getHeight()));
             }
         });
 
-        table.add(button).center().row();
+        newButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                final int width = Integer.parseInt(widthArea.getText());
+                final int height = Integer.parseInt(heightArea.getText());
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new ru.myitschool.dcrawler.MainScreen(null, width, height));
+            }
+        });
 
+        table.add(newButton).center().row();
+
+        Button loadButton = new TextButton("Load", style);
+
+        loadButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                //dialog.show(stage);
+                stage.addActor(chooser);
+            }
+        });
+
+        table.add(loadButton).center().row();
+
+        batch = new SpriteBatch();
         //group.addActor(area);
         /*group.addActor(pathArea);
         group.addActor(widthArea);
         group.addActor(heightArea);
-        group.addActor(button);
+        group.addActor(loadButton);
         group.setFillParent(true);*/
 
         stage = new Stage();

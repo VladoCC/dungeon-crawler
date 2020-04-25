@@ -1,10 +1,17 @@
 package ru.myitschool.dcrawler.skills;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 import ru.myitschool.dcrawler.effects.ImmobilizedEffect;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.math.DiceAction;
 import ru.myitschool.dcrawler.math.MathAction;
+import ru.myitschool.dcrawler.skills.action.Action;
+import ru.myitschool.dcrawler.skills.action.SimpleCombinedAction;
+import ru.myitschool.dcrawler.skills.patterns.EnemyTargetPattern;
+import ru.myitschool.dcrawler.skills.patterns.TargetPattern;
+import ru.myitschool.dcrawler.skills.targeting.EnemyDisplayer;
+import ru.myitschool.dcrawler.skills.targeting.TargetDisplayer;
 import ru.myitschool.dcrawler.utils.Utils;
 
 /**
@@ -18,29 +25,103 @@ public class ShieldBash extends Skill {
 
     public ShieldBash(Entity doer) {
         super(doer);
-        setIcon(new Texture("shield_bash.png"));
-        setName("Shield Bash");
-        setDescription("You bashes target with your shield immobilizes it for " + turns + " turn(-s), trows it back for " + distance + " cell(-s) and deal " + attackAction.getDescription() + " damage");
-        setTargetCountMax(1);
-        setDistanceMax(1);
-        setDistanceMin(1);
-        setRange(1);
-        setTargetType(SKILL_TARGET_TYPE_ENEMY);
-        setTypeDisplayer(SKILL_TARGET_TYPE_ENEMY);
-        setType(SKILL_TYPE_COOLDOWN_DICE);
-        setCooldownMax(3);
-        setObstruct(true);
-        setWallTargets(false);
-        addPlayContainer().getEnemyPlay().addAction(new Action(this) {
+        addPlayContainer().getEnemyPlay().addAction(new SimpleCombinedAction(this, attackAction) {
             @Override
-            public void effect(Target target, int success, int damage, FloatingDamageMark mark) {
-                if (success == Play.TARGETING_HIT || success == Play.TARGETING_CRIT_HIT) {
-                    Entity entity = target.getEntity();
-                    Utils.pushEntity(getDoer(), target.getEntity(), distance);
-                    entity.addEffect(new ImmobilizedEffect(entity, turns));
-                }
+            public void successEffect(Target target, int damage, FloatingDamageMark mark) {
+                Entity entity = target.getEntity();
+                Utils.pushEntity(getDoer(), target.getEntity(), distance);
+                entity.addEffect(new ImmobilizedEffect(entity, turns));
             }
-        }.setAttack(attackAction));
-        addPlayContainer();
+        });
+    }
+
+    @Override
+    public void maintainDisplayers(Array<TargetDisplayer> displayers) {
+        displayers.add(new EnemyDisplayer());
+    }
+
+    @Override
+    public TargetPattern getPattern() {
+        return new EnemyTargetPattern(this);
+    }
+
+    @Override
+    public Texture getIcon() {
+        return new Texture("shield_bash.png");
+    }
+
+    @Override
+    public String getName() {
+        return "Shield Bash";
+    }
+
+    @Override
+    public String getDescription() {
+        return "You bashes target with your shield immobilizes it for " + turns + " turn(-s), trows it back for " + distance + " cell(-s) and deal " + attackAction.getDescription() + " damage";
+    }
+
+    @Override
+    public int getSkillAccuracyBonus() {
+        return 0;
+    }
+
+    @Override
+    public int getRange() {
+        return 1;
+    }
+
+    @Override
+    public int getDistanceMin() {
+        return 1;
+    }
+
+    @Override
+    public int getDistanceMax() {
+        return 1;
+    }
+
+    @Override
+    public int getTargetCountMax() {
+        return 1;
+    }
+
+    @Override
+    public int getCooldownMax() {
+        return 3;
+    }
+
+    @Override
+    public int getType() {
+        return SKILL_TYPE_COOLDOWN_DICE;
+    }
+
+    @Override
+    public int getTargetType() {
+        return SKILL_TARGET_TYPE_ENEMY;
+    }
+
+    @Override
+    public boolean isCheckAllTargets() {
+        return false;
+    }
+
+    @Override
+    public boolean isMarkEverything() {
+        return false;
+    }
+
+    @Override
+    public boolean isMark() {
+        return true;
+    }
+
+    @Override
+    public boolean isObstruct() {
+        return true;
+    }
+
+    @Override
+    public boolean isWallTargets() {
+        return false;
     }
 }

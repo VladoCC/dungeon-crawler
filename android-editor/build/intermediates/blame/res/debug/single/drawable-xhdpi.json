@@ -4,31 +4,7 @@
         "source": "D:\\cubegame-master\\android-editor\\res\\drawable-xhdpi\\ic_launcher2.png"
     },
     {
-        "merged": "D:\\RoomCreator\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher2.png",
-        "source": "D:\\RoomCreator\\android\\res\\drawable-xhdpi\\ic_launcher2.png"
-    },
-    {
-        "merged": "D:\\SimQua2\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
-        "source": "D:\\SimQua2\\android\\res\\drawable-xhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\RoomCreator\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
-        "source": "D:\\RoomCreator\\android\\res\\drawable-xhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\Android\\LibGdxProj\\SimQua2\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
-        "source": "D:\\Android\\LibGdxProj\\SimQua2\\android\\res\\drawable-xhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\SimQua2\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher2.png",
-        "source": "D:\\SimQua2\\android\\res\\drawable-xhdpi\\ic_launcher2.png"
-    },
-    {
         "merged": "D:\\cubegame-master\\android-editor\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
         "source": "D:\\cubegame-master\\android-editor\\res\\drawable-xhdpi\\ic_launcher.png"
-    },
-    {
-        "merged": "D:\\Android\\LibGdxProj\\SimQua2\\android\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher2.png",
-        "source": "D:\\Android\\LibGdxProj\\SimQua2\\android\\res\\drawable-xhdpi\\ic_launcher2.png"
     }
 ]

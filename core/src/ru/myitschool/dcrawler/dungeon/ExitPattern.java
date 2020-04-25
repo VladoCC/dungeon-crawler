@@ -5,16 +5,32 @@ package ru.myitschool.dcrawler.dungeon;
  */
 public class ExitPattern {
 
-    int[] statement;
-    int roomWidth;
-    int roomHeight;
-    Integer[][] cells;
+    private int[] statement;
+    private int roomWidth;
+    private int roomHeight;
+    private Integer[][] cells;
+    private String name;
 
     public ExitPattern(int[] statement, int roomWidth, int roomHeight, Integer[][] cells) {
         this.statement = statement;
         this.roomWidth = roomWidth;
         this.roomHeight = roomHeight;
         this.cells = cells;
+    }
+
+    public ExitPattern(int[] statement, int roomWidth, int roomHeight, Integer[][] cells, String name) {
+        this.statement = statement;
+        this.roomWidth = roomWidth;
+        this.roomHeight = roomHeight;
+        this.cells = cells;
+        this.name = name;
+    }
+
+    public ExitPattern(int[] statement, int roomWidth, int roomHeight, String name) {
+        this.statement = statement;
+        this.roomWidth = roomWidth;
+        this.roomHeight = roomHeight;
+        this.name = name;
     }
 
     public ExitPattern(int[] statement, int roomWidth, int roomHeight) {
@@ -27,5 +43,13 @@ public class ExitPattern {
 
     public Integer[][] getCells() {
         return cells;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -27,10 +27,13 @@ public class Room {
 
     public static final int EXIT_SIZE = 2;
 
+    public static final int DEFAULT_SIZE = 64;
+
     public static final float[] ENTITIES_PERCENT = {0.35f, 0.6f, 0.05f};
 
     private int width;
     private int height;
+    private int openningPoints;
     private int exitCount = 0;
     private int x;
     private int y;
@@ -86,29 +89,33 @@ public class Room {
         this.entities = room.entities;
         this.exitCount = room.exitCount;
         this.exits = room.exits;
-        this.height = room.height;
-        //this.monsterCount = room.monsterCount;
         this.width = room.width;
+        this.height = room.height;
         this.x = room.x;
         this.y = room.y;
+        countOpenningPoints();
     }
 
-   public void addExits(Array<Integer> exitPositions){
-       if (Exit.canOpenDoor()){
-           exitCount = Math.max(new Random().nextInt(3) + 2, Exit.getExitsLeft());
-       } /*else {
-           exitCount = new Random().nextInt(4);
-       }*/
-       if (exitCount >  exitPositions.size){
-           exitCount = exitPositions.size;
-       }
-       for (int i = 0; i < exitCount; i++) {
-           int index = new Random().nextInt(exitPositions.size);
-           int direction = exitPositions.get(index);
-           exitPositions.removeIndex(index);
-           addExit(direction);
-       }
-   }
+    private void countOpenningPoints(){
+        openningPoints = Math.max(width * height / DEFAULT_SIZE, 1);
+    }
+
+    public void addExits(Array<Integer> exitPositions){
+        if (Exit.canOpenDoor()){
+            exitCount = Math.max(new Random().nextInt(3) + 2, Exit.getExitsLeft());
+        } /*else {
+            exitCount = new Random().nextInt(4);
+        }*/
+        if (exitCount >  exitPositions.size){
+            exitCount = exitPositions.size;
+        }
+        for (int i = 0; i < exitCount; i++) {
+            int index = new Random().nextInt(exitPositions.size);
+            int direction = exitPositions.get(index);
+            exitPositions.removeIndex(index);
+            addExit(direction);
+        }
+    }
 
     public void addExit(int direction) {
         Exit exit = new Exit(EXIT_SIZE, direction);
@@ -165,14 +172,14 @@ public class Room {
    public void complete(){
        for (ExitPattern pattern : patterns){
            boolean active = true;
-           for (int direction : pattern.statement){
+           for (int direction : pattern.getStatement()){
                if (!hasExit(direction)){
                    active = false;
                    break;
                }
            }
            if (active){
-               Integer[][] cells = pattern.cells;
+               Integer[][] cells = pattern.getCells();
                for (int i = 0; i < cells.length; i++) {
                    for (int j = 0; j < cells[0].length; j++) {
                        Integer cell = cells[i][j];
