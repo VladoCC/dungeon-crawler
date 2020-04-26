@@ -53,6 +53,11 @@ public class EntityEventAdapter implements EntityEvent {
     }
 
     @Override
+    public MathAction healBonus(MathAction action) {
+        return action;
+    }
+
+    @Override
     public int accuracyBonus(int accuracy, Entity target) {
         return accuracy;
     }

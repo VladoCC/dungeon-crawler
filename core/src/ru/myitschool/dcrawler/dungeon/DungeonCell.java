@@ -184,6 +184,11 @@ public class DungeonCell extends TiledMapTileLayer.Cell implements EntityEvent {
     }
 
     @Override
+    public MathAction healBonus(MathAction action) {
+        return action;
+    }
+
+    @Override
     public int accuracyBonus(int accuracy, Entity target) {
         for (int i = 0; i < effects.size; i++){
             Effect effect = effects.get(i);
