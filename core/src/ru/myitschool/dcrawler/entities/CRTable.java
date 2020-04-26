@@ -1,6 +1,7 @@
 package ru.myitschool.dcrawler.entities;
 
 import ru.myitschool.dcrawler.utils.AdvancedArray;
+import ru.myitschool.dcrawler.utils.SeededRandom;
 
 import java.util.Random;
 import java.util.Set;
@@ -53,7 +54,7 @@ public class CRTable {
             challengeRatingTable = soloTable;
             max = soloTable.get(cr).size;
         }
-        int random = new Random().nextInt(max);
+        int random = SeededRandom.getInstance().nextInt(max);
         if (type == ANY_TYPE){
             if (soloTable.containsKey(cr) && standardTable.containsKey(cr) && random - standardTable.get(cr).size >= 0 ){
                 challengeRatingTable = soloTable;

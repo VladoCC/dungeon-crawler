@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import ru.myitschool.dcrawler.dungeon.Room;
 import ru.myitschool.dcrawler.screens.FinalScreen;
+import ru.myitschool.dcrawler.utils.SeededRandom;
 
 import java.util.Random;
 
@@ -55,7 +56,7 @@ public abstract class Quest {
     }
 
     public int getRoomPos() {
-        return roomPos + new Random().nextInt(deltaPos + 1);
+        return roomPos + SeededRandom.getInstance().nextInt(deltaPos + 1);
     }
 
     public int getRoomsMax() {

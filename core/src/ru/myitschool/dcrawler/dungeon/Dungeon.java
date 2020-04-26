@@ -6,6 +6,7 @@ import ru.myitschool.dcrawler.ai.pathfinding.GraphStorage;
 import ru.myitschool.dcrawler.ai.pathfinding.Node;
 import ru.myitschool.dcrawler.entities.Character;
 import ru.myitschool.dcrawler.story.quest.Quest;
+import ru.myitschool.dcrawler.utils.SeededRandom;
 
 import java.awt.*;
 import java.util.Random;
@@ -201,7 +202,7 @@ public class Dungeon {
             room = new Room("rooms/default.room");
             room.setMobs(false);
         } else {
-            int rnd = new Random().nextInt(10);
+            int rnd = SeededRandom.getInstance().nextInt(10);
             if (rnd > 3) {
                 room = new Room("rooms/corridor.room");
             } else {

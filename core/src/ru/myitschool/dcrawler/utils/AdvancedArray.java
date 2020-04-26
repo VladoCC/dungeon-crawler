@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Random;
 
 /**
- * Created by Voyager on 05.12.2017.
+ * Array with additional functions of clipping, getting random element and stack/queue-style getters
  */
 public class AdvancedArray<T> extends Array<T> {
 
@@ -31,7 +31,7 @@ public class AdvancedArray<T> extends Array<T> {
     }
 
     public T getRandom() {
-        int random = new Random().nextInt(size);
+        int random = SeededRandom.getInstance().nextInt(size);
         return items[random];
     }
 }

@@ -12,6 +12,7 @@ import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.skills.Target;
 import ru.myitschool.dcrawler.tiles.DungeonTile;
 import ru.myitschool.dcrawler.utils.AdvancedArray;
+import ru.myitschool.dcrawler.utils.SeededRandom;
 
 import java.awt.*;
 import java.util.Random;
@@ -101,16 +102,17 @@ public class Room {
     }
 
     public void addExits(Array<Integer> exitPositions){
+        Random random = SeededRandom.getInstance();
         if (Exit.canOpenDoor()){
-            exitCount = Math.max(new Random().nextInt(3) + 2, Exit.getExitsLeft());
+            exitCount = Math.max(random.nextInt(3) + 2, Exit.getExitsLeft());
         } /*else {
-            exitCount = new Random().nextInt(4);
+            exitCount = random.nextInt(4);
         }*/
         if (exitCount >  exitPositions.size){
             exitCount = exitPositions.size;
         }
         for (int i = 0; i < exitCount; i++) {
-            int index = new Random().nextInt(exitPositions.size);
+            int index = random.nextInt(exitPositions.size);
             int direction = exitPositions.get(index);
             exitPositions.removeIndex(index);
             addExit(direction);
@@ -170,6 +172,8 @@ public class Room {
    }
 
    public void complete(){
+        Random random = SeededRandom.getInstance();
+
        for (ExitPattern pattern : patterns){
            boolean active = true;
            for (int direction : pattern.getStatement()){
@@ -204,7 +208,7 @@ public class Room {
                    }
                }
            }
-           float percent = new Random().nextFloat();
+           float percent = random.nextFloat();
            boolean max = false;
            for (int i = 0; i < ENTITIES_PERCENT.length; i++) {
                percent -= ENTITIES_PERCENT[i];
@@ -222,7 +226,7 @@ public class Room {
            boolean solo = false;
            int type = CRTable.STANDARD_TYPE;
            if (max) {
-               solo = new Random().nextBoolean();
+               solo = random.nextBoolean();
            }
            if (solo) {
                monsterCount = 1;
@@ -242,7 +246,7 @@ public class Room {
            addingArray.addAll(entities);
        }
 
-       encounter = new Random().nextInt(10) < 1; //TODO add reaction to opening room with encounter
+       encounter = random.nextInt(10) < 1; //TODO add reaction to opening room with encounter
 
        for (Exit exit : exits) {
            if (exit != null) {
