@@ -1,5 +1,6 @@
 package ru.myitschool.dcrawler.tiles;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -74,7 +75,7 @@ public class DungeonTile extends StaticTiledMapTile {
         tiles.add(pathTile);
         targetTile = new TargetTile();
         tiles.add(targetTile);*/
-        FileHandle file = new FileHandle("tiles/tiles.list");
+        FileHandle file = Gdx.files.local("tiles/tiles.list");
         Gson gson = new Gson();
         tiles = new Array<DungeonTile>(gson.fromJson(file.readString(), DungeonTile[].class));
         floorTile = tiles.get(0);

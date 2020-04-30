@@ -16,7 +16,7 @@ public class GraphStorage {
     private static Array<Node> nodesBottom;
     private static Array<Node> nodesTop;
 
-    public static void createBottomGraph(){
+    public static void createBottomGraph(){ // TODO rework and optimize
         DynamicTileLayer layer = DungeonMap.getTileLayer();
         int width = layer.getWidth();
         int height = layer.getHeight();

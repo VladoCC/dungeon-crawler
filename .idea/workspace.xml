@@ -57,13 +57,35 @@
       <change afterPath="$PROJECT_DIR$/../RoomCreator/desktop-editor/desktop.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../RoomCreator/game.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../RoomCreator/mad3d.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/SeededRandom.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RoomCreator/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/annotation-processors.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/annotation-processors.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/fileContent.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Dungeon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/dungeon/Dungeon.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/dungeon/Dungeon.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/dungeon/Room.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/dungeon/Room.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/entities/CRTable.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/entities/CRTable.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/screens/DungeonScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/story/quest/Quest.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/story/quest/Quest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/tiles/DungeonTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/tiles/DungeonTile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/utils/AdvancedArray.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/ru/myitschool/dcrawler/utils/AdvancedArray.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/GraphStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/GraphStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/CRTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/CRTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/AdvancedArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/AdvancedArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/DungeonScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/DungeonScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/DungeonTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/DungeonTile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/libs/desktop-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/libs/desktop-1.0.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,18 +136,29 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="cubegame-master" type="f1a62948:ProjectNode" />
-                <item name=":desktop" type="2d1252cf:ModuleNode" />
+                <item name="cubegame-master" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="cubegame-master" type="f1a62948:ProjectNode" />
-                <item name=":desktop" type="2d1252cf:ModuleNode" />
+                <item name="cubegame-master" type="2d1252cf:ModuleNode" />
+                <item name="Run Configurations" type="7b0102dc:RunConfigurationsNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="cubegame-master" type="f1a62948:ProjectNode" />
+                <item name="desktop" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="cubegame-master" type="f1a62948:ProjectNode" />
+                <item name="desktop" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="cubegame-master" type="f1a62948:ProjectNode" />
-                <item name=":desktop" type="2d1252cf:ModuleNode" />
+                <item name="desktop" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
               </path>
@@ -209,6 +242,11 @@
       <recent name="D:\cubegame-master\android\assets\sprites" />
       <recent name="D:\cubegame-master\android\assets\portraits" />
     </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle desktop:dist" />
+    </option>
   </component>
   <component name="RunManager" selected="Application.DesktopLauncher">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -349,21 +387,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="cubegame-master [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="cubegame-master [desktop:dist]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value="check" />
+            <option value="desktop:dist" />
           </list>
         </option>
-        <option name="vmOptions" />
+        <option name="vmOptions" value="" />
       </ExternalSystemSettings>
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
@@ -380,6 +418,25 @@
         <option name="taskNames">
           <list>
             <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="cubegame-master:desktop [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/desktop" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -409,15 +466,17 @@
       <item itemvalue="Application.DesktopLauncher" />
       <item itemvalue="Application.Editor Desktop Launcher" />
       <item itemvalue="Application.Main Desktop Launcher" />
-      <item itemvalue="Gradle.cubegame-master [check]" />
       <item itemvalue="Gradle.cubegame-master:desktop [build]" />
+      <item itemvalue="Gradle.cubegame-master:desktop [jar]" />
+      <item itemvalue="Gradle.cubegame-master [desktop:dist]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.cubegame-master [desktop:dist]" />
+        <item itemvalue="Gradle.cubegame-master:desktop [jar]" />
         <item itemvalue="Application.Editor Desktop Launcher" />
         <item itemvalue="Application.Main Desktop Launcher" />
         <item itemvalue="Gradle.cubegame-master:desktop [build]" />
-        <item itemvalue="Gradle.cubegame-master [check]" />
       </list>
     </recent_temporary>
   </component>
@@ -447,7 +506,9 @@
       <workItem from="1581925467786" duration="94000" />
       <workItem from="1587708132745" duration="3254000" />
       <workItem from="1587782180025" duration="15558000" />
-      <workItem from="1587866915614" duration="2929000" />
+      <workItem from="1587866915614" duration="4064000" />
+      <workItem from="1588165311822" duration="4019000" />
+      <workItem from="1588225922064" duration="778000" />
     </task>
     <task id="LOCAL-00001" summary="Change algorithms of AI, but not working correctly yet">
       <created>1518616997650</created>
@@ -550,20 +611,6 @@
     <option name="localTasksCounter" value="15" />
     <servers />
   </component>
-  <component name="TestHistory">
-    <history-entry file="cubegame-master_[check] - 2017.04.16 at 10h 18m 16s.xml">
-      <configuration name="cubegame-master [check]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="cubegame-master_[check] - 2017.04.17 at 19h 33m 26s.xml">
-      <configuration name="cubegame-master [check]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="cubegame-master_[check] - 2017.04.17 at 19h 34m 45s.xml">
-      <configuration name="cubegame-master [check]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-    <history-entry file="cubegame-master_[check] - 2018.02.16 at 19h 02m 39s.xml">
-      <configuration name="cubegame-master [check]" configurationId="GradleRunConfiguration" />
-    </history-entry>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -604,26 +651,26 @@
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
     <state x="2356" y="397" width="410" height="288" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587790716848" />
-    <state x="2012" y="137" width="1096" height="800" key="DiffContextDialog" timestamp="1587822896019">
+    <state x="314" y="19" width="1096" height="800" key="DiffContextDialog" timestamp="1588168651826">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="314" y="19" width="1096" height="800" key="DiffContextDialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588168651826" />
+    <state width="1237" height="246" key="GridCell.Tab.0.bottom" timestamp="1588167944451">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state x="2012" y="137" width="1096" height="800" key="DiffContextDialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587822896019" />
-    <state width="1237" height="246" key="GridCell.Tab.0.bottom" timestamp="1587869320410">
+    <state width="1237" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588167944451" />
+    <state width="1237" height="246" key="GridCell.Tab.0.center" timestamp="1588167944451">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587869320410" />
-    <state width="1237" height="246" key="GridCell.Tab.0.center" timestamp="1587869320410">
+    <state width="1237" height="246" key="GridCell.Tab.0.center/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588167944451" />
+    <state width="1237" height="246" key="GridCell.Tab.0.left" timestamp="1588167944451">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.center/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587869320410" />
-    <state width="1237" height="246" key="GridCell.Tab.0.left" timestamp="1587869320410">
+    <state width="1237" height="246" key="GridCell.Tab.0.left/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588167944451" />
+    <state width="1237" height="246" key="GridCell.Tab.0.right" timestamp="1588167944451">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.left/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587869320410" />
-    <state width="1237" height="246" key="GridCell.Tab.0.right" timestamp="1587869320410">
-      <screen x="1920" y="45" width="1280" height="984" />
-    </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.right/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587869320410" />
+    <state width="1237" height="246" key="GridCell.Tab.0.right/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588167944451" />
     <state x="2040" y="112" key="SettingsEditor" timestamp="1587714681186">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
@@ -632,14 +679,18 @@
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
     <state x="2012" y="137" width="1096" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587828434889" />
-    <state x="2256" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1587782244119">
+    <state x="2256" y="362" key="com.intellij.ide.util.TipDialog" timestamp="1588165340439">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state x="2256" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587782244119" />
-    <state x="2256" y="269" width="607" height="536" key="find.popup" timestamp="1587869320191">
+    <state x="2256" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588165340439" />
+    <state x="2256" y="269" width="607" height="536" key="find.popup" timestamp="1588166265508">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state x="2256" y="269" width="607" height="536" key="find.popup/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587869320191" />
+    <state x="2256" y="269" width="607" height="536" key="find.popup/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588166265508" />
+    <state x="2216" y="249" width="672" height="677" key="run.anything.popup" timestamp="1588166306050">
+      <screen x="1920" y="45" width="1280" height="984" />
+    </state>
+    <state x="2216" y="249" width="672" height="677" key="run.anything.popup/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588166306050" />
     <state x="2223" y="256" width="672" height="678" key="search.everywhere.popup" timestamp="1587827153088">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
@@ -690,12 +741,12 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Room.java</url>
-          <line>236</line>
+          <line>237</line>
           <option name="timeStamp" value="134" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Room.java</url>
-          <line>237</line>
+          <line>238</line>
           <option name="timeStamp" value="135" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -705,7 +756,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/DungeonScreen.java</url>
-          <line>808</line>
+          <line>811</line>
           <option name="timeStamp" value="179" />
         </line-breakpoint>
         <line-breakpoint type="java-line">

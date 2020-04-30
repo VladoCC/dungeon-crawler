@@ -238,7 +238,7 @@ public class DungeonScreen extends AdvancedScreen {
                     String s = gson.toJson(DungeonTile.tiles.items, DungeonTile[].class);
                     file.writeString(s, false);
                 } else if (keycode == Input.Keys.K){
-                    Entity.getPlayingEntities().get(1).addHp(-30);
+                    Entity.getPlayingEntities().get(0).addHp(-30);
                 } else if (keycode == Input.Keys.M){
                     mainCamera.position.x = 0;
                     mainCamera.position.y = 0;
@@ -442,9 +442,12 @@ public class DungeonScreen extends AdvancedScreen {
         }
         charBatch.begin();
         //Entity.getPlayingEntities().removeIf(entity -> !entity.isAlive());
-        for (Entity entity : Room.getAddingArray()){
-            entity.add(Entity.getNowPlayingIndex() + 1);
-            DungeonMap.addEntity(entity);
+        if (Room.getAddingArray().size > 0) {
+            for (Entity entity : Room.getAddingArray()) {
+                entity.add(Entity.getNowPlayingIndex() + 1);
+                DungeonMap.addEntity(entity);
+            }
+            GraphStorage.createBottomGraph();
         }
         Room.getAddingArray().clear();
 
