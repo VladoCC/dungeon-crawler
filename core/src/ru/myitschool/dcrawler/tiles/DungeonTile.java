@@ -24,7 +24,7 @@ public class DungeonTile extends StaticTiledMapTile {
     static public DungeonTile pathTile;
     static public DungeonTile targetTile;
 
-    boolean reachable;
+    boolean groundTile;
     boolean door;
     boolean ready = false;
 
@@ -37,19 +37,19 @@ public class DungeonTile extends StaticTiledMapTile {
         this(id, id, false, 0);
     }
 
-    public DungeonTile(int id, boolean reacheable, int hardness){
-        this(id, id, reacheable, hardness);
+    public DungeonTile(int id, boolean groundTile, int hardness){
+        this(id, id, groundTile, hardness);
     }
 
-    public DungeonTile(int pictureIndex, int id, boolean reacheable, int hardness) {
-        this(chooseTextureRegion(pictureIndex), id, reacheable, hardness);
+    public DungeonTile(int pictureIndex, int id, boolean groundTile, int hardness) {
+        this(chooseTextureRegion(pictureIndex), id, groundTile, hardness);
         this.pictureIndex = pictureIndex;
     }
 
-    public DungeonTile(TextureRegion textureRegion, int id, boolean reacheable, int hardness) {
+    public DungeonTile(TextureRegion textureRegion, int id, boolean groundTile, int hardness) {
         super(textureRegion);
         ready = true;
-        this.reachable = reacheable;
+        this.groundTile = groundTile;
         this.hardness = hardness;
         setId(id);
     }
@@ -60,7 +60,7 @@ public class DungeonTile extends StaticTiledMapTile {
         this.pictureIndex = tile.pictureIndex;
         this.door = tile.door;
         this.hardness = tile.hardness;
-        this.reachable = tile.reachable;
+        this.groundTile = tile.groundTile;
         this.setId(tile.getId());
     }
 
@@ -96,12 +96,12 @@ public class DungeonTile extends StaticTiledMapTile {
         this.pictureIndex = pictureIndex;
     }
 
-    public boolean isReachable() {
-        return reachable;
+    public boolean isGroundTile() {
+        return groundTile;
     }
 
-    public void setReachable(boolean reachable) {
-        this.reachable = reachable;
+    public void setGroundTile(boolean groundTile) {
+        this.groundTile = groundTile;
     }
 
     public boolean isDoor() {

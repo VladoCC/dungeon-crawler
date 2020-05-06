@@ -1,7 +1,6 @@
 package ru.myitschool.dcrawler.ai;
 
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.EntityPath;
 import ru.myitschool.dcrawler.ai.pathfinding.NodePath;
 import ru.myitschool.dcrawler.ai.task.MoveTask;
 import ru.myitschool.dcrawler.ai.task.SkillTask;
@@ -9,6 +8,8 @@ import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.skills.ProtectiveStance;
 import ru.myitschool.dcrawler.skills.Scratches;
 import ru.myitschool.dcrawler.skills.Target;
+
+import java.util.Map;
 
 /**
  * Created by Voyager on 16.08.2017.
@@ -35,14 +36,11 @@ public class GoblinAI extends AI {
 
     @Override
     public void aiAnalyze() {
-        /*Object[] nearest = AITweaks.getNearestEntityAndPath(controlledEntity.getTileX(), controlledEntity.getTileY(), AITweaks.TYPE_CHARACTER);
-        Entity entity = (Entity) nearest[0];
-        NodePath path = (NodePath) nearest[1];*/
-        Array<EntityPath> paths = AITweaks.getAllEntityPaths(controlledEntity.getTileX(), controlledEntity.getTileY(), AITweaks.TYPE_CHARACTER, false);
-        if (paths.size > 0) {
-            EntityPath entityPath = paths.first();
-            Entity entity = entityPath.getEntity();
-            NodePath path = entityPath.getPath();
+        Map<NodePath, Entity> paths = AIUtils.getAllEntityPaths(controlledEntity.getTileX(), controlledEntity.getTileY(),false, Entity::isCharacter);
+        if (paths.size() > 0) {
+            Map.Entry<NodePath, Entity> entityPath = (Map.Entry<NodePath, Entity>) paths.entrySet().toArray()[0];
+            Entity entity = entityPath.getValue();
+            NodePath path = entityPath.getKey();
             path.cutLast();
             int distance = path.getCost();
             int speed = controlledEntity.getSpeed();

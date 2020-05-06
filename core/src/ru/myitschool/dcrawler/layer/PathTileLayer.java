@@ -1,7 +1,7 @@
 package ru.myitschool.dcrawler.layer;
 
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.Node;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
 import ru.myitschool.dcrawler.ai.pathfinding.NodePath;
 import ru.myitschool.dcrawler.dungeon.DungeonCell;
 import ru.myitschool.dcrawler.tiles.DungeonTile;

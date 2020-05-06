@@ -1,36 +1,46 @@
 package ru.myitschool.dcrawler.ai.pathfinding;
 
-import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.utils.Array;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.NodeConnection;
+import ru.myitschool.dcrawler.utils.AdvancedArray;
 
 import java.util.Iterator;
 
 /**
  * Created by Voyager on 01.05.2017.
  */
-public class NodePath implements GraphPath<Node>, Comparable<NodePath> {
+public class NodePath implements Comparable<NodePath> {
 
-    private Array<Node> nodes = new Array<Node>();
+    private AdvancedArray<Node> nodes;
+    private AdvancedArray<NodeConnection> connections;
     private int cost;
 
-    private NodePath(Array<Node> nodes, int cost) {
-        Array<Node> newNodes = new Array<Node>();
-        for (int i = 0; i < nodes.size; i++) {
-            newNodes.add(nodes.get(i));
+    private NodePath(Node startNode, Array<NodeConnection> connections, int cost) {
+        AdvancedArray<Node> newNodes = new AdvancedArray<>();
+        newNodes.add(startNode);
+        for (int i = 0; i < connections.size; i++) {
+            newNodes.add(connections.get(i).getToNode());
+        }
+        AdvancedArray<NodeConnection> newConnections = new AdvancedArray<>();
+        for (int i = 0; i < connections.size; i++) {
+            newConnections.add(connections.get(i));
         }
         this.nodes = newNodes;
+        this.connections = newConnections;
         this.cost = cost;
     }
 
-    public NodePath() {
+    public NodePath(Node startNode) {
+        nodes = new AdvancedArray<>();
+        nodes.add(startNode);
+        connections = new AdvancedArray<>();
     }
 
-    @Override
-    public int getCount() {
+    public int getNodeCount() {
         return nodes.size;
     }
 
-    @Override
     public Node get(int index) {
         return nodes.get(index);
     }
@@ -39,29 +49,25 @@ public class NodePath implements GraphPath<Node>, Comparable<NodePath> {
         return nodes.get(nodes.size - 1);
     }
 
-    @Override
-    public void add(Node node) {
-        if (nodes.size > 0) {
-            if (node.getTile() != null) {
-                cost += node.getTile().getHardness();
-            } else {
-                cost += 1;
-            }
+    public boolean add(NodeConnection connection) {
+        Node lastNode = nodes.getLast();
+        if (connection.getFromNode().equals(lastNode)) {
+            nodes.add(connection.getToNode());
+            connections.add(connection);
+            cost += connection.getCost();
+            return true;
         }
-        nodes.add(node);
+        return false;
     }
 
-    @Override
     public void clear() {
         nodes.clear();
     }
 
-    @Override
     public void reverse() {
         nodes.reverse();
     }
 
-    @Override
     public Iterator<Node> iterator() {
         return null;
     }
@@ -71,7 +77,7 @@ public class NodePath implements GraphPath<Node>, Comparable<NodePath> {
     }
 
     public NodePath clone() {
-        return new NodePath(nodes, cost);
+        return new NodePath(nodes.get(0), connections, cost);
     }
 
     @Override
@@ -93,12 +99,12 @@ public class NodePath implements GraphPath<Node>, Comparable<NodePath> {
     }
 
     public NodePath cut(int limit){
-        Array<Node> nodes = new Array<Node>();
+        AdvancedArray<Node> nodes = new AdvancedArray<>();
         int cost = 0;
         for (int i = 0; i < limit; i++) {
             nodes.add(this.nodes.get(i));
             if (i > 0) {
-                cost += this.nodes.get(i).getTile().getHardness();
+                cost += this.nodes.get(i - 1).connectionCost(nodes.get(i));
             }
         }
         this.cost= cost;

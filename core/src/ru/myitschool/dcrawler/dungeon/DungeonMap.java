@@ -15,10 +15,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.GraphStorage;
-import ru.myitschool.dcrawler.ai.pathfinding.Node;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
 import ru.myitschool.dcrawler.ai.pathfinding.NodePath;
 import ru.myitschool.dcrawler.ai.pathfinding.Pathfinder;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.RoomNode;
 import ru.myitschool.dcrawler.effects.FloorEffect;
 import ru.myitschool.dcrawler.entities.Character;
 import ru.myitschool.dcrawler.entities.Enemy;
@@ -52,31 +53,29 @@ public class DungeonMap extends TiledMap {
     private static Group effectGroup;
     private static Group targetingZoneGroup;
     private static Group displayTargetGroup;
-    private static Group choosenTargetsGroup;
+    private static Group chosenTargetsGroup;
 
     private InputMultiplexer input;
-    private Pathfinder pathfinder;
-    private NodePath playerPath;
 
     private Dungeon dungeon;
 
     public DungeonMap(Dungeon dungeon, final OrthographicCamera camera, final InputMultiplexer input) {
-        GraphStorage.createTopGraph(new Node(0, 0));
-        this.dungeon = dungeon;
-
         tileLayer = new DynamicTileLayer(Dungeon.ROOM_WIDTH, Dungeon.ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(tileLayer);
         displayTargetLayer = new DynamicTileLayer(Dungeon.ROOM_WIDTH, Dungeon.ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(displayTargetLayer);
         pathLayer = new PathTileLayer(Dungeon.ROOM_WIDTH, Dungeon.ROOM_HEIGHT, DungeonTile.TILE_WIDTH, DungeonTile.TILE_HEIGHT);
         getLayers().add(pathLayer);
+
+        this.dungeon = dungeon;
         placeRoom(0,0, 0);
+        GraphStorage.createTopGraph(new RoomNode(0, 0, dungeon.getPlacedRoom(0, 0)));
+
         for (Entity entity : Entity.getPlayingEntities()){
             tileLayer.getCell(entity.getTileX(), entity.getTileY()).setOccupied(true);
             tileLayer.getCell(entity.getTileX(), entity.getTileY()).setEntity(entity);
         }
         GraphStorage.createBottomGraph();
-        pathfinder = new Pathfinder();
         this.input = input;
         input.addProcessor(new InputAdapter(){
             @Override
@@ -85,7 +84,7 @@ public class DungeonMap extends TiledMap {
 
                 Entity character = Entity.getNowPlaying();
                 if (!spawn) {
-                    if (character.isPlayer() ^ character.isControlled()) {
+                    if (character.isCharacter() ^ character.isControlled()) {
                         if (character.isSkillUse()) {
                             int cellX = (int) (pos.x / DungeonTile.TILE_WIDTH);
                             int cellY = (int) (pos.y / DungeonTile.TILE_HEIGHT);
@@ -121,8 +120,8 @@ public class DungeonMap extends TiledMap {
                 Entity character = Entity.getNowPlaying();
                 int charX = Character.getNowPlaying().getTileX();
                 int charY = Character.getNowPlaying().getTileY();
-                System.out.println(character.isPlayer() + " ^ " + character.isControlled());
-                if (character.isPlayer() ^ character.isControlled()){
+                System.out.println(character.isCharacter() + " ^ " + character.isControlled());
+                if (character.isCharacter() ^ character.isControlled()){
                     if (cellX != lastTileX || cellY != lastTileY) {
                         displayTargetGroup.clear();
                         lastTileX = cellX;
@@ -131,9 +130,8 @@ public class DungeonMap extends TiledMap {
                             System.out.println("CellX: " + cellX + ", CellY: " + cellY + ", tileX: " + lastTileX + ", tileY: " + lastTileY);
                             Node startNode = GraphStorage.getNodeBottom(charX, charY);
                             Node endNode = GraphStorage.getNodeBottom(cellX, cellY);
-                            NodePath nodePath = Pathfinder.searchConnectionPath(startNode, endNode, true, character.getMp(false));
-                            System.out.println("Path: " + nodePath != null);
-                            if (nodePath != null) {
+                            NodePath nodePath = Pathfinder.searchConnectionPath(startNode, endNode, character.getMp(false));
+                            if (nodePath != null && nodePath.getNodeCount() > 1) {
                                 character.setPath(nodePath);
                                 pathLayer.drawPath(nodePath);
                             } else {
@@ -165,7 +163,7 @@ public class DungeonMap extends TiledMap {
                     spawn = !spawn;
                 } else if (keycode == Input.Keys.T){
                     System.out.println(effectGroup.getWidth() + " " + effectGroup.getHeight());
-                    System.out.println(choosenTargetsGroup.getWidth() + " " + choosenTargetsGroup.getHeight());
+                    System.out.println(chosenTargetsGroup.getWidth() + " " + chosenTargetsGroup.getHeight());
                 }
                 return false;
             }
@@ -173,7 +171,7 @@ public class DungeonMap extends TiledMap {
     }
 
     public static void clearTargetLayer(){
-        choosenTargetsGroup.clear();
+        chosenTargetsGroup.clear();
     }
 
     public static void clearTargetingZoneLayer(){
@@ -306,7 +304,7 @@ public class DungeonMap extends TiledMap {
 
     public static void updateEntityPos(Entity entity){
         NodePath path = entity.getPath();
-        if (path != null && path.getCount() > 1){
+        if (path != null && path.getNodeCount() > 1){
             pathLayer.clearLayer();
             Node start = path.get(0);
             Node end = path.getLast();
@@ -323,9 +321,9 @@ public class DungeonMap extends TiledMap {
     }
 
     public static void drawTargets(Array<Target> targets){
-        choosenTargetsGroup.clear();
+        chosenTargetsGroup.clear();
         for (Target target : targets){
-            addCellToGroup(target.getX(), target.getY(), DungeonTile.targetTile.getTextureRegion(), choosenTargetsGroup);
+            addCellToGroup(target.getX(), target.getY(), DungeonTile.targetTile.getTextureRegion(), chosenTargetsGroup);
         }
     }
 
@@ -396,7 +394,7 @@ public class DungeonMap extends TiledMap {
         DungeonMap.displayTargetGroup = displayTargetGroup;
     }
 
-    public static void setChoosenTargetsGroup(Group choosenTargetsGroup) {
-        DungeonMap.choosenTargetsGroup = choosenTargetsGroup;
+    public static void setChosenTargetsGroup(Group chosenTargetsGroup) {
+        DungeonMap.chosenTargetsGroup = chosenTargetsGroup;
     }
 }

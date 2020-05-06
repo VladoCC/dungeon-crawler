@@ -21,7 +21,7 @@ public class StayHereQuest extends Quest {
 
     @Override
     public Room modifyRoom(Room room) {
-        Array<Target> targets = room.getCells(i -> DungeonTile.getTile(i).isReachable());
+        Array<Target> targets = room.getCells(i -> DungeonTile.getTile(i).isGroundTile());
 
         FloorEffect effect = null;
 
@@ -82,7 +82,7 @@ public class StayHereQuest extends Quest {
                 int chars = Character.getChars().size;
                 int inZone = 0;
                 for (DungeonCell cell : this.getFloorEffect().getCells()){
-                    if (cell.hasEntity() && cell.getEntity().isPlayer()){
+                    if (cell.hasEntity() && cell.getEntity().isCharacter()){
                         inZone++;
                     }
                 }

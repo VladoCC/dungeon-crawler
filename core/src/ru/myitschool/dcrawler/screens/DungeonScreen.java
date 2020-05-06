@@ -34,7 +34,7 @@ import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ru.myitschool.dcrawler.InterfaceElements;
-import ru.myitschool.dcrawler.ai.pathfinding.GraphStorage;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
 import ru.myitschool.dcrawler.dungeon.Dungeon;
 import ru.myitschool.dcrawler.dungeon.DungeonMap;
 import ru.myitschool.dcrawler.dungeon.Room;
@@ -379,7 +379,7 @@ public class DungeonScreen extends AdvancedScreen {
         DungeonMap.setDisplayTargetGroup(displayTargetGroup);
         Group choosenTargetsGroup = new Group();
         stack.add(choosenTargetsGroup);
-        DungeonMap.setChoosenTargetsGroup(choosenTargetsGroup);
+        DungeonMap.setChosenTargetsGroup(choosenTargetsGroup);
         System.out.println("Stack: " + stack.getMinWidth() + " " + stack.getMinHeight() + " / " + stack.getPrefWidth() + " " + stack.getPrefHeight() + " / " + stack.getMaxWidth() + " " + stack.getMaxHeight());
         cameraStage.addActor(stack);
         Character.setFirstPlaying();
@@ -507,7 +507,7 @@ public class DungeonScreen extends AdvancedScreen {
 
         String hpBarInfo;
         String mpBarInfo;
-        if (nowPlayingEntity.isPlayer() || nowPlayingEntity.isControlled()){
+        if (nowPlayingEntity.isCharacter() || nowPlayingEntity.isControlled()){
             hpBarInfo = nowPlayingEntity.getHp() + "/" + nowPlayingEntity.getHpMax();
             mpBarInfo = nowPlayingEntity.getMp(true) + "/" + nowPlayingEntity.getMpMax();
         } else {

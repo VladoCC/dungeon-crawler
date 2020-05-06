@@ -2,14 +2,14 @@ package ru.myitschool.dcrawler.dungeon;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.GraphStorage;
-import ru.myitschool.dcrawler.ai.pathfinding.Node;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.RoomNode;
 import ru.myitschool.dcrawler.entities.Character;
 import ru.myitschool.dcrawler.story.quest.Quest;
 import ru.myitschool.dcrawler.utils.SeededRandom;
 
 import java.awt.*;
-import java.util.Random;
 
 /**
  * Created by Voyager on 25.03.2018.
@@ -164,7 +164,7 @@ public class Dungeon {
         }
         room.addExits(sides);
 
-        GraphStorage.addTopNode(new Node(roomX, roomY), leftExit, rightExit, topExit, bottomExit);
+        GraphStorage.addTopNode(new RoomNode(roomX, roomY, room));
         room.complete();
 
         for (Exit exit : room.getExits()){

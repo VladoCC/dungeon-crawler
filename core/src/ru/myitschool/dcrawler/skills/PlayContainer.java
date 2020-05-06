@@ -1,7 +1,6 @@
 package ru.myitschool.dcrawler.skills;
 
 import ru.myitschool.dcrawler.skills.check.EntityPlayCheck;
-import ru.myitschool.dcrawler.skills.check.PlayCheck;
 
 /**
  * Created by Voyager on 19.04.2018.
@@ -25,7 +24,7 @@ public class PlayContainer extends Play {
         playerPlay = new Play(skill) {
             @Override
             public boolean isValidTarget(Target target) {
-                return target.getEntity() != null && target.getEntity().isPlayer();
+                return target.getEntity() != null && target.getEntity().isCharacter();
             }
         };
         playerPlay.setPlayCheck(new EntityPlayCheck(skill));

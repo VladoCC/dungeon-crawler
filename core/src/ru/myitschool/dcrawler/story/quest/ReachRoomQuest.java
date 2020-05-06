@@ -23,7 +23,7 @@ public class ReachRoomQuest extends Quest {
         Array<Target> targets = new Array<>();
         for (int i = 0; i < room.getWidth(); i++) {
             for (int j = 0; j < room.getHeight(); j++) {
-                if (room.getCell(i, j) != null && DungeonTile.getTile(room.getCell(i, j)).isReachable()){
+                if (room.getCell(i, j) != null && DungeonTile.getTile(room.getCell(i, j)).isGroundTile()){
                     targets.add(new Target(i, j));
                 }
             }

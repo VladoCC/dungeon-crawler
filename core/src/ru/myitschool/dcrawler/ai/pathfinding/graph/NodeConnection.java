@@ -1,11 +1,11 @@
-package ru.myitschool.dcrawler.ai.pathfinding;
+package ru.myitschool.dcrawler.ai.pathfinding.graph;
 
 import com.badlogic.gdx.ai.pfa.Connection;
 
 /**
  * Created by Voyager on 01.05.2017.
  */
-public class NodeConnection implements Connection<Node> {
+public class NodeConnection {
 
     Node fromNode;
     Node toNode;
@@ -17,17 +17,14 @@ public class NodeConnection implements Connection<Node> {
         this.cost = cost;
     }
 
-    @Override
-    public float getCost() {
+    public int getCost() {
         return cost;
     }
 
-    @Override
     public Node getFromNode() {
         return fromNode;
     }
 
-    @Override
     public Node getToNode() {
         return toNode;
     }

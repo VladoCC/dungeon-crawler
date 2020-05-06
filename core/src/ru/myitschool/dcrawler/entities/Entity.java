@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.Node;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
 import ru.myitschool.dcrawler.ai.pathfinding.NodePath;
 import ru.myitschool.dcrawler.dungeon.DungeonCell;
 import ru.myitschool.dcrawler.dungeon.DungeonMap;
@@ -182,7 +182,7 @@ public class Entity extends EntityEventAdapter {
         if (path != null) {
             movement = true;
             updateSkills();
-            addMp(-(path.getCount() - 1));
+            addMp(-(path.getNodeCount() - 1));
             DungeonMap.updateEntityPos(this);
             HashMap mapStart = new HashMap();
             mapStart.put(EntityEvent.ENTITY_EXECUTOR_ARG_KEY, this);
@@ -208,10 +208,10 @@ public class Entity extends EntityEventAdapter {
     }
 
     private void planMovement(){
-        if (path == null || path.getCount() == 0) {
+        if (path == null || path.getNodeCount() == 0) {
             movementDirection = -1;
             movement = false;
-        } else if (path.getCount() == 1){
+        } else if (path.getNodeCount() == 1){
             path = null;
             movementDirection = -1;
             movement = false;
@@ -303,7 +303,7 @@ public class Entity extends EntityEventAdapter {
             cell.onStepTo((int) lastX,(int)  lastY,(int)  thisX,(int)  thisY, this);
 
             planMovement();
-            if (path == null || path.getCount() < 1){
+            if (path == null || path.getNodeCount() < 1){
                 HashMap mapEnd = new HashMap();
                 mapEnd.put(EntityEvent.ENTITY_EXECUTOR_ARG_KEY, this);
                 EventController.callEvent(EntityEvent.END_MOVE_EVENT, mapEnd);
@@ -562,7 +562,7 @@ public class Entity extends EntityEventAdapter {
         return path;
     }
 
-    public boolean isPlayer(){
+    public boolean isCharacter(){
         return false;
     }
 
@@ -636,7 +636,7 @@ public class Entity extends EntityEventAdapter {
         if (isImmobilized()){
             return 0;
         } else if (withMovement && path != null && !movement){
-            countedMp = mp - path.getCount() + 1 + mpEffects;
+            countedMp = mp - path.getNodeCount() + 1 + mpEffects;
             //System.out.println("Pay attention, please: mp is " + countedMp);
             if (countedMp > 0) {
                 return countedMp;
@@ -870,7 +870,7 @@ public class Entity extends EntityEventAdapter {
     /** Events */
     @Override
     public void endTurn(){
-        if (isPlayer() && !isRoomOpened()){
+        if (isCharacter() && !isRoomOpened()){
             triggerEncounter();
         }
         roomOpened = false;
@@ -896,7 +896,7 @@ public class Entity extends EntityEventAdapter {
         moved = false;
         setMp(getMpMax());
         //setMp(0);
-        if (isPlayer() ^ isControlled()) {
+        if (isCharacter() ^ isControlled()) {
             addFirstEffectNowPlaying(new AttackEffect(this));
         }
         checkRemoveEffects();

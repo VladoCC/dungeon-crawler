@@ -14,7 +14,7 @@ public class CharacterTargetPattern extends TargetPattern {
     @Override
     public Target createTarget(Target target) {
         DungeonCell cell = DungeonMap.getCell(target.getX(), target.getY());
-        if (cell.hasEntity() && cell.getEntity().isPlayer()){
+        if (cell.hasEntity() && cell.getEntity().isCharacter()){
             return target;
         }
         return null;

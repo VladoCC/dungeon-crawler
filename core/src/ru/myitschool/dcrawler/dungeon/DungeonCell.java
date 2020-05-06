@@ -1,8 +1,9 @@
 package ru.myitschool.dcrawler.dungeon;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.GraphStorage;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
 import ru.myitschool.dcrawler.effects.CellEffect;
 import ru.myitschool.dcrawler.effects.Effect;
 import ru.myitschool.dcrawler.encounters.Encounter;
@@ -102,7 +103,10 @@ public class DungeonCell extends TiledMapTileLayer.Cell implements EntityEvent {
         this.y = y;
     }
 
-
+    @Override
+    public DungeonTile getTile() {
+        return (DungeonTile) super.getTile();
+    }
 
     @Override
     public void startTurn() {

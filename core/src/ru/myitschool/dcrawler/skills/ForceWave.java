@@ -4,11 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.AITweaks;
+import ru.myitschool.dcrawler.ai.AIUtils;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.math.DiceAction;
 import ru.myitschool.dcrawler.math.MathAction;
-import ru.myitschool.dcrawler.skills.action.Action;
 import ru.myitschool.dcrawler.skills.action.SimpleCombinedAction;
 import ru.myitschool.dcrawler.skills.patterns.EntityTargetPattern;
 import ru.myitschool.dcrawler.skills.patterns.TargetPattern;
@@ -43,9 +42,9 @@ public class ForceWave extends Skill {
         displayers.add(new TargetDisplayer() {
             @Override
             public boolean targetCreation(int x, int y, Array<TilePos> array, Skill skill) {
-                AdvancedArray<Vector2> raytrace = AITweaks.getCellRaytrace(getDoer().getTileX(), getDoer().getTileY(), x, y, 2);
+                AdvancedArray<Vector2> raytrace = AIUtils.getCellRaytrace(getDoer().getTileX(), getDoer().getTileY(), x, y, 2);
                 raytrace.clip(raytrace.size - 2, raytrace.size - 1);
-                Array<Integer> poses = AITweaks.getObstructorIndexes(raytrace, true);
+                Array<Integer> poses = AIUtils.getObstructorIndexes(raytrace, true);
                 if (poses.size > 0){
                     raytrace.clip(0, poses.get(0) - 1);
                 }

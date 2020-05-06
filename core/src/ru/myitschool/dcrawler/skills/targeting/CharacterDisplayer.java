@@ -11,7 +11,7 @@ public class CharacterDisplayer implements TargetDisplayer {
 
     @Override
     public boolean targetCreation(int x, int y, Array<TilePos> array, Skill skill) {
-        if (DungeonMap.getCell(x, y) != null && DungeonMap.getCell(x, y).getEntity() != null && DungeonMap.getCell(x, y).getEntity().isPlayer()){
+        if (DungeonMap.getCell(x, y) != null && DungeonMap.getCell(x, y).getEntity() != null && DungeonMap.getCell(x, y).getEntity().isCharacter()){
             array.add(new TilePos(x, y, TargetRenderer.getDefaultTargetTile()));
             return true;
         }

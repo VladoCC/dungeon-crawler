@@ -2,9 +2,10 @@ package ru.myitschool.dcrawler.skills;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.AITweaks;
-import ru.myitschool.dcrawler.ai.pathfinding.GraphStorage;
-import ru.myitschool.dcrawler.ai.pathfinding.Node;
+import ru.myitschool.dcrawler.ai.AIUtils;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.CellNode;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
+import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
 import ru.myitschool.dcrawler.dungeon.DungeonMap;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.event.EntityEvent;
@@ -352,8 +353,8 @@ public abstract class Skill {
         if (isWallTargets()){
             targ = true;
         } else {
-            Node node = GraphStorage.getNodeBottom(target.getX(), target.getY());
-            targ = node != null && node.getTile().isReachable();
+            CellNode node = GraphStorage.getNodeBottom(target.getX(), target.getY());
+            targ = node != null && !node.getCell().getTile().isGroundTile();
         }
         /*boolean obst = false;
         if (!obstruct){
@@ -373,7 +374,7 @@ public abstract class Skill {
         if (!isObstruct()){
             notObstructed = true;
         } else {
-            notObstructed = !AITweaks.isPathObstructed(doer.getTileX(), doer.getTileY(), x, y);
+            notObstructed = !AIUtils.isPathObstructed(doer.getTileX(), doer.getTileY(), x, y);
         }
         return notObstructed;
     }

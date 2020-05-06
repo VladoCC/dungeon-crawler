@@ -1,7 +1,6 @@
 package ru.myitschool.dcrawler.dungeon;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Predicate;
@@ -203,7 +202,7 @@ public class Room {
                    Integer index = cells[i][j];
                    if (index != null) {
                        DungeonTile tile = DungeonTile.getTile(index);
-                       if (tile.isReachable() && !tile.isDoor()) {
+                       if (tile.isGroundTile() && !tile.isDoor()) {
                            points.add(new Vector2(i, j));
                        }
                    }
@@ -298,7 +297,7 @@ public class Room {
     }
 
     public Array<Target> getReachableCells(){
-        return getCells(i -> DungeonTile.getTile(i).isReachable());
+        return getCells(i -> DungeonTile.getTile(i).isGroundTile());
     }
 
     public Array<Target> getCells(Predicate<Integer> predicate){

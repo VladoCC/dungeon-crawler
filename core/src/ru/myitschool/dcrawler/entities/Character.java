@@ -38,7 +38,7 @@ public class Character extends Entity {
     }
 
     @Override
-    public boolean isPlayer() {
+    public boolean isCharacter() {
         return true;
     }
 

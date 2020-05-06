@@ -2,7 +2,7 @@ package ru.myitschool.dcrawler.utils;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.AITweaks;
+import ru.myitschool.dcrawler.ai.AIUtils;
 import ru.myitschool.dcrawler.entities.Entity;
 
 /**
@@ -25,10 +25,10 @@ public class Utils {
     }
 
     public static void pushEntity(Entity doer, Entity target, int distance){
-        AdvancedArray<Vector2> array = AITweaks.getCellRaytrace(doer.getTileX(), doer.getTileY(), target.getTileX(), target.getTileY(), distance);
+        AdvancedArray<Vector2> array = AIUtils.getCellRaytrace(doer.getTileX(), doer.getTileY(), target.getTileX(), target.getTileY(), distance);
         Vector2 start = array.get(array.size - distance - 1);
         array.clip(array.size - distance, array.size - 1);
-        Array<Integer> poses = AITweaks.getObstructorIndexes(array, true);
+        Array<Integer> poses = AIUtils.getObstructorIndexes(array, true);
         Vector2 end = array.getLast();
         if (poses.size > 0){
             if (poses.get(0) != 0){
@@ -41,10 +41,10 @@ public class Utils {
     }
 
     public static void pullEntity(Entity doer, Entity target, int distance){
-        AdvancedArray<Vector2> array = AITweaks.getCellRaytrace(doer.getTileX(), doer.getTileY(), target.getTileX(), target.getTileY(), 0);
+        AdvancedArray<Vector2> array = AIUtils.getCellRaytrace(doer.getTileX(), doer.getTileY(), target.getTileX(), target.getTileY(), 0);
         Vector2 start = array.get(array.size - 1);
         array.clip(array.size - distance - 1, array.size - 2);
-        Array<Integer> poses = AITweaks.getObstructorIndexes(array, true);
+        Array<Integer> poses = AIUtils.getObstructorIndexes(array, true);
         Vector2 end = array.getFirst();
         if (poses.size > 0){
             if (poses.get(0) != 0) {
