@@ -2,7 +2,6 @@ package ru.myitschool.dcrawler.ai;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Predicate;
 import ru.myitschool.dcrawler.ai.pathfinding.*;
 import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
 import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
@@ -16,6 +15,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * Created by Voyager on 17.08.2017.
@@ -130,7 +130,7 @@ public class AIUtils {
     public static Map<NodePath, Entity> getAllEntityPaths(int thisX, int thisY, boolean checkThis, Predicate<Entity> predicate){ //TODO make this function faster
         TreeMap<NodePath, Entity> map = new TreeMap<>();
         for (Entity entity : Entity.getPlayingEntities()){
-            boolean valid = predicate.evaluate(entity); // checking predicate function
+            boolean valid = predicate.test(entity); // checking predicate function
             // check if valid first then call to search path, because it's heavy operation
             if (valid){
                 NodePath path = Pathfinder.searchConnectionPath(GraphStorage.getNodeBottom(thisX, thisY), GraphStorage.getNodeBottom(entity.getTileX(), entity.getTileY()), -1, true);

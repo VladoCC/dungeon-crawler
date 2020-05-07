@@ -4,3 +4,6 @@ desktop/build/libs/desktop-1.0.jar
 desktop/build/libs/desktop-1.0.jar
 desktop/build/libs/desktop-1.0.jar0
 desktop/build/libs/desktop-1.0.jar
+*.class
+*.class
+.gradle/4.8.1/fileContent/fileContent.lock

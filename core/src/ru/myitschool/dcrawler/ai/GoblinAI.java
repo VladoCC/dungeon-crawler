@@ -45,14 +45,14 @@ public class GoblinAI extends AI {
             int distance = path.getCost();
             int speed = controlledEntity.getSpeed();
             if (distance > 0 && distance <= controlledEntity.getSpeed()) {
-                addTask(new MoveTask(controlledEntity, path));
+                addTask(new MoveTask(path));
                 Array<Target> targets = new Array<Target>();
                 targets.add(new Target(entity.getTileX(), entity.getTileY()));
-                addTask(new SkillTask(controlledEntity, scratchSkill, targets));
+                addTask(new SkillTask(scratchSkill, targets));
             } else if (distance > speed) {
-                addTask(new MoveTask(controlledEntity, path, true, true));
+                addTask(new MoveTask(path, true, true));
             } else if (distance == 0) {
-                addTask(new SkillTask(controlledEntity, stanceSkill, new Target(entity.getTileX(), entity.getTileY())));
+                addTask(new SkillTask(stanceSkill, new Target(entity.getTileX(), entity.getTileY())));
             }
         }
     }

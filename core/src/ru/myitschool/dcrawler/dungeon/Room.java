@@ -3,7 +3,6 @@ package ru.myitschool.dcrawler.dungeon;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Predicate;
 import com.google.gson.Gson;
 import ru.myitschool.dcrawler.effects.FloorEffect;
 import ru.myitschool.dcrawler.entities.CRTable;
@@ -16,6 +15,7 @@ import ru.myitschool.dcrawler.utils.SeededRandom;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.function.Predicate;
 
 /**
  * Created by Voyager on 23.04.2017.
@@ -304,7 +304,7 @@ public class Room {
         Array<Target> targets = new Array<>();
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[0].length; j++) {
-                if (predicate.evaluate(cells[i][j])){
+                if (predicate.test(cells[i][j])){
                     targets.add(new Target(i, j));
                 }
             }

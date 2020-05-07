@@ -12,10 +12,6 @@ public abstract class Task extends EntityEventAdapter {
     private boolean started = false;
     private boolean complete = false;
 
-    public Task(Entity entity) {
-        this.entity = entity;
-    }
-
     protected void complete(){
         complete = true;
     }
@@ -28,10 +24,14 @@ public abstract class Task extends EntityEventAdapter {
         return started;
     }
 
-    public void activate(){
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    public void start(){
         started = true;
         startTask();
     }
 
-    abstract void startTask();
+    protected abstract void startTask();
 }

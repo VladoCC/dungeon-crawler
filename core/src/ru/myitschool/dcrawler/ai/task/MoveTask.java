@@ -11,12 +11,11 @@ public class MoveTask extends Task {
 
     private NodePath path;
 
-    public MoveTask(Entity entity, NodePath path) {
-        this(entity, path, false, true);
+    public MoveTask(NodePath path) {
+        this(path, false, true);
     }
 
-    public MoveTask(Entity entity, NodePath path, boolean cut, boolean withLast) {
-        super(entity);
+    public MoveTask(NodePath path, boolean cut, boolean withLast) {
         if (cut && path.getCost() > entity.getSpeed() * 2 + 1) {
             path.cut(entity.getSpeed() * 2 + 1);
         } else if (!withLast){
@@ -26,7 +25,7 @@ public class MoveTask extends Task {
     }
 
     @Override
-    void startTask() {
+    protected void startTask() {
         entity.setPath(path);
         entity.setMovement();
         DungeonMap.updateEntityPos(entity);

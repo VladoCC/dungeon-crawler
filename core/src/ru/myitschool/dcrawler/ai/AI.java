@@ -5,8 +5,11 @@ import ru.myitschool.dcrawler.encounters.Encounter;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.event.EntityEventAdapter;
 import ru.myitschool.dcrawler.math.MathAction;
+import ru.myitschool.dcrawler.utils.functional.KeepingFunction;
+import ru.myitschool.dcrawler.utils.functional.VoidFunction;
 
 import java.util.LinkedList;
+import java.util.function.Supplier;
 
 /**
  * Created by Voyager on 08.08.2017.
@@ -29,21 +32,33 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
         this.controlledEntity = controlledEntity;
     }
 
-    public boolean handleTask(){
+    private <R> Supplier<R> handleTask(KeepingFunction<Task, R> event){
         Task task = tasks.peek();
-        if (task == null){
-            Entity.nextTurn(controlledEntity);
-            return false;
-        } else if (!task.isStarted()){
-            task.activate();
-        } else if (task.isComplete()){
+
+        // task is always started before this moment,
+        // so we shouldn't worry about activation or null checks
+        Supplier<R> result = event.apply(task);
+        if (task.isComplete()) {
             tasks.removeFirst();
-            return handleTask();
+            // we want to start new task or finish turn if there is no tasks
+            activateTask();
         }
-        return true;
+        return result;
+    }
+
+    private void activateTask() {
+        Task task = tasks.peek();
+        if (task == null) {
+            Entity.nextTurn(controlledEntity);
+            return;
+        }
+        if (!task.isStarted()) {
+            task.start();
+        }
     }
 
     public void addTask(Task task){
+        task.setEntity(controlledEntity);
         tasks.add(task);
     }
 
@@ -63,53 +78,31 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
     public void startTurn() {
         super.startTurn();
         aiAnalyze();
-        Task task = tasks.peek();
-        if (task != null) {
-            task.startTurn();
-        }
-        handleTask();
+        activateTask();
+        handleTask(new VoidFunction<>(Task::startTurn));
     }
 
     @Override
     public void endTurn() {
         super.endTurn();
-        /*Task task = tasks.peek();
-        if (task != null) {
-            task.endTurn();
-        }
-        handleTask();*/
     }
 
     @Override
     public void startMove() {
         super.startMove();
-        Task task = tasks.peek();
-        if (task != null){
-            task.startMove();
-        }
-        handleTask();
+        handleTask(new VoidFunction<>(Task::startMove));
     }
 
     @Override
     public void endMove() {
         super.endMove();
-        Task task = tasks.peek();
-        if (task != null) {
-            task.endMove();
-        }
-        handleTask();
+        handleTask(new VoidFunction<>(Task::endMove));
     }
 
     @Override
     public int countMp(boolean withMovement) {
         super.countMp(withMovement);
-        int mp = 0;
-        Task task = tasks.peek();
-        if (task != null) {
-            mp += task.countMp(withMovement);
-        }
-        handleTask();
-        return mp;
+        return handleTask((t) -> () -> t.countMp(withMovement)).get();
     }
 
     @Override
@@ -120,7 +113,7 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
         if (task != null) {
             useSkill = task.canUseSkill();
         }
-        handleTask();
+        handleTask((t) -> t::canUseSkill);
         return useSkill;
     }
 
@@ -131,7 +124,7 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
         if (task != null) {
             task.startSkill();
         }
-        handleTask();
+        handleTask(new VoidFunction<>(Task::startSkill));
     }
 
     @Override
@@ -141,29 +134,19 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
         if (task != null) {
             task.endSkill();
         }
-        handleTask();
+        handleTask(new VoidFunction<>(Task::endSkill));
     }
 
     @Override
     public MathAction attackBonus(MathAction action) {
         super.attackBonus(action);
-        Task task = tasks.peek();
-        if (task != null) {
-            action = task.attackBonus(action);
-        }
-        handleTask();
-        return action;
+        return handleTask((t) -> () -> t.attackBonus(action)).get();
     }
 
     @Override
     public int onDamage(int damage) {
         super.onDamage(damage);
-        Task task = tasks.peek();
-        if (task != null) {
-            damage = task.onDamage(damage);
-        }
-        handleTask();
-        return damage;
+        return handleTask((t) -> () -> t.onDamage(damage)).get();
     }
 
     @Override
@@ -173,8 +156,8 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
         if (task != null) {
             heal = task.onHeal(heal);
         }
-        handleTask();
-        return heal;
+        int finalHeal = heal;
+        return handleTask((t) -> () -> t.onHeal(finalHeal)).get();
     }
 
     @Override
@@ -185,18 +168,14 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
         if (task != null) {
             accuracy = task.accuracyBonus(accuracy, target);
         }
-        handleTask();
-        return accuracy;
+        int finalAccuracy = accuracy;
+        return handleTask((t) -> () -> t.accuracyBonus(finalAccuracy, target)).get();
     }
 
     @Override
     public void onEncounter(Encounter encounter) {
         super.onEncounter(encounter);
-        Task task = tasks.peek();
-        if (task != null) {
-            task.onEncounter(encounter);
-        }
-        handleTask();
+        handleTask(new VoidFunction<>((t) -> t.onEncounter(encounter)));
     }
 
     @Override
@@ -207,6 +186,6 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
         if (task != null) {
             task.onDeath();
         }
-        handleTask();
+        handleTask(new VoidFunction<>(Task::onDeath));
     }
 }

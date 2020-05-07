@@ -14,17 +14,15 @@ public class SkillTask extends Task {
     private Array<Target> targets;
 
     public SkillTask(Entity entity, Skill skill) {
-        super(entity);
         this.skill = skill;
     }
 
-    public SkillTask(Entity entity, Skill skill, Target target) {
-        this(entity, skill, new Array<Target>());
+    public SkillTask(Skill skill, Target target) {
+        this(skill, new Array<Target>());
         addTarget(target);
     }
 
-    public SkillTask(Entity entity, Skill skill, Array<Target> targets) {
-        super(entity);
+    public SkillTask(Skill skill, Array<Target> targets) {
         this.skill = skill;
         this.targets = targets;
     }
@@ -34,7 +32,7 @@ public class SkillTask extends Task {
     }
 
     @Override
-    void startTask() {
+    protected void startTask() {
         entity.setUsedSkill(skill);
         if (targets != null){
             entity.addTargets(targets);
