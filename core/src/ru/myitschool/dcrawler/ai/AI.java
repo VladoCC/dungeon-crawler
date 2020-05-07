@@ -108,32 +108,18 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
     @Override
     public boolean canUseSkill() {
         super.canUseSkill();
-        boolean useSkill = false;
-        Task task = tasks.peek();
-        if (task != null) {
-            useSkill = task.canUseSkill();
-        }
-        handleTask((t) -> t::canUseSkill);
-        return useSkill;
+        return handleTask((t) -> t::canUseSkill).get();
     }
 
     @Override
     public void startSkill() {
         super.startSkill();
-        Task task = tasks.peek();
-        if (task != null) {
-            task.startSkill();
-        }
         handleTask(new VoidFunction<>(Task::startSkill));
     }
 
     @Override
     public void endSkill() {
         super.endSkill();
-        Task task = tasks.peek();
-        if (task != null) {
-            task.endSkill();
-        }
         handleTask(new VoidFunction<>(Task::endSkill));
     }
 
@@ -152,24 +138,13 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
     @Override
     public int onHeal(int heal) {
         super.onHeal(heal);
-        Task task = tasks.peek();
-        if (task != null) {
-            heal = task.onHeal(heal);
-        }
-        int finalHeal = heal;
-        return handleTask((t) -> () -> t.onHeal(finalHeal)).get();
+        return handleTask((t) -> () -> t.onHeal(heal)).get();
     }
 
     @Override
     public int accuracyBonus(int accuracy, Entity target) {
         super.accuracyBonus(accuracy, target);
-        accuracy = super.accuracyBonus(accuracy, target);
-        Task task = tasks.peek();
-        if (task != null) {
-            accuracy = task.accuracyBonus(accuracy, target);
-        }
-        int finalAccuracy = accuracy;
-        return handleTask((t) -> () -> t.accuracyBonus(finalAccuracy, target)).get();
+        return handleTask((t) -> () -> t.accuracyBonus(accuracy, target)).get();
     }
 
     @Override
@@ -181,11 +156,6 @@ public abstract class AI extends EntityEventAdapter implements Cloneable {
     @Override
     public void onDeath() {
         super.onDeath();
-        super.onDeath();
-        Task task = tasks.peek();
-        if (task != null) {
-            task.onDeath();
-        }
         handleTask(new VoidFunction<>(Task::onDeath));
     }
 }
