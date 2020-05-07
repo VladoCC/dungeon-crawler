@@ -1,13 +1,13 @@
 package ru.myitschool.dcrawler.entities;
 
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.AI;
+import ru.myitschool.dcrawler.entities.ai.AI;
 import ru.myitschool.dcrawler.effects.Effect;
 import ru.myitschool.dcrawler.effects.EffectArray;
 import ru.myitschool.dcrawler.encounters.Encounter;
 import ru.myitschool.dcrawler.entities.enemies.GoblinWarrior;
 import ru.myitschool.dcrawler.math.MathAction;
-import ru.myitschool.dcrawler.skills.Skill;
+import ru.myitschool.dcrawler.entities.skills.Skill;
 
 /**
  * Created by Voyager on 08.08.2017.

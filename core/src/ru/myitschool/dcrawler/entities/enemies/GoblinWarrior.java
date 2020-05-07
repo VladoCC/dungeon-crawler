@@ -1,8 +1,8 @@
 package ru.myitschool.dcrawler.entities.enemies;
 
 import com.badlogic.gdx.graphics.Texture;
-import ru.myitschool.dcrawler.ai.AI;
-import ru.myitschool.dcrawler.ai.GoblinAI;
+import ru.myitschool.dcrawler.entities.ai.AI;
+import ru.myitschool.dcrawler.entities.ai.GoblinAI;
 import ru.myitschool.dcrawler.entities.Enemy;
 
 /**

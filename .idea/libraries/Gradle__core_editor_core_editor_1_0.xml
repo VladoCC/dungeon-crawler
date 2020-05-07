@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: core-editor.core-editor-1.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/core-editor/build/libs/core-editor-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,16 +1,15 @@
 package ru.myitschool.dcrawler.dungeon;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.graph.GraphStorage;
 import ru.myitschool.dcrawler.effects.CellEffect;
 import ru.myitschool.dcrawler.effects.Effect;
 import ru.myitschool.dcrawler.encounters.Encounter;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.event.EntityEvent;
 import ru.myitschool.dcrawler.math.MathAction;
-import ru.myitschool.dcrawler.tiles.DungeonTile;
+import ru.myitschool.dcrawler.ui.tiles.DungeonTile;
 
 /**
  * Created by Voyager on 16.05.2017.

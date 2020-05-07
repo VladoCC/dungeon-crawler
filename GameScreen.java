@@ -1,4 +1,4 @@
-package ru.myitschool.dcrawler.screens;
+package ru.myitschool.dcrawler.ui.screens;
 
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;

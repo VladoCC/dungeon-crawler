@@ -4,10 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import ru.myitschool.dcrawler.dungeon.Room;
-import ru.myitschool.dcrawler.screens.FinalScreen;
+import ru.myitschool.dcrawler.ui.screens.FinalScreen;
 import ru.myitschool.dcrawler.utils.SeededRandom;
-
-import java.util.Random;
 
 /**
  * Created by Voyager on 21.03.2018.

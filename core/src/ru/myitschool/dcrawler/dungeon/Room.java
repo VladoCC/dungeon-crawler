@@ -8,8 +8,8 @@ import ru.myitschool.dcrawler.effects.FloorEffect;
 import ru.myitschool.dcrawler.entities.CRTable;
 import ru.myitschool.dcrawler.entities.Enemy;
 import ru.myitschool.dcrawler.entities.Entity;
-import ru.myitschool.dcrawler.skills.Target;
-import ru.myitschool.dcrawler.tiles.DungeonTile;
+import ru.myitschool.dcrawler.entities.skills.Target;
+import ru.myitschool.dcrawler.ui.tiles.DungeonTile;
 import ru.myitschool.dcrawler.utils.AdvancedArray;
 import ru.myitschool.dcrawler.utils.SeededRandom;
 

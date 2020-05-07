@@ -10,8 +10,8 @@ import ru.myitschool.dcrawler.event.EntityEvent;
 import ru.myitschool.dcrawler.event.EventAction;
 import ru.myitschool.dcrawler.event.EventController;
 import ru.myitschool.dcrawler.event.EventListener;
-import ru.myitschool.dcrawler.screens.MainMenuScreen;
-import ru.myitschool.dcrawler.tiles.DungeonTile;
+import ru.myitschool.dcrawler.ui.screens.MainMenuScreen;
+import ru.myitschool.dcrawler.ui.tiles.DungeonTile;
 
 import java.util.Arrays;
 

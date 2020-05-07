@@ -2,7 +2,7 @@ package ru.myitschool.dcrawler.utils;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.AIUtils;
+import ru.myitschool.dcrawler.entities.ai.AIUtils;
 import ru.myitschool.dcrawler.entities.Entity;
 
 /**

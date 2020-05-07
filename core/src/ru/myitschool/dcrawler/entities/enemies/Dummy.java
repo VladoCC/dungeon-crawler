@@ -1,10 +1,10 @@
 package ru.myitschool.dcrawler.entities.enemies;
 
 import com.badlogic.gdx.graphics.Texture;
-import ru.myitschool.dcrawler.ai.AI;
-import ru.myitschool.dcrawler.ai.DummyAI;
+import ru.myitschool.dcrawler.entities.ai.AI;
+import ru.myitschool.dcrawler.entities.ai.DummyAI;
 import ru.myitschool.dcrawler.entities.Enemy;
-import ru.myitschool.dcrawler.screens.DungeonScreen;
+import ru.myitschool.dcrawler.ui.screens.DungeonScreen;
 
 /**
  * Created by Voyager on 11.12.2017.

@@ -1,8 +1,5 @@
 package ru.myitschool.dcrawler.utils.functional;
 
-import ru.myitschool.dcrawler.ai.pathfinding.graph.NodeConnection;
-
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**

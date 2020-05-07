@@ -7,7 +7,7 @@ import ru.myitschool.dcrawler.dungeon.DungeonCell;
 import ru.myitschool.dcrawler.dungeon.ExitPattern;
 import ru.myitschool.dcrawler.dungeon.Room;
 import ru.myitschool.dcrawler.dungeon.Exit;
-import ru.myitschool.dcrawler.tiles.DungeonTile;
+import ru.myitschool.dcrawler.ui.tiles.DungeonTile;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;

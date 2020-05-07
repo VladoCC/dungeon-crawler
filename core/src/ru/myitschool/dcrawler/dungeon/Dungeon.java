@@ -2,9 +2,8 @@ package ru.myitschool.dcrawler.dungeon;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
-import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
-import ru.myitschool.dcrawler.ai.pathfinding.graph.RoomNode;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.graph.GraphStorage;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.graph.RoomNode;
 import ru.myitschool.dcrawler.entities.Character;
 import ru.myitschool.dcrawler.story.quest.Quest;
 import ru.myitschool.dcrawler.utils.SeededRandom;

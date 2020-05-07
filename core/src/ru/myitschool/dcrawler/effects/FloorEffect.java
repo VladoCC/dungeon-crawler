@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import ru.myitschool.dcrawler.dungeon.DungeonCell;
 import ru.myitschool.dcrawler.dungeon.DungeonMap;
-import ru.myitschool.dcrawler.skills.Target;
+import ru.myitschool.dcrawler.entities.skills.Target;
 
 /**
  * Created by Voyager on 29.11.2017.

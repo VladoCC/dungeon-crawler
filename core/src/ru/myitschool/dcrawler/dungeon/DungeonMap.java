@@ -15,24 +15,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import ru.myitschool.dcrawler.ai.pathfinding.graph.GraphStorage;
-import ru.myitschool.dcrawler.ai.pathfinding.graph.Node;
-import ru.myitschool.dcrawler.ai.pathfinding.NodePath;
-import ru.myitschool.dcrawler.ai.pathfinding.Pathfinder;
-import ru.myitschool.dcrawler.ai.pathfinding.graph.RoomNode;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.graph.GraphStorage;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.graph.Node;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.NodePath;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.Pathfinder;
+import ru.myitschool.dcrawler.entities.ai.pathfinding.graph.RoomNode;
 import ru.myitschool.dcrawler.effects.FloorEffect;
 import ru.myitschool.dcrawler.entities.Character;
 import ru.myitschool.dcrawler.entities.Enemy;
 import ru.myitschool.dcrawler.entities.Entity;
 import ru.myitschool.dcrawler.entities.enemies.Dummy;
 import ru.myitschool.dcrawler.entities.enemies.GoblinWarrior;
-import ru.myitschool.dcrawler.layer.DynamicTileLayer;
-import ru.myitschool.dcrawler.layer.PathTileLayer;
-import ru.myitschool.dcrawler.skills.Skill;
-import ru.myitschool.dcrawler.skills.Target;
-import ru.myitschool.dcrawler.skills.targeting.TilePos;
-import ru.myitschool.dcrawler.tiles.ColorTile;
-import ru.myitschool.dcrawler.tiles.DungeonTile;
+import ru.myitschool.dcrawler.ui.layer.DynamicTileLayer;
+import ru.myitschool.dcrawler.ui.layer.PathTileLayer;
+import ru.myitschool.dcrawler.entities.skills.Skill;
+import ru.myitschool.dcrawler.entities.skills.Target;
+import ru.myitschool.dcrawler.entities.skills.targeting.TilePos;
+import ru.myitschool.dcrawler.ui.tiles.ColorTile;
+import ru.myitschool.dcrawler.ui.tiles.DungeonTile;
 import ru.myitschool.dcrawler.utils.Utils;
 
 /**
@@ -69,7 +69,6 @@ public class DungeonMap extends TiledMap {
 
         this.dungeon = dungeon;
         placeRoom(0,0, 0);
-        GraphStorage.createTopGraph(new RoomNode(0, 0, dungeon.getPlacedRoom(0, 0)));
 
         for (Entity entity : Entity.getPlayingEntities()){
             tileLayer.getCell(entity.getTileX(), entity.getTileY()).setOccupied(true);
