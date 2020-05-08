@@ -66,108 +66,20 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core-editor/src/ru/myitschool/dcrawler/MainScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/src/ru/myitschool/dcrawler/MainScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/assets/tiles/tiles.list" beforeDir="false" afterPath="$PROJECT_DIR$/android/assets/tiles/tiles.list" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/InterfaceElements.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/InterfaceElements.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/MyGdxGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/MyGdxGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/AI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/AIUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/AIUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/DummyAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/DummyAI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/GoblinAI.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/GoblinAI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/NodePath.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/NodePath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/Pathfinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/graph/CellNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/CellNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/graph/GraphStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/GraphStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/graph/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/graph/NodeConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/NodeConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/pathfinding/graph/RoomNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/RoomNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/task/AnalyzeTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/task/AnalyzeTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/task/MoveTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/task/MoveTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/task/SkillTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/task/SkillTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ai/task/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/task/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Dungeon.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Dungeon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonCell.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonCell.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Room.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/effects/FloorEffect.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/effects/FloorEffect.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/Enemy.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/Enemy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/enemies/Dummy.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/enemies/Dummy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/enemies/GoblinWarrior.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/enemies/GoblinWarrior.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/layer/DynamicTileLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layer/DynamicTileLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/layer/PathTileLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layer/PathTileLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/AdvancedScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/screens/AdvancedScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/CharGenScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/screens/CharGenScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/DungeonScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/screens/DungeonScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/FinalScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/screens/FinalScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/screens/MainMenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/screens/MainMenuScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/ArcaneShielding.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/ArcaneShielding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Battlecry.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Battlecry.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Bomb.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Bomb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/CloudOfKnives.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/CloudOfKnives.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/FloatingDamageMark.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/FloatingDamageMark.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/ForceWave.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/ForceWave.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/HealOrKill.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/HealOrKill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Immobilize.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Immobilize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/JaggedSword.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/JaggedSword.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Mark.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Mark.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/MindControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/MindControl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Play.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Play.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/PlayContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/PlayContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/ProtectiveStance.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/ProtectiveStance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Scratches.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Scratches.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/ShieldBash.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/ShieldBash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Shoot.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Shoot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Skill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Slash.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Slash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/SpearSting.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/SpearSting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Strike.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Strike.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Target.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Target.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/Vampirism.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/Vampirism.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/action/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/action/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/action/ActionAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/action/ActionAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/action/ComplexAttackAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/action/ComplexAttackAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/action/ComplexEffectAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/action/ComplexEffectAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/action/SimpleAttackAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/action/SimpleAttackAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/action/SimpleCombinedAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/action/SimpleCombinedAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/action/SimpleEffectAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/action/SimpleEffectAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/check/EntityPlayCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/check/EntityPlayCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/check/PlayCheck.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/check/PlayCheck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/CharacterTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/CharacterTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/EnemyTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/EnemyTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/EntityTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/EntityTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/FloorSingleTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/FloorSingleTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/FloorSplashTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/FloorSplashTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/FloorSplashWithoutCenterTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/FloorSplashWithoutCenterTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/FloorSwingTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/FloorSwingTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/FloorWaveTargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/FloorWaveTargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/patterns/TargetPattern.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/patterns/TargetPattern.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/CharacterDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/CharacterDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/EnemyDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/EnemyDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/EntityDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/EntityDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/FloorSingleDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/FloorSingleDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/RaytraceDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/RaytraceDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/SplashDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/SplashDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/SwingDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/SwingDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/TargetDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/TargetDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/TargetRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/TargetRenderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/TilePos.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/TilePos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/skills/targeting/WaveDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/skills/targeting/WaveDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/story/quest/Quest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/story/quest/Quest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/story/quest/ReachRoomQuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/story/quest/ReachRoomQuest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/story/quest/StayHereQuest.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/story/quest/StayHereQuest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/ColorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/tiles/ColorTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/DoorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/tiles/DoorTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/DungeonTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/tiles/DungeonTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/FloorTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/tiles/FloorTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/PathTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/tiles/PathTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/TargetTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/tiles/TargetTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/tiles/WallTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/tiles/WallTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/Utils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/functional/KeepingFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/functional/KeepingFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/Pathfinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/CellNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/CellNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/GraphStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/GraphStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layer/DynamicTileLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layers/DynamicTileLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layer/PathTileLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layers/PathTileLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/AdvancedArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/AdvancedArray.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -302,14 +214,14 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="2.3.0" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="ru.myitschool.cubegame.ai" />
-      <recent name="ru.myitschool.cubegame.entities" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\cubegame-master\android\assets\sprites" />
+      <recent name="D:\cubegame-master\android\assets\portraits" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Android\LibGdxProj\cubegame-master\android\assets" />
@@ -320,9 +232,10 @@
       <recent name="ru.myitschool.cubegame.tiles" />
       <recent name="ru.myitschool.cubegame" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\cubegame-master\android\assets\sprites" />
-      <recent name="D:\cubegame-master\android\assets\portraits" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ru.myitschool.dcrawler.ui.layer" />
+      <recent name="ru.myitschool.cubegame.ai" />
+      <recent name="ru.myitschool.cubegame.entities" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -596,7 +509,10 @@
       <workItem from="1588604608344" duration="5288000" />
       <workItem from="1588765274939" duration="9308000" />
       <workItem from="1588815377887" duration="10624000" />
-      <workItem from="1588830758993" duration="26000" />
+      <workItem from="1588830758993" duration="303000" />
+      <workItem from="1588831201122" duration="1876000" />
+      <workItem from="1588896214331" duration="55000" />
+      <workItem from="1588896615723" duration="4874000" />
     </task>
     <task id="LOCAL-00001" summary="Change algorithms of AI, but not working correctly yet">
       <created>1518616997650</created>
@@ -757,6 +673,10 @@
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
     <state x="2290" y="285" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588609450608" />
+    <state width="422" height="466" key="DebuggerActiveHint" timestamp="1588898405265">
+      <screen x="1920" y="45" width="1280" height="984" />
+    </state>
+    <state width="422" height="466" key="DebuggerActiveHint/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588898405265" />
     <state x="1952" y="113" width="1062" height="799" maximized="true" key="DiffContextDialog" timestamp="1588509908263">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
@@ -765,26 +685,46 @@
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
     <state x="2340" y="293" key="FileChooserDialogImpl/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588820800089" />
-    <state width="1237" height="246" key="GridCell.Tab.0.bottom" timestamp="1588830745558">
+    <state width="1237" height="319" key="GridCell.Tab.0.bottom" timestamp="1588904407091">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588830745558" />
-    <state width="1237" height="246" key="GridCell.Tab.0.center" timestamp="1588830745558">
+    <state width="1237" height="319" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
+    <state width="1237" height="319" key="GridCell.Tab.0.center" timestamp="1588904407090">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.center/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588830745558" />
-    <state width="1237" height="246" key="GridCell.Tab.0.left" timestamp="1588830745558">
+    <state width="1237" height="319" key="GridCell.Tab.0.center/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407090" />
+    <state width="1237" height="319" key="GridCell.Tab.0.left" timestamp="1588904407090">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.left/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588830745558" />
-    <state width="1237" height="246" key="GridCell.Tab.0.right" timestamp="1588830745558">
+    <state width="1237" height="319" key="GridCell.Tab.0.left/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407090" />
+    <state width="1237" height="319" key="GridCell.Tab.0.right" timestamp="1588904407091">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="246" key="GridCell.Tab.0.right/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588830745558" />
-    <state x="2040" y="112" key="SettingsEditor" timestamp="1587714681186">
+    <state width="1237" height="319" key="GridCell.Tab.0.right/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
+    <state width="1237" height="319" key="GridCell.Tab.1.bottom" timestamp="1588904407091">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state x="2040" y="112" key="SettingsEditor/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1587714681186" />
+    <state width="1237" height="319" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
+    <state width="1237" height="319" key="GridCell.Tab.1.center" timestamp="1588904407091">
+      <screen x="1920" y="45" width="1280" height="984" />
+    </state>
+    <state width="1237" height="319" key="GridCell.Tab.1.center/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
+    <state width="1237" height="319" key="GridCell.Tab.1.left" timestamp="1588904407091">
+      <screen x="1920" y="45" width="1280" height="984" />
+    </state>
+    <state width="1237" height="319" key="GridCell.Tab.1.left/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
+    <state width="1237" height="319" key="GridCell.Tab.1.right" timestamp="1588904407091">
+      <screen x="1920" y="45" width="1280" height="984" />
+    </state>
+    <state width="1237" height="319" key="GridCell.Tab.1.right/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
+    <state x="2140" y="281" key="IDE.errors.dialog" timestamp="1588897715670">
+      <screen x="1920" y="45" width="1280" height="984" />
+    </state>
+    <state x="2140" y="281" key="IDE.errors.dialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588897715670" />
+    <state x="2040" y="112" key="SettingsEditor" timestamp="1588897586454">
+      <screen x="1920" y="45" width="1280" height="984" />
+    </state>
+    <state x="2040" y="112" key="SettingsEditor/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588897586454" />
     <state x="2012" y="137" width="1096" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588509738459">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
@@ -830,12 +770,12 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonMap.java</url>
-          <line>216</line>
+          <line>215</line>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/AdvancedArray.java</url>
-          <line>21</line>
+          <line>23</line>
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -865,7 +805,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonMap.java</url>
-          <line>278</line>
+          <line>277</line>
           <option name="timeStamp" value="191" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
@@ -910,16 +850,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/Entity.java</url>
-          <line>661</line>
-          <option name="timeStamp" value="243" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/Entity.java</url>
-          <line>665</line>
-          <option name="timeStamp" value="244" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/Entity.java</url>
           <line>184</line>
           <option name="timeStamp" value="245" />
         </line-breakpoint>
@@ -942,6 +872,16 @@
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/Dungeon.java</url>
           <line>143</line>
           <option name="timeStamp" value="254" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/Pathfinder.java</url>
+          <line>45</line>
+          <option name="timeStamp" value="255" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/NodePath.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="260" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

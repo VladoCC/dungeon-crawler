@@ -14,7 +14,6 @@ public abstract class Node {
     private int x;
     private int y;
     private NodePath path = null;
-    private boolean occupied = false;
 
     private Array<NodeConnection> connections;
 
@@ -55,14 +54,6 @@ public abstract class Node {
 
     public void restoreState() {
         path = null;
-    }
-
-    public boolean isOccupied() {
-        return occupied;
-    }
-
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
     }
 
     @Override

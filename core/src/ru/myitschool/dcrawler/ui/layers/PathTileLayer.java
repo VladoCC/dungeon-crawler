@@ -1,4 +1,4 @@
-package ru.myitschool.dcrawler.ui.layer;
+package ru.myitschool.dcrawler.ui.layers;
 
 import com.badlogic.gdx.utils.Array;
 import ru.myitschool.dcrawler.entities.ai.pathfinding.graph.Node;

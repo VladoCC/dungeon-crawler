@@ -1,7 +1,7 @@
 [
   {
     "ID": 0,
-    "reachable": true,
+    "groundTile": true,
     "door": false,
     "hardness": 1,
     "pictureIndex": 0,
@@ -9,7 +9,7 @@
   },
   {
     "ID": 1,
-    "reachable": true,
+    "groundTile": true,
     "door": true,
     "hardness": 1,
     "pictureIndex": 0,
@@ -17,7 +17,7 @@
   },
   {
     "ID": 2,
-    "reachable": false,
+    "groundTile": false,
     "door": false,
     "hardness": -1,
     "pictureIndex": 2,
@@ -25,7 +25,7 @@
   },
   {
     "ID": 4,
-    "reachable": true,
+    "groundTile": true,
     "door": false,
     "hardness": 1,
     "pictureIndex": 4,
@@ -33,7 +33,7 @@
   },
   {
     "ID": 5,
-    "reachable": true,
+    "groundTile": true,
     "door": false,
     "hardness": 1,
     "pictureIndex": 5,

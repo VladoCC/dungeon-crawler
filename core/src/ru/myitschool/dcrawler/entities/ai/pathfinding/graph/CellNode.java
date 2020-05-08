@@ -32,6 +32,6 @@ public class CellNode extends Node {
 
     @Override
     public boolean isReachable() {
-        return cell.isOccupied();
+        return !cell.isOccupied();
     }
 }

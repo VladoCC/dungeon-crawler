@@ -9,6 +9,8 @@ import java.util.Random;
  */
 public class AdvancedArray<T> extends Array<T> {
 
+
+
     public boolean clip(int from, int to){
         if (from >= 0 && to < items.length && from <= to) {
             T[] objects = (T[]) new Object[to - from + 1];
@@ -27,7 +29,7 @@ public class AdvancedArray<T> extends Array<T> {
     }
 
     public T getLast(){
-        return items[items.length - 1];
+        return items[size - 1];
     }
 
     public T getRandom() {

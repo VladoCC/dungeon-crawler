@@ -1,4 +1,4 @@
-package ru.myitschool.dcrawler.ui.layer;
+package ru.myitschool.dcrawler.ui.layers;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import ru.myitschool.dcrawler.dungeon.DungeonCell;

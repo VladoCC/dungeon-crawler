@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import ru.myitschool.dcrawler.dungeon.DungeonCell;
 import ru.myitschool.dcrawler.dungeon.DungeonMap;
-import ru.myitschool.dcrawler.ui.layer.DynamicTileLayer;
+import ru.myitschool.dcrawler.ui.layers.DynamicTileLayer;
 
 /**
  * Created by Voyager on 30.04.2017.
@@ -24,14 +24,13 @@ public class GraphStorage {
                 DungeonCell cell = layer.getCell(i, j);
                 if (cell != null) {
                     CellNode node = new CellNode(i, j, cell);
-                    node.setOccupied(cell.isOccupied());
                     nodesBottom[i][j] = node;
                 }
             }
         }
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                Node node = nodesBottom[i][j];
+                Node node = getNodeBottom(i, j);
                 if (node != null) {
                     node.connect(getNodeBottom(i, j - 1));
                     node.connect(getNodeBottom(i, j + 1));

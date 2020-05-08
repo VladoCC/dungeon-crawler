@@ -42,7 +42,8 @@ public class Pathfinder {
      * @return path from start node to end node
      */
     public static NodePath searchConnectionPath(Node startNode, Node endNode, int limit, int pathCount, boolean ignoreLast) {
-        if (startNode == null || endNode == null){
+        System.out.println("Pathfinding");
+        if (startNode == null || endNode == null || !endNode.isReachable()){
             return null;
         }
         NodePath endPath = null;
@@ -71,9 +72,9 @@ public class Pathfinder {
                 // or target node (if we ignore last reachability check)
                 boolean available = newNode.isReachable() || (end && ignoreLast);
                 // it shouldn't be checked before (it should be open)
-                // or this path is more effective then one that was found earlier
-                int costDifference = (thisPath.getCost() + connection.getCost()) - newNode.getPath().getCost();
-                boolean effective = newNode.isOpen() || costDifference > 0;
+                // or this path is more effective (less cost) then one that was found earlier
+                int costDifference = newNode.isOpen()? 0 : (thisPath.getCost() + connection.getCost()) - newNode.getPath().getCost();
+                boolean effective = newNode.isOpen() || costDifference < 0;
                 // path cost should be within limits to maintain this path
                 boolean withinLimit = path.getCost() + connection.getCost() <= limit;
 
@@ -88,7 +89,7 @@ public class Pathfinder {
                     } else {
                         // this node was used in other path and we found that this path is better
                         // so we need to remove other path
-                        if (costDifference > 0) {
+                        if (costDifference < 0) {
                             paths.removeValue(newNode.getPath(), true);
                         }
                         paths.add(newPath);
