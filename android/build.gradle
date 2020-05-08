@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "25.0.2"
-    compileSdkVersion 25
+    buildToolsVersion "28.0.3"
+    compileSdkVersion 27
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -12,40 +12,49 @@ android {
             jniLibs.srcDirs = ['libs']
         }
 
-        instrumentTest.setRoot('tests')
+        androidTest.setRoot('tests')
     }
     defaultConfig {
         applicationId "ru.myitschool.games.wolg_vlad.dcrawler"
-        minSdkVersion 8
-        targetSdkVersion 23
+        minSdkVersion 26
+        targetSdkVersion 26
     }
 }
 // called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders
 // so they get packed with the APK.
 task copyAndroidNatives() {
-    file("libs/armeabi/").mkdirs()
-    file("libs/armeabi-v7a/").mkdirs()
-    file("libs/arm64-v8a/").mkdirs()
-    file("libs/x86_64/").mkdirs()
-    file("libs/x86/").mkdirs()
+    doFirst {
+        file("libs/armeabi/").mkdirs()
+        file("libs/armeabi-v7a/").mkdirs()
+        file("libs/arm64-v8a/").mkdirs()
+        file("libs/x86_64/").mkdirs()
+        file("libs/x86/").mkdirs()
 
-    configurations.natives.files.each { jar ->
-        def outputDir = null
-        if (jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
-        if (jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
-        if (jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
-        if (jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
-        if (jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
-        if (outputDir != null) {
-            copy {
-                from zipTree(jar)
-                into outputDir
-                include "*.so"
+        configurations.natives.files.each { jar ->
+            def outputDir = null
+            if (jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
+            if (jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
+            if (jar.name.endsWith("natives-armeabi.jar")) outputDir = file("libs/armeabi")
+            if (jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
+            if (jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+            if (outputDir != null) {
+                copy {
+                    from zipTree(jar)
+                    into outputDir
+                    include "*.so"
+                }
             }
         }
     }
 }
+
+tasks.whenTaskAdded { packageTask ->
+    if (packageTask.name.contains("package")) {
+        packageTask.dependsOn 'copyAndroidNatives'
+    }
+}
+
 task run(type: Exec) {
     def path
     def localProperties = project.file("../local.properties")

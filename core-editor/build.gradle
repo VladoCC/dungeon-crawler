@@ -1,7 +1,7 @@
-apply plugin: "java"
+apply plugin: "kotlin"
 
-targetCompatibility = 1.7
-sourceCompatibility = 1.7
+targetCompatibility = 1.8
+sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
@@ -11,6 +11,6 @@ eclipse.project {
     name = appName + "-core-editor"
 }
 dependencies {
-    compile 'org.lwjgl.lwjgl:lwjgl:2.9.2'
-    compile 'com.badlogicgames.gdx:gdx-backend-android:1.9.1'
+    //implementation "org.lwjgl.lwjgl:lwjgl:$gdxVersion"
+    implementation 'com.badlogicgames.gdx:gdx-backend-android:1.9.10'
 }

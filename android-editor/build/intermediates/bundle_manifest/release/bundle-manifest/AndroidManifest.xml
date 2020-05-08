@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ru.myitschool.cubegame"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="26"
+        android:targetSdkVersion="26" />
+
+    <application
+        android:allowBackup="true"
+        android:extractNativeLibs="false"
+        android:icon="@drawable/ic_launcher2"
+        android:label="@string/app_name"
+        android:theme="@style/GdxTheme" >
+        <activity
+            android:name="ru.myitschool.cubegame.ru.myitschool.dcrawler.AndroidLauncher"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

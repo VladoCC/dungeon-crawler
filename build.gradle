@@ -1,10 +1,14 @@
 buildscript {
+    ext.kotlinVersion = '1.3.61'
     repositories {
+        google()
+        jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath 'com.android.tools.build:gradle:3.6.3'
     }
 }
 
@@ -14,8 +18,8 @@ allprojects {
 
     version = '1.0'
     ext {
-        appName = "catch-the-cube"
-        gdxVersion = '1.9.6'
+        appName = "DCrawler"
+        gdxVersion = '1.9.10'
         roboVMVersion = '1.12.0'
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
@@ -24,6 +28,8 @@ allprojects {
     }
 
     repositories {
+        google()
+        jcenter()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
@@ -31,34 +37,34 @@ allprojects {
 }
 
 project(":desktop") {
-    apply plugin: "java"
-
+    apply plugin: "kotlin"
 
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-ai:1.8.1"
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-ai:1.8.1"
         //compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
     }
 }
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: "kotlin-android"
 
     configurations { natives }
 
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-ai:1.8.1"
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation project(":core")
+        implementation "com.badlogicgames.gdx:gdx-ai:1.8.1"
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
-        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
@@ -68,43 +74,45 @@ project(":android") {
 }
 
 project(":core") {
-    apply plugin: "java"
-
+    apply plugin: 'java-library'
+    apply plugin: "kotlin"
 
     dependencies {
-        compile "com.badlogicgames.gdx:gdx-ai:1.8.1"
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        compile 'com.google.code.gson:gson:2.8.2'
+        implementation "com.badlogicgames.gdx:gdx-ai:1.8.1"
+        api "com.badlogicgames.gdx:gdx:$gdxVersion"
+        api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        api 'com.google.code.gson:gson:2.8.6'
+        implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+        implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     }
 }
 
 project(":desktop-editor") {
-    apply plugin: "java"
-
+    apply plugin: "kotlin"
 
     dependencies {
-        compile project(":core-editor")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+        implementation project(":core-editor")
+        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
     }
 }
 
 project(":android-editor") {
     apply plugin: "android"
+    apply plugin: "kotlin-android"
 
     configurations { natives }
 
     dependencies {
-        compile project(":core-editor")
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+        implementation project(":core-editor")
+        implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
-        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
@@ -114,11 +122,11 @@ project(":android-editor") {
 }
 
 project(":core-editor") {
-    apply plugin: "java"
+    apply plugin: "kotlin"
 
     dependencies {
-        compile project(":core")
-        compile "com.kotcrab.vis:vis-ui:$visuiVersion"
+        implementation project(":core")
+        implementation "com.kotcrab.vis:vis-ui:$visuiVersion"
     }
 }
 

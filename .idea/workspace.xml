@@ -57,29 +57,213 @@
       <change afterPath="$PROJECT_DIR$/../RoomCreator/desktop-editor/desktop.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../RoomCreator/game.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../RoomCreator/mad3d.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__annotations_13_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_1_9_10_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_6_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_1_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_backend_android_1_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_backend_lwjgl3_1_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_backend_lwjgl_1_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_freetype_1_9_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_freetype_platform_1_9_10_natives_desktop.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_platform_1_9_10_natives_desktop.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gson_2_8_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__kotlin_reflect_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__kotlin_stdlib_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__kotlin_stdlib_common_1_3_61.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_2_9_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_2_1_natives_linux.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_2_1_natives_macos.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_2_1_natives_windows.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_2_1_natives_linux.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_2_1_natives_macos.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_2_1_natives_windows.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_2_1_natives_linux.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_2_1_natives_macos.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_2_1_natives_windows.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_2_1_natives_linux.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_2_1_natives_macos.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_2_1_natives_windows.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_opengl_3_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_opengl_3_2_1_natives_linux.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_opengl_3_2_1_natives_macos.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_opengl_3_2_1_natives_windows.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_platform_2_9_3_natives_linux.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_platform_2_9_3_natives_osx.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_platform_2_9_3_natives_windows.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_util_2_9_3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../RoomCreator/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/annotation-processors.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/annotation-processors.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_1_9_6_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_backend_android_1_9_6_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_backend_android_1_9_10_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_freetype_1_9_6_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_badlogicgames_gdx_gdx_freetype_1_9_10_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_1_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_backend_android_1_9_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_backend_lwjgl3_1_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_backend_lwjgl_1_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_freetype_1_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_freetype_platform_1_9_6_natives_desktop.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gdx_platform_1_9_6_natives_desktop.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__gson_2_8_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_2_9_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_2_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_1_0_natives_linux.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_1_0_natives_macos.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_3_1_0_natives_windows.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_1_0_natives_linux.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_1_0_natives_macos.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_glfw_3_1_0_natives_windows.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_1_0_natives_linux.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_1_0_natives_macos.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_jemalloc_3_1_0_natives_windows.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_1_0_natives_linux.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_1_0_natives_macos.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_openal_3_1_0_natives_windows.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_opengl_3_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_platform_2_9_2_natives_linux.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_platform_2_9_2_natives_osx.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_platform_2_9_2_natives_windows.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__lwjgl_util_2_9_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/assets/tiles/tiles.list" beforeDir="false" afterPath="$PROJECT_DIR$/android/assets/tiles/tiles.list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/android-editor.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/android-editor.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/debug/multi/values.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/debug/single/drawable-hdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/debug/single/drawable-mdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/debug/single/drawable-xhdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/debug/single/drawable-xxhdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/release/multi/values.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/release/single/drawable-hdpi-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/release/single/drawable-mdpi-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/release/single/drawable-xhdpi-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/blame/res/release/single/drawable-xxhdpi-v4.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeReleaseAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeReleaseAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeReleaseJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeReleaseResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/intermediates/incremental/mergeReleaseResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/debug/drawable-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/debug/drawable-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/debug/drawable-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/debug/drawable-xhdpi/ic_launcher2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/debug/drawable-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/debug/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/release/drawable-hdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/release/drawable-mdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/release/drawable-xhdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/release/drawable-xxhdpi-v4/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/intermediates/res/merged/release/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/build/outputs/logs/manifest-merger-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/build/outputs/logs/manifest-merger-release-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/arm64-v8a/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/arm64-v8a/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/arm64-v8a/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/arm64-v8a/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/armeabi-v7a/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/armeabi-v7a/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/armeabi-v7a/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/armeabi-v7a/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/armeabi/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/armeabi/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/armeabi/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/armeabi/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/x86/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/x86/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/x86/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/x86/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/x86_64/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/x86_64/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android-editor/libs/x86_64/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android-editor/libs/x86_64/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/android.iml" beforeDir="false" afterPath="$PROJECT_DIR$/android/android.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/generated/source/buildConfig/release/ru/myitschool/cubegame/BuildConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/debug/multi/values.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/debug/single/drawable-hdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/debug/single/drawable-mdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/debug/single/drawable-xhdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/debug/single/drawable-xxhdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/release/multi/values.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/release/single/drawable-hdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/release/single/drawable-mdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/release/single/drawable-xhdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/blame/res/release/single/drawable-xxhdpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugAssets/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugShaders/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeReleaseResources/compile-file-map.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeReleaseResources/compile-file-map.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeReleaseResources/merger.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/intermediates/incremental/mergeReleaseResources/merger.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/debug/drawable-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/debug/drawable-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/debug/drawable-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/debug/drawable-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/debug/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/release/drawable-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/release/drawable-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/release/drawable-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/release/drawable-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/intermediates/res/merged/release/values/values.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/outputs/logs/manifest-merger-debug-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/outputs/logs/manifest-merger-debug-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/outputs/logs/manifest-merger-release-report.txt" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/outputs/logs/manifest-merger-release-report.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/reports/lint-results.html" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/reports/lint-results.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/build/reports/lint-results.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/build/reports/lint-results.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/arm64-v8a/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/arm64-v8a/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/arm64-v8a/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/arm64-v8a/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/armeabi-v7a/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/armeabi-v7a/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/armeabi-v7a/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/armeabi-v7a/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/armeabi/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/armeabi/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/armeabi/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/armeabi/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/x86/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/x86/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/x86/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/x86/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/x86_64/libgdx-freetype.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/x86_64/libgdx-freetype.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/libs/x86_64/libgdx.so" beforeDir="false" afterPath="$PROJECT_DIR$/android/libs/x86_64/libgdx.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/GameLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/GameLevel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/LevelManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/LevelManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$5$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$5$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$9$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$9$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$EditorDialog.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen$EditorDialog.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/MainScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/classes/java/main/ru/myitschool/dcrawler/StartScreen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/build/libs/core-editor-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/build/libs/core-editor-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core-editor/core-editor.iml" beforeDir="false" afterPath="$PROJECT_DIR$/core-editor/core-editor.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/core/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/dungeon/DungeonMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/Pathfinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/CellNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/CellNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/GraphStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/GraphStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/graph/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layer/DynamicTileLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layers/DynamicTileLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layer/PathTileLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/ui/layers/PathTileLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/AdvancedArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/utils/AdvancedArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/core/core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop-editor/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/desktop-editor/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop-editor/build/classes/java/main/ru/myitschool/dcrawler/desktop/DesktopLauncher.class" beforeDir="false" afterPath="$PROJECT_DIR$/desktop-editor/build/classes/java/main/ru/myitschool/dcrawler/desktop/DesktopLauncher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop-editor/desktop-editor.iml" beforeDir="false" afterPath="$PROJECT_DIR$/desktop-editor/desktop-editor.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/build/libs/desktop-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/build/libs/desktop-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/desktop.iml" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/desktop.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +277,20 @@
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/../RoomCreator/android-editor">
@@ -131,6 +329,19 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="cubegame-master" type="f1a62948:ProjectNode" />
                 <item name="cubegame-master" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="cubegame-master" type="f1a62948:ProjectNode" />
+                <item name="cubegame-master" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="cubegame-master" type="f1a62948:ProjectNode" />
+                <item name="cubegame-master" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -214,7 +425,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="2.3.0" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
@@ -382,6 +593,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="cubegame-master [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="cubegame-master [desktop:dist]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -397,25 +627,6 @@
           </list>
         </option>
         <option name="vmOptions" value="" />
-      </ExternalSystemSettings>
-      <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="cubegame-master:desktop [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/desktop" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
       </ExternalSystemSettings>
       <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
       <method v="2" />
@@ -461,17 +672,17 @@
       <item itemvalue="Application.DesktopLauncher" />
       <item itemvalue="Application.Editor Desktop Launcher" />
       <item itemvalue="Application.Main Desktop Launcher" />
-      <item itemvalue="Gradle.cubegame-master:desktop [build]" />
       <item itemvalue="Gradle.cubegame-master:desktop [jar]" />
       <item itemvalue="Gradle.cubegame-master [desktop:dist]" />
+      <item itemvalue="Gradle.cubegame-master [build]" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.cubegame-master [build]" />
         <item itemvalue="Gradle.cubegame-master [desktop:dist]" />
         <item itemvalue="Gradle.cubegame-master:desktop [jar]" />
         <item itemvalue="Application.Editor Desktop Launcher" />
         <item itemvalue="Application.Main Desktop Launcher" />
-        <item itemvalue="Gradle.cubegame-master:desktop [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -512,7 +723,7 @@
       <workItem from="1588830758993" duration="303000" />
       <workItem from="1588831201122" duration="1876000" />
       <workItem from="1588896214331" duration="55000" />
-      <workItem from="1588896615723" duration="4874000" />
+      <workItem from="1588896615723" duration="13279000" />
     </task>
     <task id="LOCAL-00001" summary="Change algorithms of AI, but not working correctly yet">
       <created>1518616997650</created>
@@ -685,22 +896,22 @@
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
     <state x="2340" y="293" key="FileChooserDialogImpl/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588820800089" />
-    <state width="1237" height="319" key="GridCell.Tab.0.bottom" timestamp="1588904407091">
+    <state width="1237" height="246" key="GridCell.Tab.0.bottom" timestamp="1588912073736">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="319" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
-    <state width="1237" height="319" key="GridCell.Tab.0.center" timestamp="1588904407090">
+    <state width="1237" height="246" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588912073736" />
+    <state width="1237" height="246" key="GridCell.Tab.0.center" timestamp="1588912073736">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="319" key="GridCell.Tab.0.center/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407090" />
-    <state width="1237" height="319" key="GridCell.Tab.0.left" timestamp="1588904407090">
+    <state width="1237" height="246" key="GridCell.Tab.0.center/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588912073736" />
+    <state width="1237" height="246" key="GridCell.Tab.0.left" timestamp="1588912073735">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="319" key="GridCell.Tab.0.left/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407090" />
-    <state width="1237" height="319" key="GridCell.Tab.0.right" timestamp="1588904407091">
+    <state width="1237" height="246" key="GridCell.Tab.0.left/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588912073735" />
+    <state width="1237" height="246" key="GridCell.Tab.0.right" timestamp="1588912073736">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state width="1237" height="319" key="GridCell.Tab.0.right/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588904407091" />
+    <state width="1237" height="246" key="GridCell.Tab.0.right/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588912073736" />
     <state width="1237" height="319" key="GridCell.Tab.1.bottom" timestamp="1588904407091">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
@@ -721,10 +932,10 @@
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
     <state x="2140" y="281" key="IDE.errors.dialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588897715670" />
-    <state x="2040" y="112" key="SettingsEditor" timestamp="1588897586454">
+    <state x="2040" y="112" key="SettingsEditor" timestamp="1588910952195">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state x="2040" y="112" key="SettingsEditor/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588897586454" />
+    <state x="2040" y="112" key="SettingsEditor/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588910952195" />
     <state x="2012" y="137" width="1096" height="800" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588509738459">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
@@ -733,10 +944,10 @@
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
     <state x="2256" y="362" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588815421735" />
-    <state x="2256" y="269" width="607" height="536" key="find.popup" timestamp="1588772153156">
+    <state x="2256" y="269" width="737" height="606" key="find.popup" timestamp="1588910521462">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
-    <state x="2256" y="269" width="607" height="536" key="find.popup/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588772153156" />
+    <state x="2256" y="269" width="737" height="606" key="find.popup/0.0.1920.1040/1920.45.1280.984@1920.45.1280.984" timestamp="1588910521462" />
     <state x="2266" y="157" key="refactoring.ChangeSignatureDialog" timestamp="1588819440199">
       <screen x="1920" y="45" width="1280" height="984" />
     </state>
@@ -845,7 +1056,7 @@
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/build.gradle</url>
-          <line>86</line>
+          <line>93</line>
           <option name="timeStamp" value="236" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -882,6 +1093,11 @@
           <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/NodePath.java</url>
           <line>52</line>
           <option name="timeStamp" value="260" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/core/src/ru/myitschool/dcrawler/entities/ai/pathfinding/Pathfinder.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="261" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

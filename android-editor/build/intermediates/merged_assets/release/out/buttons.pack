@@ -1,0 +1,26 @@
+
+buttons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+button_off
+  rotate: false
+  xy: 1, 35
+  size: 132, 68
+  orig: 132, 68
+  offset: 0, 0
+  id: -1
+button_on
+  rotate: false
+  xy: 135, 35
+  size: 132, 68
+  orig: 132, 68
+  offset: 0, 0
+  id: -1
+tooltip_background
+  rotate: false
+  xy: 1, 1
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  id: -1

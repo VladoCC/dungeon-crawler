@@ -1,0 +1,4 @@
+#Fri May 08 14:25:49 VLAT 2020
+base.0=D\:\\cubegame-master\\android-editor\\build\\intermediates\\dex\\release\\out\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
