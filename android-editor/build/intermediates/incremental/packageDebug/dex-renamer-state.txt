@@ -1,4 +1,0 @@
-#Sat Jan 20 21:47:09 VLAT 2018
-base.0=D\:\\RoomCreator\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
-renamed.0=classes.dex
-file.0=D\:\\RoomCreator\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

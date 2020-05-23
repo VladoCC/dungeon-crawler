@@ -1,1 +1,0 @@
-D:\cubegame-master\desktop-editor\build\classes\java\main\ru\myitschool\dcrawler\desktop\DesktopLauncher.class

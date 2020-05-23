@@ -22,24 +22,14 @@
       <option name="url" value="https://oss.sonatype.org/content/repositories/releases/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="MavenLocal" />
+      <option name="name" value="MavenLocal" />
+      <option name="url" value="file:/$MAVEN_REPOSITORY$" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="maven" />
       <option name="name" value="maven" />
       <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="D:\sdk\extras\m2repository" />
-      <option name="name" value="D:\sdk\extras\m2repository" />
-      <option name="url" value="file:/$PROJECT_DIR$/../sdk/extras/m2repository/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="D:\sdk\extras\google\m2repository" />
-      <option name="name" value="D:\sdk\extras\google\m2repository" />
-      <option name="url" value="file:/$PROJECT_DIR$/../sdk/extras/google/m2repository/" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="D:\sdk\extras\android\m2repository" />
-      <option name="name" value="D:\sdk\extras\android\m2repository" />
-      <option name="url" value="file:/$PROJECT_DIR$/../sdk/extras/android/m2repository/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="BintrayJCenter" />
